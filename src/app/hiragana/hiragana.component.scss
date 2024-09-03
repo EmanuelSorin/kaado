@@ -1,0 +1,935 @@
+@media only screen and (max-width: 600px) {
+
+.containerPhone{
+  background-color:var(--color-secondary);
+  height:100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color:var(--color-primary);
+}
+
+.halfPhone{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+}
+
+.cardGameAdivinarPhone{
+  text-align: center;
+  font-size: 6rem;
+  font-weight: bold;
+
+}
+
+.cardGameGridPhone{
+  flex: 1;
+  padding: 20px;
+  width:100%;
+  height:100%
+}
+.grid-1x2-phone {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+  gap: 10px; /* Espacio entre los elementos del grid */
+}
+
+.grid-2x2-phone {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(2, 1fr); /* Tres filas de igual tamaño */
+  gap: 10px; /* Espacio entre los elementos del grid */
+}
+
+.grid-3x3-phone {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(3, 1fr); /* Tres filas de igual tamaño */
+  gap: 10px; /* Espacio entre los elementos del grid */
+}
+
+/* Estilo para cada elemento de la cuadrícula */
+.grid-item-phone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-radius:20px;
+  cursor: pointer;
+  border: 1px solid var(--color-primary);
+}
+
+.failed {
+  pointer-events: none; /* Desactiva eventos del ratón, como clicks */
+  opacity: 0.8; /* Opcional: hace el div visualmente más claro para indicar que está deshabilitado */
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  flex-direction: column;
+
+}
+
+.romajiFailed{
+  font-size:1rem;
+}
+
+.pointsPhone{
+  text-align: center;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.typeGameScorePhone{
+
+  justify-content: baseline !important;
+  margin-bottom: 50px;
+
+}
+
+.pointsPhone .streakPhone{
+  font-size:1.5rem;
+margin-bottom:20px;
+background: linear-gradient(0deg, #dfbe75 0%,#ef3131 100%);
+background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.pointsPhone .streakFailShake{
+  font-size:1.5rem !important;
+margin-bottom:20px !important;
+background: linear-gradient(0deg, #ec6464 0%,#d31c1c 100%);
+background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold !important;
+    animation: shake 0.5s ease;
+}
+
+.pointsPhone .streakPhone{
+  font-size:1.5rem;
+margin-bottom:20px;
+background: linear-gradient(0deg, #dfbe75 0%,#ef3131 100%);
+background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.pointsPhone .bestPhone{
+  font-size:1rem;
+  margin-bottom:10px;
+  background: linear-gradient(0deg, rgb(193 93 0) 0%, rgb(251 236 147) 100%);
+  background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.emotePhone {
+  position:absolute;
+  margin-bottom: 30%;
+  font-size:3rem;
+  animation: fadeOut 5s ease-in-out forwards, heartbeat 5s ease-in-out forwards;
+}
+
+
+
+.containerMenuPhone{
+  border: .5px solid rgba(136, 153, 166, 0.2);
+    border-left: none;
+  background-color:var(--color-secondary);
+  height:100%;
+  width:90%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color:var(--color-primary);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  border-top-right-radius: 10px; /* Radio para el borde superior derecho */
+  border-bottom-right-radius: 10px; /* Radio para el borde inferior derecho */
+  -webkit-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+  -moz-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+  box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+
+  transition: transform 0.4s ease; /* Transición suave */
+  transform: translateX(0);
+
+}
+.hiddenContainerMenuPhone{
+  transform: translateX(-100%); /* Inicialmente, el sidenav está fuera de la pantalla */
+  transition: transform 0.4s ease; /* Transición suave */
+  box-shadow: none;
+}
+
+
+.optionGamePhone{
+  border:1px solid var(--color-primary);
+  border-radius:15px;
+  width:70px;
+  height: 70px;
+
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  flex-direction: column;
+  margin:0 20px;
+  cursor: pointer;
+}
+
+
+
+.optionGameSelectedPhone{
+  background-color: var(--color-primary);
+  color:var(--color-secondary);
+}
+
+
+.optionGamePhone i{
+  font-size:2rem;
+}
+
+.infoOptionGamePhone{
+  margin-top: -15%;
+  color:var(--color-gray)
+}
+
+.containerOptionGamePhone{
+  flex-wrap: wrap;
+  align-items: end !important;
+}
+
+.kanaOptionsPhone{
+  flex-direction: column;
+  align-items: baseline !important;
+  margin-left: 20%;
+  justify-content: end !important;
+}
+
+
+//Dificultad
+.levelPhone{
+  border:1px solid var(--color-primary);
+  border-radius:65px;
+  padding:5px;
+  text-align: center;
+  min-width: 80px;
+  margin: 0 7px;
+}
+
+.levelSelectedPhone{
+ background-color:var(--color-primary);
+ color:var(--color-secondary);
+}
+
+
+//Boton cambiar si adivinar kana o romaji
+.adivinarPhone{
+  border:1px solid var(--color-primary);
+  border-radius:65px;
+  text-align: center;
+  padding:15px;
+  min-width: 200px;
+}
+
+.adivinarPhone i{
+  margin:0 5px;
+  transition: transform .3s;
+}
+
+.containerAdivinarPhone{
+  align-items: baseline;
+}
+
+
+
+
+
+
+.typeCardPhone{
+  height:13rem;
+  border-radius:15px;
+  background-color: var(--color-primary);
+  color:var(--color-secondary);
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: end;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  flex-direction: column;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.typeCardPhone h1{
+  margin-top: 40px;
+  font-size: 5rem;
+  font-weight: bold;
+  margin:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.typeCardPhone h1 span{
+  font-size: 2rem;
+  font-weight: bold;
+ margin-left:5px;
+}
+
+.typeCardPhone input{
+  margin-top:40px;
+  margin-bottom:30px;
+  width:80%;
+  height:50px;
+  border-radius:10px;
+  border:none;
+  background-color:var(--color-secondary);
+  color:var(--color-primary);
+  text-align: center;
+  font-size:1.5rem;
+}
+
+
+
+
+
+.typeCardSkipKanaPhone{
+  width:70px;
+  height:70px;
+  border-radius: 10px;
+  border:1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  text-align: center;
+  color:var(--color-primary);
+  margin-top:20px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  display: flex;
+  margin-left:70px;
+}
+
+.typeCardShowKanaPhone{
+  width:40px;
+  height:40px;
+  border-radius: 10px;
+  border:1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  text-align: center;
+  color:var(--color-primary);
+  margin-top:20px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  display: flex;
+  margin-left:40px;
+}
+
+
+
+.containerGamePhone{
+  flex: 0 1 35%;
+}
+
+.containerHintPhone{
+  flex: 0 1 15%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hidden-phone{
+  display:none !important;
+}
+
+.menuPhoneButton{
+  height:50px;
+  width:50px;
+  background-color: var(--color-secondary);
+  border:1px solid var(--color-primary);
+  border-radius:5px;
+  color:var(--color-primary);
+  position:absolute;
+  top:15px;
+  right:15px;
+  cursor: pointer;
+  font-size:1rem;
+  text-align: center;
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  text-decoration: none;
+}
+
+.configPhoneButton{
+  height:50px;
+  width:50px;
+  background-color: var(--color-secondary);
+  border:1px solid var(--color-primary);
+  border-radius:5px;
+  color:var(--color-primary);
+  position:absolute;
+  top:15px;
+  left:15px;
+  cursor: pointer;
+  font-size:1rem;
+  text-align: center;
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+}
+
+.hideConfigPhoneButton{
+  height:30px;
+  width:30px;
+  background-color: var(--color-secondary);
+  border:1px solid var(--color-primary);
+  border-radius:5px;
+  color:var(--color-primary);
+  position:absolute;
+  top:15px;
+  left:15px;
+  cursor: pointer;
+  font-size:1rem;
+  text-align: center;
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  z-index:20;
+}
+
+
+}
+
+
+@media only screen and (min-width: 601px) {
+.container {
+  display: flex;
+  justify-content: space-between;
+  height:100%;
+
+  background-color: var(--color-secondary) !important;
+  color: var(--color-primary) !important;
+}
+.container .split {
+  width: 100%;
+  height:100%;
+  padding: 0 5px 0 5px;
+}
+
+
+/* Estilo general para el contenedor */
+.split {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+/* Parte superior que ocupa la mitad del contenedor */
+.top-half {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botonMenu{
+  justify-content: start;
+  align-items: baseline;
+  margin: 20px;
+}
+
+.alignItemsBaseline{
+  align-items: baseline;
+}
+
+
+/* Centro de contenido en la parte superior */
+.center-content {
+  font-size: 14rem;
+  font-weight: bold;
+}
+
+/* Parte inferior que ocupa la otra mitad del contenedor */
+.bottom-half {
+  flex: 1;
+  padding: 20px;
+
+}
+
+
+.grid-1x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+  gap: 10px; /* Espacio entre los elementos del grid */
+}
+
+.grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(2, 1fr); /* Tres filas de igual tamaño */
+  gap: 10px; /* Espacio entre los elementos del grid */
+}
+
+.grid-3x3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(3, 1fr); /* Tres filas de igual tamaño */
+  gap: 10px; /* Espacio entre los elementos del grid */
+}
+
+/* Estilo para cada elemento de la cuadrícula */
+.grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+
+  border-radius:25px;
+  cursor: pointer;
+  border: 1px solid var(--color-primary);
+
+  // -webkit-box-shadow:  0 10px 0px 0px #777;
+  // -moz-box-shadow: 0 10px 0px 0px #777;
+  //      box-shadow: 0 10px 0px 0px #777;
+
+}
+
+
+
+// .grid-item:hover{
+//   -webkit-box-shadow: none ;
+//   -moz-box-shadow: none ;
+//        box-shadow: none ;
+
+//        transform: translateY(10px);
+// }
+
+
+
+
+//Boton cambiar si adivinar kana o romaji
+.adivinar{
+  border:1px solid var(--color-primary);
+  border-radius:65px;
+
+  text-align: center;
+  padding:15px;
+  min-width: 200px;
+}
+.adivinar:hover{
+  cursor: pointer;
+  background-color: var(--color-gray);
+}
+
+.adivinar i{
+  margin:0 5px;
+  transition: transform .3s;
+}
+.adivinar:hover i{
+  transition: transform .4s;
+ transform: rotate(90deg);
+}
+
+
+.block{
+  display:block;
+}
+
+
+//Dificultad
+
+.level{
+  border:1px solid var(--color-primary);
+  border-radius:65px;
+  padding:5px;
+  text-align: center;
+  min-width: 100px;
+  margin: 0 10px;
+}
+
+.levelSelected{
+ background-color:var(--color-primary);
+ color:var(--color-secondary);
+}
+
+.level:hover{
+  background-color:var(--color-gray);
+  cursor: pointer;
+}
+
+
+
+
+
+
+.link{
+ // padding:20px;
+  background-color: var(--color-primary);
+width:70px;
+height:70px;
+  border-radius:5px;
+  color:var(--color-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+
+  //Para centrar el texto en el div
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  text-decoration:none;
+
+}
+
+.link i{
+  transition: transform .5s;
+ }
+.link:hover i{
+  transition: transform .5s;
+ transform: translateX(-5px);
+ }
+
+
+
+
+
+
+
+@keyframes heartbeat
+{
+  0%
+  {
+    transform: scale( .75 );
+  }
+  20%
+  {
+    transform: scale( 1 );
+  }
+  40%
+  {
+    transform: scale( .75 );
+  }
+  60%
+  {
+    transform: scale( 1 );
+  }
+  80%
+  {
+    transform: scale( .75 );
+  }
+  100%
+  {
+    transform: scale( .75 );
+  }
+}
+
+
+
+
+.points{
+
+  text-align: center;
+
+}
+
+.points .normalGradient{
+  font-size:3rem;
+margin-bottom:30px;
+background: linear-gradient(0deg, #dfbe75 0%,#ef3131 100%);
+background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.points h2{
+background: linear-gradient(0deg, rgb(193 93 0) 0%, rgb(251 236 147) 100%);
+background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+
+.optionGame{
+  border:1px solid var(--color-primary);
+  border-radius:25px;
+  width:100px;
+  height: 100px;
+
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  flex-direction: column;
+  margin:0 20px;
+  cursor: pointer;
+}
+
+.optionGame:hover{
+  background-color: var(--color-gray);
+  color:var(--color-secondary);
+}
+
+.optionGameSelected{
+  background-color: var(--color-primary);
+  color:var(--color-secondary);
+}
+
+.optionGameSelected:hover{
+  background-color: var(--color-primary);
+  color:var(--color-secondary);
+
+  pointer-events: none;
+}
+
+.optionGame i{
+  font-size:2rem;
+}
+
+
+
+.invisible{
+  visibility: hidden;
+}
+
+
+.typeCard{
+  width:80%;
+  height:30%;
+  border-radius:15px;
+  background-color: var(--color-primary);
+  color:var(--color-secondary);
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: end;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  flex-direction: column;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.typeCard h1{
+  font-size: 8rem;
+  font-weight: bold;
+  margin:0;
+
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.typeCard h1 span{
+  font-size: 2rem;
+  font-weight: bold;
+ margin-left:5px;
+}
+
+.typeCard input{
+  margin-top:70px;
+  margin-bottom:40px;
+  width:80%;
+  height:50px;
+  border-radius:10px;
+  border:none;
+  background-color:var(--color-secondary);
+  color:var(--color-primary);
+  text-align: center;
+  font-size:1.5rem;
+}
+
+
+
+
+
+.typeCardSkipKana{
+  width:80px;
+  height:80px;
+  border-radius: 10px;
+  border:1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  text-align: center;
+  color:var(--color-primary);
+  margin-top:40px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  display: flex;
+  margin-left:70px;
+}
+
+.typeCardShowKana{
+  width:50px;
+  height:50px;
+  border-radius: 10px;
+  border:1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  text-align: center;
+  color:var(--color-primary);
+  margin-top:40px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  display: flex;
+  margin-left:40px;
+}
+
+
+
+
+.streakFailShake{
+  background: linear-gradient(0deg, #ec6464 0%,#d31c1c 100%);
+  animation: shake 0.5s ease;
+  font-size:3rem !important;
+  margin-bottom:30px !important;
+  background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold !important;
+}
+
+
+
+
+}
+
+
+
+
+
+
+//ESTILOS COMUNES
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.success{
+  color:var(--color-success);
+  font-size:12rem;
+  display:block;
+}
+.hint{
+  color:var(--color-gray);
+}
+
+.hidden{
+  display:none;
+}
+
+.failed {
+  pointer-events: none; /* Desactiva eventos del ratón, como clicks */
+  opacity: 0.8; /* Opcional: hace el div visualmente más claro para indicar que está deshabilitado */
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+}
+
+.disabled {
+  pointer-events: none; /* Desactiva eventos del ratón, como clicks */
+  opacity: 0.5; /* Opcional: hace el div visualmente más claro para indicar que está deshabilitado */
+}
+
+
+.emote {
+  position:absolute;
+  font-size:8rem;
+  animation: fadeOut 5s ease-in-out forwards, heartbeat 5s ease-in-out forwards;
+
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    visibility:visible;
+
+  }
+  to {
+    opacity: 0;
+    visibility:hidden;
+
+  }
+
+}
+
+.flexColumn{
+  flex-direction: column;
+}
+
+
+
+.typeGameButtons{
+  display: flex;               /* Activa Flexbox para el div */
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  flex-direction: row;
+}
+
+.typeCard input:focus{
+  outline: none;
+}
+
+.typeGameFail{
+  background-color: var(--color-error);
+
+}
+
+
+
+.typeGameFailShake{
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+
+//Cambia el color de los label de material
+
+
+.mdc-label {
+  color:var(--color-primary) !important;
+}
+
+
+.mdc-checkbox__background {
+  border-color: var(--color-primary-50) !important;
+  background-color: var(--color-primary-50) !important;
+}
+
+
+
+
+

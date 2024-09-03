@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+  --color-primary: rgb(227 231 243);
+  --color-primary-50: rgba(238, 238, 238, 0.5);
+  --color-secondary: rgb(21, 32, 43);
+  --color-tertiary: rgb(8 23 39);
+  --color-secondary-50: rgba(21, 32, 43, 0.5);
+  --color-error: rgb(223, 82, 82);
+  --color-error-50: rgba(223, 82, 82, 0.5);
+  --color-success: rgb(66, 139, 58);
+  --color-gray: rgb(139, 152, 165)
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:var(--color-secondary);}
+
+.mdc-label {
+  color:var(--color-primary) !important;
+}
+
+
+.mdc-checkbox__background {
+  border-color: var(--color-primary-50) !important;
+  background-color: var(--color-primary-50) !important;
+}
+

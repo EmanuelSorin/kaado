@@ -1,0 +1,77 @@
+<div class="container" *ngIf="!isPhone">
+  <div class="split">
+
+  </div>
+  <div class="split top-half">
+    <div class="title">
+      <h1>Kaado</h1>
+      <h3>kana - card</h3>
+    </div>
+
+    <div class="containerOpciones">
+    <a href="/hiragana" class="opcionMenu" >
+      Hiragana  <span> あ い う え お</span>
+    </a>
+    <a href="/hiragana-help" class="libreria" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
+      <i class="fa-solid fa-book"></i>
+    </a>
+    </div>
+
+    <div class="containerOpciones">
+    <a  href="/katakana" class="opcionMenu" >
+      Katakana  <span> ア イ ウ エ オ</span>
+    </a>
+    <a href="/katakana-help" class="libreria" matTooltip="Alphabet overview" [matTooltipPosition]="'after'" >
+      <i class="fa-solid fa-book"></i>
+    </a>
+  </div>
+
+    <div class="containerOpciones">
+    <a  href="/kanji" class="opcionMenu" >
+      Kanji <span> 漢 字 </span>
+    </a>
+    <a href="/" class="libreria invisible" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
+      <i class="fa-solid fa-book"></i>
+    </a>
+  </div>
+
+  </div>
+  <div class="split">
+  </div>
+</div>
+
+<div class="containerPhone" *ngIf="isPhone">
+  <div class="splitPhone">
+    <div class="titlePhone">
+    <h1>Kaado</h1>
+    <h3>kana - card</h3>
+  </div>
+
+  <div class="containerOpcionesPhone">
+    <a href="/hiragana" class="opcionMenuPhone" >
+      Hiragana <br><small> あ い う え お</small>
+    </a>
+    <a href="/hiragana-help" class="libreriaPhone" >
+      <i class="fa-solid fa-book"></i>
+    </a>
+  </div>
+
+  <div class="containerOpcionesPhone">
+    <a  href="/katakana" class="opcionMenuPhone" >
+      Katakana  <br><small> ア イ ウ エ オ</small>
+    </a>
+    <a href="/katakana-help" class="libreriaPhone" >
+      <i class="fa-solid fa-book"></i>
+    </a>
+    </div>
+
+    <div class="containerOpcionesPhone">
+    <a  href="/kanji" class="opcionMenuPhone" >
+      Kanji <br><small> 漢 字</small>
+    </a>
+    <a class="invisiblePhone libreriaPhone">
+
+    </a>
+  </div>
+  </div>
+</div>
