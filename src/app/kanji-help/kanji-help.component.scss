@@ -1,0 +1,338 @@
+//ESTILOS MOVIL
+@media only screen and (max-width:839.98px) and (orientation: portrait), (max-width: 1279.98px) and (orientation: landscape)
+ {
+
+  .title{
+    margin-top:40px;
+    font-size:1.5rem;
+    font-weight: bold;
+  }
+  .link{
+    width:40px;
+    height:40px;
+    font-size: 1rem;
+    top:10px;
+    left:10px;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+    gap: 25px !important; /* Espacio entre las tarjetas */
+    padding: 15px !important;
+    justify-items: center;
+  }
+
+  .scroll-to-top {
+    width:40px;
+    height:40px;
+    font-size: 3rem;
+    bottom:20px;
+    right:20px;
+  }
+
+//Card
+
+.card{
+
+  width:350px !important;
+  height:230px !important;
+  font-size:2vh;
+}
+
+.kanji{
+
+  width:100%;
+
+}
+
+.kanji .kana{
+  font-size:5rem;
+  flex: 0 1 60%;
+}
+
+.kanji .yomi{
+
+  font-size:.8rem !important;
+
+}
+
+.kanji .yomi .yomi-title{
+
+  font-size:.8rem !important;
+
+}
+.kanji .yomi .text{
+
+  font-size:.8rem !important;
+}
+
+.meaning{
+
+  min-height: 40px;
+  width: 100%;
+  margin-top: 15px;
+
+  font-size: 1rem;
+}
+
+
+
+.rowHeader{
+  margin:20px 10px !important;
+
+}
+
+.kanjiHeader{
+  height:50px;
+
+    font-size: 1rem !important;
+    flex:1;
+
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding-top:10px;
+}
+
+
+
+
+.buscador{
+  display:none !important;
+}
+
+.buscadorPhone{
+  border: none;
+  width: 80%;
+  height: 20px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.kanjiHeader {
+  display:block !important;
+
+}
+.kanjiHeader small{
+  display:block;
+}
+
+}
+
+//ESTILOS ORDENADOR
+@media only screen and (min-width: 840px) and (orientation: portrait), (min-width: 1280px) and (orientation: landscape) {
+
+  .title{
+    margin-top:40px;
+    font-size:3rem;
+    font-weight: bold;
+  }
+  .link{
+    width:70px;
+    height:70px;
+    font-size: 2rem;
+    top:25px;
+    left:25px;
+  }
+
+  .buscadorPhone{
+    display: none !important;
+  }
+  .rowBuscadorPhone{
+    display: none !important;
+  }
+
+  .scroll-to-top {
+    width:70px;
+    height:70px;
+    font-size: 4rem;
+    right:25px;
+    bottom:25px;
+  }
+}
+
+
+
+//ESTILOS GENERALES
+.container{
+ // background-color:var(--color-secondary);
+  height:100%;
+ // display: flex;
+  flex: 1;
+  justify-content: baseline;
+  align-items: center;
+  flex-direction: column;
+  color:var(--color-primary);
+  justify-items: center;
+}
+
+.row{
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 48px; /* Espacio entre las tarjetas */
+  padding: 32px;
+}
+
+
+
+.link{
+  text-decoration: none;
+  background-color: var(--color-primary);
+    border-radius:5px;
+    color:var(--color-secondary);
+
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+
+}
+
+.link i{
+  transition: transform .5s;
+ }
+.link:hover i{
+  transition: transform .5s;
+ transform: translateX(-5px);
+ }
+
+
+.blank{
+  visibility: hidden;
+}
+
+.w-100{
+  width:100% !important;
+}
+.w-80{
+  width:80% !important;
+}
+
+
+
+//Card
+
+.card{
+  display:flex;
+  flex-direction: column;
+  background-color: var(--color-secondary);
+  border-radius:25px;
+  border:1px solid var(--color-primary);
+  color:var(--color-primary);
+  width:400px;
+  height:250px;
+  font-size:2vh;
+  align-items: center;
+  justify-content: center;
+  font-weight: 100;
+  background: linear-gradient(to bottom, var(--color-secondary) 80%, var(--color-gray2) 80%);
+}
+
+.kanji{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+    justify-content: center;
+    width:100%;
+    text-align: center;
+}
+
+.kanji .kana{
+  font-size:5rem;
+  font-weight: bold;
+  flex: 0 1 60%;
+}
+
+.kanji .yomi{
+  display:flex;
+  flex-direction: column;
+  font-size:.8rem !important;
+  align-items: center;
+    justify-content: center;
+
+}
+
+.kanji .yomi .yomi-title{
+  text-decoration: underline;
+  font-style: italic;
+  font-size:.8rem !important;
+
+}
+.kanji .yomi .text{
+  font-style: italic;
+  font-size:.8rem !important;
+}
+
+.meaning{
+  display: flex;
+  border-top:1px solid var(--color-primary-50);
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 1rem;
+  background-color:var(--color-gray2);
+}
+
+
+
+.rowHeader{
+  margin:40px 100px;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+    justify-content: center;
+}
+
+.kanjiHeader{
+  height:60px;
+  color:var(--color-primary);
+  text-align: center;
+  align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 1.5rem;
+    flex:1;
+    cursor: pointer;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.kanjiHeader:hover{
+  background-color: var(--color-tertiary);
+}
+
+.kanjiHeaderSelected{
+  border-bottom:2px solid var(--color-primary);
+}
+
+
+.buscador{
+  border: none;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+
+
+
+.scroll-to-top {
+  position: fixed;
+  color:  var(--color-primary);
+  background-color: var(--color-secondary);
+border-radius:100%;
+  cursor: pointer;
+}

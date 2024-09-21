@@ -1,77 +1,80 @@
-<div class="container" *ngIf="!isPhone">
-  <div class="split">
-
-  </div>
-  <div class="split top-half">
+<div class="container">
+  <div class="left" *ngIf="!isPhone || left">
     <div class="title">
       <h1>Kaado</h1>
       <h3>kana - card</h3>
     </div>
-
-    <div class="containerOpciones">
-    <a href="/hiragana" class="opcionMenu" >
-      Hiragana  <span> あ い う え お</span>
-    </a>
-    <a href="/hiragana-help" class="libreria" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
-      <i class="fa-solid fa-book"></i>
-    </a>
+    <div class="description">
+      Welcome to our Japanese learning app, designed to make studying Japanese fun and effective. The app offers two game modes:
+<br/><br/>
+<b>• Multiple Choice Mode:</b> Choose the correct answer from several cards to quickly test your knowledge of Japanese characters.
+      <br><br>
+      <b>• Writing Mode:</b> Write the correct meaning of a kana, ideal for reinforcing character recognition.
+      <br>
+      <br>The app allows you to customize your practice, adjust difficulty, and choose between guessing kana or romaji. It also includes an alphabet section and a Kanji search tool for deeper exploration.
+      <br/><br/>
+      No matter your level, our app helps you learn Japanese at your own pace. Enjoy the journey!
     </div>
 
-    <div class="containerOpciones">
-    <a  href="/katakana" class="opcionMenu" >
-      Katakana  <span> ア イ ウ エ オ</span>
-    </a>
-    <a href="/katakana-help" class="libreria" matTooltip="Alphabet overview" [matTooltipPosition]="'after'" >
-      <i class="fa-solid fa-book"></i>
-    </a>
+
+    <div class="goRight" *ngIf="isPhone && left" (click)="showRight()">
+      <i class="fa-solid fa-list-ul"></i>
+      Go menu
+    </div>
   </div>
 
-    <div class="containerOpciones">
-    <a  href="/kanji" class="opcionMenu" >
-      Kanji <span> 漢 字 </span>
-    </a>
-    <a href="/" class="libreria invisible" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
-      <i class="fa-solid fa-book"></i>
-    </a>
-  </div>
 
-  </div>
-  <div class="split">
-  </div>
-</div>
 
-<div class="containerPhone" *ngIf="isPhone">
-  <div class="splitPhone">
-    <div class="titlePhone">
-    <h1>Kaado</h1>
-    <h3>kana - card</h3>
-  </div>
-
-  <div class="containerOpcionesPhone">
-    <a href="/hiragana" class="opcionMenuPhone" >
-      Hiragana <br><small> あ い う え お</small>
-    </a>
-    <a href="/hiragana-help" class="libreriaPhone" >
-      <i class="fa-solid fa-book"></i>
-    </a>
-  </div>
-
-  <div class="containerOpcionesPhone">
-    <a  href="/katakana" class="opcionMenuPhone" >
-      Katakana  <br><small> ア イ ウ エ オ</small>
-    </a>
-    <a href="/katakana-help" class="libreriaPhone" >
-      <i class="fa-solid fa-book"></i>
-    </a>
+  <div class="right" *ngIf="!isPhone || right">
+    <div class="option">
+      Let's practice...
+    </div>
+    <div class="option">
+      <a href="/hiragana" class="game">
+        Hiragana  <span> あ い う え お</span>
+      </a>
+      <a href="/hiragana-help" class="library" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
+        <i class="fa-solid fa-book"></i>
+      </a>
+    </div>
+    <div class="option">
+      <a href="/katakana" class="game">
+        Katakana <span> ア イ ウ エ オ</span>
+      </a>
+      <a href="/katakana-help" class="library" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
+        <i class="fa-solid fa-book"></i>
+      </a>
+    </div>
+    <div class="option">
+      <a href="/kanji" class="game">
+        Kanji<span> 漢 字 </span>
+      </a>
+      <a href="/kanji-help" class="library" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
+        <i class="fa-solid fa-book"></i>
+      </a>
+    </div>
+    <div class="option">
+      <a href="/grammar" class="game">
+        Grammar <span> 文法レッスン </span>
+      </a>
+      <a href="/grammar-help" class="library" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
+        <i class="fa-solid fa-book"></i>
+      </a>
+    </div>
+    <div class="option">
+      <a href="/vocabulary" class="game">
+        Vocabulary <span> ごい </span>
+      </a>
+      <a href="/vocabulary-help" class="library" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
+        <i class="fa-solid fa-book"></i>
+      </a>
     </div>
 
-    <div class="containerOpcionesPhone">
-    <a  href="/kanji" class="opcionMenuPhone" >
-      Kanji <br><small> 漢 字</small>
-    </a>
-    <a class="invisiblePhone libreriaPhone">
+    <div class="goLeft" *ngIf="isPhone && right" (click)="showLeft()">
+      Go Welcome
+    </div>
 
-    </a>
   </div>
-  </div>
+
+
 </div>

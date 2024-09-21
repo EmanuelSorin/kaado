@@ -21,6 +21,9 @@ export class HiraganaComponent {
   hiraganaDakutenArray: Hiragana[] = JSON.parse(hiraganaDakutenJson).map((item: any) => new Hiragana(item.kana, item.romaji));
   hiraganaCombinationArray: Hiragana[] = JSON.parse(hiraganaCombinationJson).map((item: any) => new Hiragana(item.kana, item.romaji));
 
+  kanaCopiaArray: Hiragana[] = [];
+  kanaArray : Hiragana[] = [];
+
   //Sliders de kana
   mainKana: boolean =true;
   dakutenKana: boolean = false;
@@ -74,6 +77,8 @@ export class HiraganaComponent {
 
   menuLateral: boolean = false;
 
+  showStreak: boolean = true;
+
   //Eventos para ver el desplazamiento del movil
   private touchStartX: number = 0;
   private touchEndX: number = 0;
@@ -82,7 +87,7 @@ export class HiraganaComponent {
 
     //Handset 600px
     //RESPONSIVE mira si es movil
-    this.responsive.observe(Breakpoints.Handset)
+    this.responsive.observe([Breakpoints.Handset, Breakpoints.Tablet])
     .subscribe(result => {
 
       if (result.matches) {
@@ -93,76 +98,10 @@ export class HiraganaComponent {
 
     });
 
-
-
-   this.mainKana = true;
-   this.dakutenKana = false;
-   this.combinationKana = false;
-
-
-    if(this.cookieService.get('level')){
-      this.level = Number(this.cookieService.get('level'));
-    }else{
-      this.cookieService.set('level', "2");
-      this.level = 2;
-    }
-   // this.level=2;
-
-    if(this.cookieService.get('queAdivina')){
-      this.queAdivina = this.cookieService.get('queAdivina');
-    }else{
-      this.cookieService.set('queAdivina', "kana");
-      this.queAdivina = 'kana';
-    }
-   // this.queAdivina = 'kana';
-
-    //Miramos si existe la cookie con el Streak y Best de los modos Card y Type
-    if(this.cookieService.get('cardGameStreak')){
-      this.cardGameStreak = Number(this.cookieService.get('cardGameStreak'));
-    }else{
-      this.cookieService.set('cardGameStreak', "0");
-      this.cardGameStreak = 0;
-    }
-    if(this.cookieService.get('cardGameBest')){
-      this.cardGameBest = Number(this.cookieService.get('cardGameBest'));
-    }else{
-      this.cookieService.set('cardGameBest', "0");
-      this.cardGameBest = 0;
-    }
-
-    if(this.cookieService.get('typeGameStreak')){
-      this.typeGameStreak = Number(this.cookieService.get('typeGameStreak'));
-    }else{
-      this.cookieService.set('typeGameStreak', "0");
-      this.typeGameStreak = 0;
-    }
-
-    if(this.cookieService.get('typeGameBest')){
-      this.typeGameBest = Number(this.cookieService.get('typeGameBest'));
-    }else{
-      this.cookieService.set('typeGameBest', "0");
-      this.typeGameBest = 0;
-    }
-
-    //Definimos que tipo de juego quiere, si seleccionar cartas o escribir la solucion
-    //Por defecto elegimos la opcion de cartas
-    if(this.cookieService.get('cardGame')){
-      this.cardGame = (this.cookieService.get('cardGame') == 'true');
-    }else{
-      this.cookieService.set('cardGame', "true");
-      this.cardGame = true;
-    }
-    if(this.cookieService.get('typeGame')){
-      this.typeGame = (this.cookieService.get('typeGame')  == 'true');
-    }else{
-      this.cookieService.set('typeGame', "false");
-      this.typeGame = false;
-    }
-    // this.cardGame = true;
-    // this.typeGame = false;
+    this.setCookies();
 
     //Llamamos para conseguir los kana
-    this.nuevoKana();
+    this.setKanaArray();
 
   }
 
@@ -171,7 +110,7 @@ export class HiraganaComponent {
 
 
         this.cardGameStreak++;
-        this.cookieService.set('cardGameStreak', this.cardGameStreak.toString());
+        this.cookieService.set('hiragana-cardGameStreak', this.cardGameStreak.toString());
 
          //Cada 3 seguidas correctas mostrar emote
         if(this.cardGameStreak % 3 == 0){
@@ -189,14 +128,14 @@ export class HiraganaComponent {
 
     }else{
       if(this.cardGameStreak > this.cardGameBest){
-        this.cookieService.set('cardGameBest', this.cardGameStreak.toString());
+        this.cookieService.set('hiragana-cardGameBest', this.cardGameStreak.toString());
         this.cardGameBest=this.cardGameStreak;
       }
       if(this.typeGameStreak > 0){
         this.animationStreakLose();
       }
       this.cardGameStreak = 0;
-      this.cookieService.set('cardGameStreak', this.cardGameStreak.toString());
+      this.cookieService.set('hiragana-cardGameStreak', this.cardGameStreak.toString());
       this.success = false;
       seleccionado.estado = false;
     }
@@ -206,12 +145,12 @@ export class HiraganaComponent {
   toogleQueAdivina(){
     if(this.queAdivina == 'kana'){
       this.queAdivina = 'romaji';
-      this.cookieService.set('queAdivina', "romaji");
+      this.cookieService.set('hiragana-queAdivina', "romaji");
     }else{
       this.queAdivina = 'kana';
-      this.cookieService.set('queAdivina', "kana");
+      this.cookieService.set('hiragana-queAdivina', "kana");
     }
-    this.nuevoKana();
+    this.setKanaArray();
   }
 
   //Funcion que decide que kanas mostrar, main, dakuten o combination
@@ -222,13 +161,17 @@ export class HiraganaComponent {
       return;
     }
 
-    this[variableName] = !this[variableName];
+    this.cookieService.set("hiragana-"+variableName, (!this[variableName]).toString());
 
+    this[variableName] = !this[variableName];
     if(!this.mainKana && !this.dakutenKana && !this.combinationKana){
+
       this.mainKana = true;
+      this.cookieService.set('hiragana-mainKana', "true");
+
     }
 
-    this.nuevoKana();
+    this.setKanaArray();
   }
 
   //Funcion para cambiar la dificultad, 1= facil , 2=medio , 3=dificil
@@ -238,40 +181,88 @@ export class HiraganaComponent {
       this.level=2;
     }else{
       this.level=level;
-      this.nuevoKana();
+      this.setKanaArray();
     }
 
-    this.cookieService.set('level', level.toString());
+    this.cookieService.set('hiragana-level', level.toString());
+  }
+
+
+  setKanaArray(){
+    this.kanaArray = [];
+
+    //Añadir mainKata o dakuten o combination
+    if(this.mainKana){
+      this.kanaArray = [ ... this.kanaArray, ...this.hiraganaArray];
+    }
+    if(this.dakutenKana){
+      this.kanaArray = [ ... this.kanaArray, ...this.hiraganaDakutenArray];
+    }
+    if(this.combinationKana){
+      this.kanaArray = [ ... this.kanaArray, ...this.hiraganaCombinationArray];
+    }
+
+    //Me hago una copia de kanaArray
+    this.kanaCopiaArray = this.kanaArray;
+
+    //Llamo para sacar un nuevo kana con la nueva configuracion ?
+    this.nuevoKana();
   }
 
 
   //Funcion para conseguir los kanas para adivinar
   nuevoKana(){
-    let kanaArray : Hiragana[] = [];
 
-    //Añadir mainKata o dakuten o combination
-    if(this.mainKana){
-      kanaArray = [ ...kanaArray, ...this.hiraganaArray];
-    }
-    if(this.dakutenKana){
-      kanaArray = [ ...kanaArray, ...this.hiraganaDakutenArray];
-    }
-    if(this.combinationKana){
-      kanaArray = [ ...kanaArray, ...this.hiraganaCombinationArray];
-    }
-
-    //Dificultad
+    //Dificultad para ver cuantos kanas consigues
     let numeroKanas = 4;
     if(this.level == 1) numeroKanas=2;
     if(this.level == 2) numeroKanas=4;
     if(this.level == 3) numeroKanas=9;
 
-    //Conseguir random x kanas
-    const randomElements = this.getRandomElements(kanaArray, numeroKanas);
+    //Si kanaCopiaArray llega a 0 se vuelve a copiar del original
+    if(this.kanaCopiaArray.length == 0){
+      this.kanaCopiaArray = this.kanaArray;
+    }
 
-    //Despues de conseguir random los kanas elegimos uno random para adivinar
-    this.adivinar = randomElements[Math.floor(Math.random() * randomElements.length)];
+    //Inicializo el array con las opciones
+    let randomElements :Hiragana[] = [];
 
+    //Comprobar si kanaCopiaArray tiene suficientes kanas para sacar
+    if(this.kanaCopiaArray.length < numeroKanas){
+      //No tiene suficientes kanas, entonces conseguimos las que tiene y rellenamos con otros kanas del array original
+
+      //Consigo uno random para adivinar de los que quedan en kanaCopiaArray
+      this.adivinar = this.kanaCopiaArray[Math.floor(Math.random() * this.kanaCopiaArray.length)];
+      //Quito el que adivina de kanaCopiaArray para que no vuelva a salir
+      this.kanaCopiaArray = this.kanaCopiaArray.filter(kana => kana !==  this.adivinar);
+
+
+      //Consigo randoms del array original para rellenar las opciones
+       randomElements = [];
+      //A las opciones le añado el a adivinar
+      randomElements.push(this.adivinar);
+
+      //Consigo kanas random del array original que no sean el mismo que adivino
+      while(randomElements.length < numeroKanas){
+        const kanaRandom = this.getRandomElements( this.kanaArray, 1)[0];
+        if( ! randomElements.find(kana => kana == kanaRandom)){
+          randomElements.push( kanaRandom );
+        }
+      }
+      randomElements = this.shuffleArray(randomElements);
+
+    }else{
+      //Conseguir random x kanas
+       randomElements = this.getRandomElements( this.kanaCopiaArray, numeroKanas);
+
+      //Despues de conseguir random los kanas elegimos uno random para adivinar
+      this.adivinar = randomElements[Math.floor(Math.random() * randomElements.length)];
+
+      //Quito el que adivina de kanaCopiaArray para que no vuelva a salir
+      this.kanaCopiaArray = this.kanaCopiaArray.filter(kana => kana !==  this.adivinar);
+    }
+
+    //Cambio el estado a los kanas para que no salgan en rojo
     for (let i = 0; i < randomElements.length; i++) {
       randomElements[i].estado=true;
     }
@@ -291,8 +282,8 @@ export class HiraganaComponent {
 
     this.streakFailShake = false;
 
-    this.cookieService.set('cardGame','true');
-    this.cookieService.set('typeGame', 'false');
+    this.cookieService.set('hiragana-cardGame','true');
+    this.cookieService.set('hiragana-typeGame', 'false');
   }
 
   //Funcion para elegir el modo de Type
@@ -306,14 +297,15 @@ export class HiraganaComponent {
 
     this.streakFailShake = false;
 
-    this.cookieService.set('cardGame','false');
-    this.cookieService.set('typeGame', 'true');
+    this.cookieService.set('hiragana-cardGame','false');
+    this.cookieService.set('hiragana-typeGame', 'true');
   }
 
   //Funcion que se ejecuta al pulsar enter en el modo Type para adivinar el kana
   async adivinarTypeGame(event: Event){
     const inputElement = event.target as HTMLInputElement;
-    const inputValue = inputElement.value;
+    const inputValue =  this.typeGameInput.nativeElement.value;
+    this.typeGameInput.nativeElement.focus();
 
     if(inputValue == ''){
       return;
@@ -322,7 +314,7 @@ export class HiraganaComponent {
     if(inputValue.toLowerCase() == this.adivinar.romaji.toLowerCase()){
       //Acerto el kana, sumar racha y pasar al siguiente
       this.typeGameStreak++;
-      this.cookieService.set('typeGameStreak', this.typeGameStreak.toString());
+      this.cookieService.set('hiragana-typeGameStreak', this.typeGameStreak.toString());
 
       this.success = true;
       this.typeGameFail = false;
@@ -339,7 +331,7 @@ export class HiraganaComponent {
     }else{
       //Indicar que fallo, reiniciar racha
       if(this.typeGameStreak > this.typeGameBest){
-        this.cookieService.set('typeGameBest', this.typeGameStreak.toString());
+        this.cookieService.set('hiragana-typeGameBest', this.typeGameStreak.toString());
         this.typeGameBest=this.typeGameStreak;
       }
 
@@ -356,15 +348,16 @@ export class HiraganaComponent {
 
       this.success = false;
       this.typeGameStreak= 0;
-      this.cookieService.set('typeGameStreak', this.typeGameStreak.toString());
+      this.cookieService.set('hiragana-typeGameStreak', this.typeGameStreak.toString());
     }
     this.typeGameShowKanaValue = false;
     this.typeGameInput.nativeElement.value = '';
+    this.typeGameInput.nativeElement.focus();
   }
 
   typeGameSkipKana(){
     if(this.typeGameStreak > this.typeGameBest){
-      this.cookieService.set('typeGameBest', this.typeGameStreak.toString());
+      this.cookieService.set('hiragana-typeGameBest', this.typeGameStreak.toString());
       this.typeGameBest=this.typeGameStreak;
     }
 
@@ -374,7 +367,7 @@ export class HiraganaComponent {
 
     this.success = false;
     this.typeGameStreak= 0;
-    this.cookieService.set('typeGameStreak', this.typeGameStreak.toString());
+    this.cookieService.set('hiragana-typeGameStreak', this.typeGameStreak.toString());
     this.typeGameFail = false;
     this.typeGameFailShake = false;
     this.typeGameShowKanaValue = false;
@@ -384,7 +377,7 @@ export class HiraganaComponent {
 
   typeGameShowKana(){
     if(this.typeGameStreak > this.typeGameBest){
-      this.cookieService.set('typeGameBest', this.typeGameStreak.toString());
+      this.cookieService.set('hiragana-typeGameBest', this.typeGameStreak.toString());
       this.typeGameBest=this.typeGameStreak;
     }
 
@@ -394,7 +387,7 @@ export class HiraganaComponent {
 
     this.success = false;
     this.typeGameStreak= 0;
-    this.cookieService.set('typeGameStreak', this.typeGameStreak.toString());
+    this.cookieService.set('hiragana-typeGameStreak', this.typeGameStreak.toString());
     this.typeGameFail = false;
     this.typeGameFailShake = false;
 
@@ -409,8 +402,20 @@ export class HiraganaComponent {
 
   }
 
+   //Funcion que muestra u oculta streak y best
+   toogleStreak(): void{
+    if(this.showStreak){
+      this.showStreak = false;
+      this.cookieService.set('hiragana-showStreak', "false");
+
+    }else{
+      this.showStreak = true;
+      this.cookieService.set('hiragana-showStreak', "true");
+
+    }
+  }
+
   showMenuLateral(){
-    console.log("AA");
     this.menuLateral = true;
   }
 
@@ -419,20 +424,120 @@ export class HiraganaComponent {
   }
 
   onTouchStart(event: TouchEvent) {
+    this.touchStartX=0;
+    this.touchEndX=0;
     this.touchStartX = event.changedTouches[0].screenX;
   }
 
   onTouchMove(event: TouchEvent) {
+    this.touchEndX=0;
     this.touchEndX = event.changedTouches[0].screenX;
   }
 
   onTouchEnd(event: TouchEvent) {
+    if(this.touchEndX == 0){
+      return;
+    }
     const threshold = 50; // Mínima distancia para ser considerado un swipe
     const swipeDistance = this.touchStartX - this.touchEndX;
 
     // Si la distancia es mayor al umbral y es un swipe hacia la izquierda
     if (swipeDistance > threshold) {
       this.hideMenuLateral();
+    }
+  }
+
+
+
+  setCookies(){
+
+    //COOKIES DE LOS TIPOS DE KANA QUE APARECEN
+    if(this.cookieService.check('hiragana-mainKana')){
+      this.mainKana =(this.cookieService.get('hiragana-mainKana') === "true");
+    }else{
+      this.cookieService.set('hiragana-mainKana', "true");
+      this.mainKana = true;
+    }
+    if(this.cookieService.check('hiragana-dakutenKana')){
+      this.dakutenKana = (this.cookieService.get('hiragana-dakutenKana') === "true");
+    }else{
+      this.cookieService.set('hiragana-dakutenKana', "false");
+      this.dakutenKana = false;
+    }
+    if(this.cookieService.check('hiragana-combinationKana')){
+      this.combinationKana = (this.cookieService.get('hiragana-combinationKana') === "true");
+    }else{
+      this.cookieService.set('hiragana-combinationKana', "false");
+      this.combinationKana = false;
+    }
+
+
+    //COOKIES DEL NIVEL - 2 es medium
+    if(this.cookieService.check('hiragana-level')){
+      this.level = Number(this.cookieService.get('hiragana-level'));
+    }else{
+      this.cookieService.set('hiragana-level', "2");
+      this.level = 2;
+    }
+
+    //COOKIES DEL TIPO QUE ADIVINA
+    if(this.cookieService.check('hiragana-queAdivina')){
+      this.queAdivina = this.cookieService.get('hiragana-queAdivina');
+    }else{
+      this.cookieService.set('hiragana-queAdivina', "kana");
+      this.queAdivina = 'kana';
+    }
+
+    //COOKIES DE LA PUNTUACION INDIVIDUAL ENTRE CARD Y TYPE GAME
+    //Miramos si existe la cookie con el Streak y Best de los modos Card y Type
+    if(this.cookieService.check('hiragana-cardGameStreak')){
+      this.cardGameStreak = Number(this.cookieService.get('hiragana-cardGameStreak'));
+    }else{
+      this.cookieService.set('hiragana-cardGameStreak', "0");
+      this.cardGameStreak = 0;
+    }
+    if(this.cookieService.check('hiragana-cardGameBest')){
+      this.cardGameBest = Number(this.cookieService.get('hiragana-cardGameBest'));
+    }else{
+      this.cookieService.set('hiragana-cardGameBest', "0");
+      this.cardGameBest = 0;
+    }
+
+    if(this.cookieService.check('hiragana-typeGameStreak')){
+      this.typeGameStreak = Number(this.cookieService.get('hiragana-typeGameStreak'));
+    }else{
+      this.cookieService.set('hiragana-typeGameStreak', "0");
+      this.typeGameStreak = 0;
+    }
+
+    if(this.cookieService.check('hiragana-typeGameBest')){
+      this.typeGameBest = Number(this.cookieService.get('hiragana-typeGameBest'));
+    }else{
+      this.cookieService.set('hiragana-typeGameBest', "0");
+      this.typeGameBest = 0;
+    }
+
+    //Definimos que tipo de juego quiere, si seleccionar cartas o escribir la solucion
+    //Por defecto elegimos la opcion de cartas
+    if(this.cookieService.check('hiragana-cardGame')){
+      this.cardGame = (this.cookieService.get('hiragana-cardGame') == 'true');
+    }else{
+      this.cookieService.set('hiragana-cardGame', "true");
+      this.cardGame = true;
+    }
+    if(this.cookieService.check('hiragana-typeGame')){
+      this.typeGame = (this.cookieService.get('hiragana-typeGame')  == 'true');
+    }else{
+      this.cookieService.set('hiragana-typeGame', "false");
+      this.typeGame = false;
+    }
+
+    //COOKIES PARA OCULTAR PUNTUACION
+    if(this.cookieService.check('hiragana-showStreak')){
+      this.showStreak = (this.cookieService.get('hiragana-showStreak') === "true");
+    }else{
+      this.cookieService.set('hiragana-showStreak', "true");
+      this.showStreak = true;
     }
   }
 
@@ -459,4 +564,17 @@ export class HiraganaComponent {
 
     return result;
   }
+
+  shuffleArray(array : Hiragana[]) {
+    var m = array.length, t, i;
+
+    while (m) {
+     i = Math.floor(Math.random() * m--);
+     t = array[m];
+     array[m] = array[i];
+     array[i] = t;
+    }
+
+   return array;
+ }
 }

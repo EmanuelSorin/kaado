@@ -1,34 +1,38 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { Kanji } from './kanji';
-import { kanjiN5 } from './kanjiN5';
-import * as stringSimilarity from 'string-similarity';
-import { kanjiN1 } from './kanjiN1';
-import { kanjiN2 } from './kanjiN2';
-import { kanjiN3 } from './kanjiN3';
-import { kanjiN4 } from './kanjiN4';
-import Swal from 'sweetalert2'
+import { Grammar } from './grammar';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatTooltip } from '@angular/material/tooltip';
-
+import { CookieService } from 'ngx-cookie-service';
+import * as stringSimilarity from 'string-similarity';
+import Swal from 'sweetalert2';
+import { kanjiN1 } from '../kanji/kanjiN1';
+import { kanjiN2 } from '../kanji/kanjiN2';
+import { kanjiN3 } from '../kanji/kanjiN3';
+import { kanjiN4 } from '../kanji/kanjiN4';
+import { kanjiN5 } from '../kanji/kanjiN5';
+import { N1Grammar } from './N1Grammar';
+import { N2Grammar } from './N2Grammar';
+import { N3Grammar } from './N3Grammar';
+import { N4Grammar } from './N4Grammar';
+import { N5Grammar } from './N5Grammar';
 
 @Component({
-  selector: 'app-kanji',
-  templateUrl: './kanji.component.html',
-  styleUrls: ['./kanji.component.scss']
+  selector: 'app-kanji-grammar',
+  templateUrl: './kanji-grammar.component.html',
+  styleUrls: ['./kanji-grammar.component.scss']
 })
-export class KanjiComponent {
+export class KanjiGrammarComponent {
   constructor(private cookieService: CookieService, private responsive: BreakpointObserver) {}
 
   @ViewChild('typeGameInput') typeGameInput: ElementRef;
   @ViewChild('tooltipTypeGameAdvice', { static: false }) tooltip: MatTooltip;
 
   //Conseguimos los array con los distintos kanas
-  kanjiN5Array: Kanji[] = JSON.parse(kanjiN5).map((item: any) => new Kanji(item.id, item.kanji, item.onyomi_text, item.onyomi_kana, item.kunyomi_text, item.kunyomi_kana, item.meaning));
-  kanjiN4Array: Kanji[] = JSON.parse(kanjiN4).map((item: any) => new Kanji(item.id, item.kanji, item.onyomi_text, item.onyomi_kana, item.kunyomi_text, item.kunyomi_kana, item.meaning));
-  kanjiN3Array: Kanji[] = JSON.parse(kanjiN3).map((item: any) => new Kanji(item.id, item.kanji, item.onyomi_text, item.onyomi_kana, item.kunyomi_text, item.kunyomi_kana, item.meaning));
-  kanjiN2Array: Kanji[] = JSON.parse(kanjiN2).map((item: any) => new Kanji(item.id, item.kanji, item.onyomi_text, item.onyomi_kana, item.kunyomi_text, item.kunyomi_kana, item.meaning));
-  kanjiN1Array: Kanji[] = JSON.parse(kanjiN1).map((item: any) => new Kanji(item.id, item.kanji, item.onyomi_text, item.onyomi_kana, item.kunyomi_text, item.kunyomi_kana, item.meaning));
+  kanjiN5Array: Grammar[] = JSON.parse(N1Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  kanjiN4Array: Grammar[] = JSON.parse(N2Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  kanjiN3Array: Grammar[] = JSON.parse(N3Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  kanjiN2Array: Grammar[] = JSON.parse(N4Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  kanjiN1Array: Grammar[] = JSON.parse(N5Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
 
 
   //Opciones de kanji
@@ -38,15 +42,15 @@ export class KanjiComponent {
   kanjiN2: boolean = false;
   kanjiN1: boolean = false;
 
-  kanaCopiaArray: Kanji[] = [];
-  kanaArray : Kanji[] = [];
+  kanaCopiaArray: Grammar[] = [];
+  kanaArray : Grammar[] = [];
 
 
   //Opcion que se muestra para adivinar
-  adivinar: Kanji;
+  adivinar: Grammar;
 
   //Opciones que puede adivinar el usuario
-  options: Kanji[];
+  options: Grammar[];
 
   //Booleano para cuando acierta
   success:boolean = false;
@@ -120,7 +124,7 @@ export class KanjiComponent {
 
   }
 
-  async resolver(seleccionado: Kanji){
+  async resolver(seleccionado: Grammar){
     if(seleccionado == this.adivinar){
 
 
@@ -269,7 +273,7 @@ export class KanjiComponent {
     }
 
     //Inicializo el array con las opciones
-    let randomElements :Kanji[] = [];
+    let randomElements :Grammar[] = [];
 
     //Comprobar si kanaCopiaArray tiene suficientes kanas para sacar
     if(this.kanaCopiaArray.length < numeroKanas){
@@ -504,31 +508,31 @@ export class KanjiComponent {
     }
   }
 
-  kanjiInfo(kanji: Kanji, event: Event){
-    event.stopPropagation();
-    Swal.fire({
-      heightAuto: false,
-      showCancelButton: true,
-      showConfirmButton: false,
-      cancelButtonText: 'Close',
-      title: kanji.kanji,
-      html: ` <div class="onyomi">
-              <div class="title">Onyomi</div>
-              <div class="text">${kanji.onyomi_text ? kanji.onyomi_text : " - "}</div>
-              <div class="kana">${kanji.onyomi_kana ? kanji.onyomi_kana : " - "}</div>
-            </div>
-            <div class="kunyomi">
-             <div class="title">Kunyomi</div>
-              <div class="text">${kanji.kunyomi_text ? kanji.kunyomi_text : " - "}</div>
-             <div class="kana">${kanji.kunyomi_kana ? kanji.kunyomi_kana : " - "}</div>
-            </div>`,
-      customClass: {
-        popup: 'custom-popup',
-              title: 'swalKanjiInfoTitle',
-              htmlContainer: 'swalYomi'
-      }
-    })
-  }
+  // kanjiInfo(kanji: Grammar, event: Event){
+  //   event.stopPropagation();
+  //   Swal.fire({
+  //     heightAuto: false,
+  //     showCancelButton: true,
+  //     showConfirmButton: false,
+  //     cancelButtonText: 'Close',
+  //     title: kanji.kanji,
+  //     html: ` <div class="onyomi">
+  //             <div class="title">Onyomi</div>
+  //             <div class="text">${kanji.onyomi_text ? kanji.onyomi_text : " - "}</div>
+  //             <div class="kana">${kanji.onyomi_kana ? kanji.onyomi_kana : " - "}</div>
+  //           </div>
+  //           <div class="kunyomi">
+  //            <div class="title">Kunyomi</div>
+  //             <div class="text">${kanji.kunyomi_text ? kanji.kunyomi_text : " - "}</div>
+  //            <div class="kana">${kanji.kunyomi_kana ? kanji.kunyomi_kana : " - "}</div>
+  //           </div>`,
+  //     customClass: {
+  //       popup: 'custom-popup',
+  //             title: 'swalGrammarInfoTitle',
+  //             htmlContainer: 'swalYomi'
+  //     }
+  //   })
+  // }
 
 
 
@@ -676,7 +680,7 @@ export class KanjiComponent {
     return result;
   }
 
-  shuffleArray(array : Kanji[]) {
+  shuffleArray(array : Grammar[]) {
     var m = array.length, t, i;
 
     while (m) {

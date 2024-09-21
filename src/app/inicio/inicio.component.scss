@@ -1,196 +1,250 @@
-@media only screen and (max-width: 600px) {
-  .containerPhone{
-    display: flex;
-    justify-content: space-between;
+@media only screen and (max-width:839.98px) and (orientation: portrait), (max-width: 1279.98px) and (orientation: landscape)
+{
+  .left{
+    flex:1 !important;
     height:100%;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-secondary) !important;
-    color: var(--color-primary) !important;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding:20px;
+  }
+  .left .title{
+    margin-top:20px;
+    margin-bottom:0;
+  }
+  .left .title h1{
+    font-size:4rem;
+    margin-bottom:10px;
+  }
+  .left .title h3{
+    font-size:1.3rem;
   }
 
-  .splitPhone{
-    width: 100%;
-    padding: 0 5px 0 5px;
-    font-size:1.5rem;
+  .left .description{
+    padding:30px 30px;
+  }
+
+  .goRight{
+    background-color:var(--container-light);
+    border-radius:20px;
+    box-shadow: 5px 5px 10px 0px rgba(94, 80, 63, 1),
+    inset 1px 1px 2px 0px rgba(255, 255, 255, 1);
+    color:var(--descripcion);
+    width:100px;
+    height:100px;
+    margin:20px;
+    align-items: center;
+    justify-content: center;
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-    justify-content: center;
-    align-items: center;
+    gap: 5px;
+  }
+  .goRight i{
+    font-size:2rem;
+    transform: rotate(180deg);
   }
 
-  .titlePhone{
-    flex: 0 1 25%;
-    text-align: center;
-  }
-  .titlePhone h1{
-    font-size:4rem !important;
-  }
-  .titlePhone h3{
-    font-size:1.3rem !important;
-    color:var(--color-gray);
+  .container{
+    flex-direction: column !important;
   }
 
-  .containerOpcionesPhone{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    margin-bottom: 35px;
-    width:90%;
-    gap:10px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+  .right{
+    flex: 1 !important;
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding:20px;
+    width:100%;
   }
 
-  .opcionMenuPhone{
-    color:var(--color-primary);
-    text-decoration: none;
-    border:1px solid var(--color-primary);
-    border-radius:65px;
-    padding: 10px 0px;
-    flex: 0 1 80%;
-    line-height: normal;
-  }
-
-  .opcionMenuPhone small{
+  .option{
+    gap:5px;
     font-size:1rem;
-    color: var(--color-gray);
+    width:100%;
   }
 
-  .libreriaPhone{
-    font-size: 1rem;
+  .game{
+    flex:0 1 100%;
+    padding:15px;
+    border-radius:100px;
+  }
+
+  .game span{
+    display: block;
+  }
+
+  .library{
+    width:50px;
+    height:50px;
+    padding:25px;
+    border-radius:100px;
     display: flex;
-    color:var(--color-primary);
-    text-decoration: none;
-    border:1px solid var(--color-primary);
-    border-radius:650px;
-    text-align: center;
     justify-content: center;
     align-items: center;
-    width:40px;
-    height:40px;
   }
 
-
-  .invisiblePhone{
-    visibility: hidden !important;
+  .goLeft{
+    background-color: var(--container-light);
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 0px rgb(94, 80, 63), inset 1px 1px 2px 0px rgb(255, 255, 255);
+    color: var(--descripcion);
+    margin: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
   }
 
 
 }
 
-@media only screen and (min-width: 601px) {
-
-  .container {
-    display: flex;
-    justify-content: space-between;
-    height:100%;
-    justify-content: center;
-    align-items: center;
-
-    background-color: var(--color-secondary) !important;
-    color: var(--color-primary) !important;
+@media only screen and (min-width: 840px) and (orientation: portrait), (min-width: 1280px) and (orientation: landscape) {
+  .left{
+    padding:60px;
   }
-  .container .split {
-    width: 100%;
-    height:100%;
-    padding: 0 5px 0 5px;
+
+  .left .title{
+    margin-bottom:40px;
+  }
+
+  .left .title h1{
+    font-size:6rem;
+    margin-bottom:40px;
+  }
+
+  .left .title h3{
     font-size:2rem;
   }
 
-
-  /* Estilo general para el contenedor */
-  .split {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Ocupa toda la altura de la ventana */
-    justify-content: center;
-    align-items: center;
+  .left .description{
+    padding:60px 40px;
   }
 
-  /* Parte superior que ocupa la mitad del contenedor */
-  .top-half {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .option{
+    width:60%;
+    gap:20px;
+    font-size:1.5rem;
   }
 
-  .title{
-    flex: 0 1 25%;
-    text-align: center;
-  }
-  .title h1{
-    font-size:4rem !important;
-  }
-  .title h3{
-    font-size:1.3rem !important;
-    color:var(--color-gray);
+  .game{
+    flex:0 1 70%;
+    padding:40px;
+    border-radius:100px;
   }
 
-  .containerOpciones{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    margin-bottom: 35px;
-    width:100%;
-    gap:10px;
-    text-align: center;
-    align-items: baseline;
-
-  }
-
-  .libreria{
-    font-size: 1.5rem;
-    display: flex;
-    color:var(--color-primary);
-    text-decoration: none;
-    border:1px solid var(--color-primary);
-    border-radius:650px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    width:70px;
-    height:70px;
-  }
-
-
-  .opcionMenu{
-    border:1px solid var(--color-primary);
-    border-radius:65px;
-    text-align: center;
-    padding:35px;
-    min-width: 500px;
-    margin-bottom: 35px;
-    text-decoration:none;
-    color:var(--color-primary);
-    max-height:80px;
-
-
-  }
-  .opcionMenu span{
-    color: var(--color-gray);
-  }
-
-  .opcionMenu:hover{
-    cursor: pointer;
-    background-color: var(--color-gray);
-  }
-
-  .opcionMenu:hover span{
-    color: var(--color-primary);
-  }
-
-  .libreria:hover{
-    cursor: pointer;
-    background-color: var(--color-gray);
-  }
-
-  .invisible{
-    visibility: hidden !important;
+  .library{
+    width:100px;
+    height:100px;
+    padding:40px;
+    border-radius:100px;
   }
 
 }
 
+
+
+
+//ESTILOS GENERALES
+
+* {
+  box-sizing: border-box;
+}
+
+
+.container{
+  border-radius:20px;
+ // background-color: var(--container-light);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:100%;
+ // box-shadow: 15px 15px 20px 0px rgba(94, 80, 63, 1);
+  box-shadow: 20px 20px 25px 5px rgba(94, 80, 63, 1);
+}
+
+.left{
+  flex:0 1 40%;
+  background-color:var(--container-dark);
+  //background: linear-gradient(to bottom, var(--container-dark), var(--container-dark));
+  height:100%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color:var(--text);
+  box-shadow: inset 1px 1px 2px 0px rgb(255, 255, 255);
+
+}
+
+.left .title{
+ // flex:0 1 30%;
+text-align: center;
+}
+
+.left .description{
+
+  background-color:var(--container-light);
+  border-radius:40px;
+  box-shadow: 5px 5px 10px 0px rgba(94, 80, 63, 1),
+  inset 1px 1px 2px 0px rgba(255, 255, 255, 1);
+  color:var(--descripcion);
+  background-image: url('/assets/img/sakura-30.png'); /* Imagen de fondo */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el div */
+  background-position: center; /* Centra la imagen */
+
+}
+
+.right{
+  flex:0 1 60%;
+  background-color: var(--container-light);
+  //background: linear-gradient(to bottom, var(--container-light), var(--container-light2));
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height:100%;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  gap:30px;
+  box-shadow: inset 0.1px 1px 2px 0px rgb(255, 255, 255);
+  background-image: url('/assets/img/sakura-30.png'); /* Imagen de fondo */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el div */
+  background-position: center; /* Centra la imagen */
+  background-blend-mode: soft-light;
+}
+
+.option{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.option a span{
+  margin-left:10px;
+  color:var(--text-50);
+}
+
+
+
+.game{
+  background-color: var(--container-dark);
+  text-decoration: none;
+  color:var(--text);
+  box-shadow: inset 0.5px 0.5px 0.5px 0px rgb(94, 80, 63, 0.5), 0.5px 0.5px 0.5px 0px rgb(94, 80, 63, 0.5);
+}
+
+.library{
+  background-color: var(--container-dark);
+  text-decoration: none;
+  color:var(--text);
+  box-shadow: inset 0.5px 0.5px 0.5px 0px rgb(94, 80, 63, 0.5), 0.5px 0.5px 0.5px 0px rgb(94, 80, 63, 0.5);
+
+}

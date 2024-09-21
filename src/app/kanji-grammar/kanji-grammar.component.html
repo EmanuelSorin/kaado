@@ -91,30 +91,19 @@
     </div>
     <div class="top-half">
       <div class="center-content kanjiAdivinar">
-        <div [ngClass]="{'adivinarRomaji' : queAdivina == 'romaji'}">{{queAdivina == 'kana' ? adivinar.kanji : adivinar.meaning}}</div>
-        <div *ngIf="queAdivina == 'kana' && showYomi" class="yomi">
-            <div class="onyomi">
-              <div class="title">Onyomi</div>
-              <div class="text">{{adivinar.onyomi_text ? adivinar.onyomi_text : " - "}}</div>
-              <div class="kana">{{adivinar.onyomi_kana ? adivinar.onyomi_kana : ""}}</div>
-            </div>
-            <div class="kunyomi">
-              <div class="title">Kunyomi</div>
-              <div class="text">{{adivinar.kunyomi_text ? adivinar.kunyomi_text : " - "}}</div>
-              <div class="kana">{{adivinar.kunyomi_kana ? adivinar.kunyomi_kana : ""}}</div>
-            </div>
-        </div>
+        <div [ngClass]="{'adivinarRomaji' : queAdivina == 'romaji'}">{{queAdivina == 'kana' ? adivinar.kana : adivinar.meaning}}</div>
+
       </div>
     </div>
     <div class="bottom-half" [ngClass]="{'grid-1x2': level == 1, 'grid-2x2': level == 2, 'grid-3x3': level == 3}">
       <div class="grid-item" (click)="this.resolver(this.option)"
         [ngClass]="{'failed': !this.option.estado , 'disabled': success , 'adivinarRomaji' : queAdivina == 'romaji'}" *ngFor="let option of options" >
 
-          {{queAdivina == 'kana' ? option.meaning : option.kanji}}
-          <div *ngIf="queAdivina == 'romaji' && option.estado" class="kanjiInfo" (click)="kanjiInfo(option,$event)"  matTooltip="Show onyomi and kunyomi"><i class="fa-solid fa-info"></i></div>
+          {{queAdivina == 'kana' ? option.meaning : option.kana}}
+          <div *ngIf="queAdivina == 'romaji' && option.estado" class="kanjiInfo"  matTooltip="Show onyomi and kunyomi"><i class="fa-solid fa-info"></i></div>
 
 
-        <div *ngIf="!this.option.estado">( {{queAdivina == 'kana' ? option.kanji : option.meaning}} )</div>
+        <div *ngIf="!this.option.estado">( {{queAdivina == 'kana' ? option.kana : option.meaning}} )</div>
       </div>
     </div>
   </div>
@@ -130,19 +119,8 @@
 
 
         <div class="typeGameAdivina">
-          <h1>{{adivinar.kanji}}
-            <div *ngIf="showYomi" class="yomi">
-              <div class="onyomi">
-                <div class="title">Onyomi</div>
-                <div class="text">{{adivinar.onyomi_text ? adivinar.onyomi_text : " - "}}</div>
-                <div class="kana">{{adivinar.onyomi_kana ? adivinar.onyomi_kana : ""}}</div>
-              </div>
-              <div class="kunyomi">
-                <div class="title">Kunyomi</div>
-                <div class="text">{{adivinar.kunyomi_text ? adivinar.kunyomi_text : " - "}}</div>
-                <div class="kana">{{adivinar.kunyomi_kana ? adivinar.kunyomi_kana : ""}}</div>
-              </div>
-          </div>
+          <h1>{{adivinar.kana}}
+
 
 
           </h1>
@@ -295,18 +273,9 @@
 
   <div class="halfPhone" *ngIf="cardGame">
     <div class="cardGameAdivinarPhone" *ngIf="cardGame">
-      <div [ngClass]="{'adivinarRomaji' : queAdivina == 'romaji'}">{{queAdivina == 'kana' ? adivinar.kanji : adivinar.meaning}}</div>
+      <div [ngClass]="{'adivinarRomaji' : queAdivina == 'romaji'}">{{queAdivina == 'kana' ? adivinar.kana : adivinar.meaning}}</div>
       <div *ngIf="queAdivina == 'kana' && showYomi" class="yomi">
-        <div class="onyomi">
-          <div class="title">Onyomi</div>
-          <div class="text">{{adivinar.onyomi_text ? adivinar.onyomi_text : " - "}}</div>
-          <div class="kana">{{adivinar.onyomi_kana ? adivinar.onyomi_kana : ""}}</div>
-        </div>
-        <div class="kunyomi">
-          <div class="title">Kunyomi</div>
-          <div class="text">{{adivinar.kunyomi_text ? adivinar.kunyomi_text : " - "}}</div>
-          <div class="kana">{{adivinar.kunyomi_kana ? adivinar.kunyomi_kana : ""}}</div>
-        </div>
+
     </div>
     </div>
   </div>
@@ -318,10 +287,10 @@
       <div class="grid-item-phone" (click)="this.resolver(this.option)"
         [ngClass]="{'failed': !this.option.estado , 'disabled': success}" *ngFor="let option of options">
 
-        {{queAdivina == 'kana' ? option.meaning : option.kanji}}
-        <div *ngIf="queAdivina == 'romaji' && option.estado" class="kanjiInfo" (click)="kanjiInfo(option,$event)"  matTooltip="Show onyomi and kunyomi"><i class="fa-solid fa-info"></i></div>
+        {{queAdivina == 'kana' ? option.meaning : option.kana}}
+        <div *ngIf="queAdivina == 'romaji' && option.estado" class="kanjiInfo"  matTooltip="Show onyomi and kunyomi"><i class="fa-solid fa-info"></i></div>
 
-        <div *ngIf="!this.option.estado"> &nbsp;<span class="romajiFailed">( {{queAdivina == 'kana' ? option.kanji :
+        <div *ngIf="!this.option.estado"> &nbsp;<span class="romajiFailed">( {{queAdivina == 'kana' ? option.kana :
             option.meaning}} )</span></div>
       </div>
     </div>
@@ -330,19 +299,7 @@
       <div class="flexColumn">
         <div class="typeCardPhone" [ngClass]="{'typeGameFail' : typeGameFail, 'typeGameFailShake' : typeGameFailShake, 'typeGameCorrect' : typeCardCorrect}">
           <div class="typeGameAdivina">
-            <h1>{{adivinar.kanji}}
-              <div *ngIf="showYomi" class="yomi">
-                <div class="onyomi">
-                  <div class="title">Onyomi</div>
-                  <div class="text">{{adivinar.onyomi_text ? adivinar.onyomi_text : " - "}}</div>
-                  <div class="kana">{{adivinar.onyomi_kana ? adivinar.onyomi_kana : ""}}</div>
-                </div>
-                <div class="kunyomi">
-                  <div class="title">Kunyomi</div>
-                  <div class="text">{{adivinar.kunyomi_text ? adivinar.kunyomi_text : " - "}}</div>
-                  <div class="kana">{{adivinar.kunyomi_kana ? adivinar.kunyomi_kana : ""}}</div>
-                </div>
-            </div>
+            <h1>{{adivinar.kana}}
 
 
             </h1>
@@ -492,3 +449,4 @@
 <div class="centered-div success" [ngClass]="{ 'hidden': !success }" *ngIf="!isPhone">
   <i class="fa-solid fa-check fa-beat"></i>
 </div>
+

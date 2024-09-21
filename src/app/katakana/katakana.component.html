@@ -1,11 +1,14 @@
 <div class="container" *ngIf="!isPhone">
 
   <!-- COLUMNA 1 OPCIONES -->
-  <div class="split" *ngIf="!isPhone">
+  <div class="split optionsColumn" *ngIf="!isPhone">
     <div class="top-half botonMenu">
       <a href='/' class="link" matTooltip="Go main   menu" [matTooltipPosition]="'after'">
         <i class="fa-solid fa-chevron-left"></i>
       </a>
+    </div>
+    <div class="top-half textOption">
+      MODE
     </div>
     <div class="top-half">
       <div class="optionGame" [ngClass]="{'optionGameSelected' : cardGame}" (click)="changeToCardGame()">
@@ -18,9 +21,8 @@
       </div>
     </div>
 
-    <div class="top-half alignItemsBaseline">
-      <p class="hint" *ngIf="cardGame">Click on the card that represents this kana</p>
-      <p class="hint" *ngIf="typeGame">Type the kana shown and press enter to submit</p>
+    <div class="top-half textOption">
+      GUESS KANA SET
     </div>
 
     <div class="top-half">
@@ -37,6 +39,10 @@
             Kana</mat-checkbox>
         </div>
       </div>
+    </div>
+
+    <div class="top-half textOption" *ngIf="cardGame">
+      DIFFICULTY
     </div>
 
     <div class="difficulty top-half" [ngClass]="{'invisible': !cardGame}">
@@ -60,6 +66,11 @@
       </div>
     </div>
 
+    <div class="top-half textOption" *ngIf="cardGame">
+      GUESS {{queAdivina == 'kana' ? 'KANA' : 'ROMAJI'}} CHARACTERS
+
+      </div>
+
     <div class="top-half alignItemsBaseline" [ngClass]="{'invisible': !cardGame}">
       <div class="adivinar" (click)="toogleQueAdivina()">
         {{queAdivina == 'kana' ? 'かな' : 'Romaji'}}
@@ -72,6 +83,10 @@
 
   <!-- COLUMNA 2   CARD GAME-->
   <div class="split" *ngIf="cardGame">
+
+    <div class="top-half  hints">
+      <div class="hint" *ngIf="cardGame">Click on the card that represents this kana</div>
+    </div>
     <div class="top-half">
       <div class="center-content">
         {{queAdivina == 'kana' ? adivinar.kana : adivinar.romaji}}
@@ -88,10 +103,21 @@
 
   <!-- COLUMNA 2   TYPE GAME-->
   <div class="split" *ngIf="typeGame">
+
+    <div class="top-half hints">
+      <div class="hint" *ngIf="typeGame">Type the kana shown and press enter to submit</div>
+    </div>
     <div class="top-half flexColumn">
       <div class="typeCard" [ngClass]="{'typeGameFail' : typeGameFail, 'typeGameFailShake' : typeGameFailShake}">
-        <h1>{{adivinar.kana}}<span *ngIf="typeGameShowKanaValue">( {{adivinar.romaji}} )</span></h1>
-        <input type="text" placeholder="Type the kana" (keydown.enter)="adivinarTypeGame($event)" #typeGameInput>
+        <div class="typeGameAdivina">
+          <h1>{{adivinar.kana}}<span *ngIf="typeGameShowKanaValue">( {{adivinar.romaji}} )</span></h1>
+        </div>
+        <div class="typeGameInputs">
+          <input type="text" placeholder="Type the kana" (keydown.enter)="adivinarTypeGame($event)" #typeGameInput>
+          <button class="typeGameSubmit" matTooltip="Submit answer" (click)="adivinarTypeGame($event)">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
       <div class="typeGameButtons">
         <div class="typeCardSkipKana" (click)="typeGameSkipKana()" matTooltip="Skip kana (lose streak)">
@@ -107,17 +133,20 @@
   <!-- COLUMNA 3 PUNTUACION -->
   <div class="split" *ngIf="!isPhone">
     <div class="top-half"></div>
-    <div class="top-half" id="emoteContainer">
+    <ng-container *ngIf="showStreak">
       <div class="emote" *ngFor="let emote of showEmoteArray">{{emote}}</div>
-    </div>
+    </ng-container>
     <div class="top-half alignItemsBaseline points">
-      <div>
+      <div *ngIf="showStreak">
         <h1 [ngClass]="{'streakFailShake' : streakFailShake , 'normalGradient' : !streakFailShake}"><i class="fas fa-meteor"></i> Streak : {{cardGame ? cardGameStreak : typeGameStreak}}</h1>
         <h2> <i class="fas fa-trophy"></i> &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}} &nbsp; <i
             class="fas fa-trophy"></i> </h2>
       </div>
     </div>
     <div class="top-half">
+      <div class="display-flex flexColumn alignItemsBaseline">
+        <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
+      </div>
     </div>
   </div>
 </div>
@@ -136,7 +165,13 @@
 <!-- CONTAINER VERSION MOVIL -->
 <div class="containerPhone" *ngIf="isPhone" (click)="menuLateral ? hideMenuLateral() : null">
 
-  <div class="halfPhone pointsPhone" [ngClass]="{'typeGameScorePhone' : typeGame}">
+
+  <div class="halfPhone containerHintPhone">
+    <p class="hint" *ngIf="cardGame">Click on the card that represents this kana</p>
+    <p class="hint" *ngIf="typeGame">Type the kana shown and press enter to submit</p>
+  </div>
+
+  <div class="halfPhone pointsPhone" [ngClass]="{'typeGameScorePhone' : typeGame}" *ngIf="showStreak">
     <div class="emotePhone" *ngFor="let emote of showEmoteArray">{{emote}}</div>
     <div [ngClass]="{'streakFailShake' : streakFailShake, 'streakPhone': !streakFailShake}"><i class="fas fa-meteor"></i> Streak : {{cardGame ? cardGameStreak : typeGameStreak}}</div>
     <div class="bestPhone"> <i class="fas fa-trophy"></i> &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}}
@@ -149,7 +184,7 @@
     </div>
   </div>
 
-  <div class="halfPhone containerGamePhone">
+  <div class="halfPhone containerGamePhone" [ngClass]="{'typeGamePhoneBaseline': typeGame}">
     <div class="cardGameGridPhone"
       [ngClass]="{'grid-1x2-phone': level == 1, 'grid-2x2-phone': level == 2, 'grid-3x3-phone': level == 3}"
       *ngIf="cardGame">
@@ -164,8 +199,15 @@
     <ng-container *ngIf="typeGame">
       <div class="flexColumn">
         <div class="typeCardPhone" [ngClass]="{'typeGameFail' : typeGameFail, 'typeGameFailShake' : typeGameFailShake}">
-          <h1>{{adivinar.kana}}<span *ngIf="typeGameShowKanaValue">( {{adivinar.romaji}} )</span></h1>
-          <input type="text" placeholder="Type the kana" (keydown.enter)="adivinarTypeGame($event)" #typeGameInput>
+          <div class="typeGameAdivina">
+            <h1>{{adivinar.kana}}<span *ngIf="typeGameShowKanaValue">( {{adivinar.romaji}} )</span></h1>
+          </div>
+          <div class="typeGameInputs">
+            <input type="text" placeholder="Type the kana" (keydown.enter)="adivinarTypeGame($event)" #typeGameInput>
+            <div class="typeGameSubmit" matTooltip="Submit answer" (click)="adivinarTypeGame($event)">
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
         </div>
         <div class="typeGameButtons">
           <div class="typeCardSkipKanaPhone" (click)="typeGameSkipKana()" matTooltip="Skip kana (lose streak)">
@@ -180,10 +222,6 @@
 
   </div>
 
-  <div class="halfPhone containerHintPhone">
-    <p class="hint" *ngIf="cardGame">Click on the card that represents this kana</p>
-    <p class="hint" *ngIf="typeGame">Type the kana shown and press enter to submit</p>
-  </div>
 
 </div>
 
@@ -195,7 +233,13 @@
 <div *ngIf="isPhone && menuLateral" class="hideConfigPhoneButton" (click)="hideMenuLateral()">
   <i class="fa-solid fa-xmark"></i>
 </div>
-  <div class="halfPhone containerOptionGamePhone">
+  <div class="halfPhone textOptionsMenu">
+    OPTIONS
+  </div>
+  <div class="halfPhone textOption">
+    MODE
+  </div>
+  <div class="halfPhone ">
     <div class="optionGamePhone" [ngClass]="{'optionGameSelectedPhone' : cardGame}" (click)="changeToCardGame()">
       <i class="fa-solid fa-border-all"></i>
       Card
@@ -204,13 +248,10 @@
       <i class="fa-regular fa-keyboard"></i>
       Type
     </div>
-    <div class="infoOptionGamePhone">
-      Pick the correct kana among several cards
-      <br />
-      Type the correct kana shown on screen
-    </div>
   </div>
-
+  <div class="halfPhone textOption">
+    GUESS KANA SET
+  </div>
   <div class="halfPhone kanaOptionsPhone">
     <div>
       <mat-checkbox [checked]="mainKana" (click)="toogleKanaOptions('mainKana',$event)">Main Kana</mat-checkbox>
@@ -224,7 +265,9 @@
         Kana</mat-checkbox>
     </div>
   </div>
-
+  <div class="halfPhone textOption" *ngIf="cardGame">
+    DIFFICULTY
+  </div>
   <div class="halfPhone">
     <ng-container *ngIf="cardGame">
       <div class="levelPhone" [ngClass]="{'levelSelectedPhone': level == 1}" (click)="changeLevel(1)">
@@ -248,7 +291,10 @@
     </ng-container>
   </div>
 
-  <div class="halfPhone containerAdivinarPhone">
+  <div class="halfPhone textOption" *ngIf="cardGame">
+    GUESS {{queAdivina == 'kana' ? 'KANA' : 'ROMAJI'}} CHARACTERS
+  </div>
+  <div class="halfPhone flexColumn">
     <ng-container *ngIf="cardGame">
       <div class="adivinarPhone" (click)="toogleQueAdivina()">
         {{queAdivina == 'kana' ? 'かな' : 'Romaji'}}
@@ -256,6 +302,10 @@
         {{queAdivina == 'kana' ? 'Romaji' : 'かな'}}
       </div>
     </ng-container>
+    <div class="display-flex flexColumn mt-2">
+      <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
+    </div>
+
   </div>
 
 </div>

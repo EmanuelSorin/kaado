@@ -17,6 +17,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTabsModule} from '@angular/material/tabs';
 
 //Cookies
 import { CookieService } from 'ngx-cookie-service';
@@ -25,6 +26,12 @@ import { InicioComponent } from './inicio/inicio.component';
 import { KanjiComponent } from './kanji/kanji.component';
 import { HiraganaHelpComponent } from './hiragana-help/hiragana-help.component';
 import { KatakanaHelpComponent } from './katakana-help/katakana-help.component';
+import { KanjiHelpComponent } from './kanji-help/kanji-help.component';
+import { FormsModule } from '@angular/forms';
+import { KanjiGrammarComponent } from './kanji-grammar/kanji-grammar.component';
+import { KanjiVocabComponent } from './kanji-vocab/kanji-vocab.component';
+import { KanjiVocabHelpComponent } from './kanji-vocab-help/kanji-vocab-help.component';
+import { KanjiGrammarHelpComponent } from './kanji-grammar-help/kanji-grammar-help.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +41,12 @@ import { KatakanaHelpComponent } from './katakana-help/katakana-help.component';
     InicioComponent,
     KanjiComponent,
     HiraganaHelpComponent,
-    KatakanaHelpComponent
+    KatakanaHelpComponent,
+    KanjiHelpComponent,
+    KanjiGrammarComponent,
+    KanjiVocabComponent,
+    KanjiVocabHelpComponent,
+    KanjiGrammarHelpComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +60,8 @@ import { KatakanaHelpComponent } from './katakana-help/katakana-help.component';
     FontAwesomeModule,
     MatTooltipModule,
     MatSidenavModule,
-
+    MatTabsModule,
+    FormsModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
