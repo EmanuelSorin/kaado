@@ -66,7 +66,7 @@ export class HiraganaComponent {
 
   //Emotes para mostrar cuando acierta
   emoteArray :string[] = ['🔥','💯','😎','💪','👌','✌️','😄','🎉','✨','💥'] ;
-  showEmoteArray:string[] = [];
+  emote:string;
 
   // Añadir una firma de índice
   [key: string]: any;
@@ -113,8 +113,10 @@ export class HiraganaComponent {
         this.cookieService.set('hiragana-cardGameStreak', this.cardGameStreak.toString());
 
          //Cada 3 seguidas correctas mostrar emote
-        if(this.cardGameStreak % 3 == 0){
-          this.showEmoteArray.push( this.emoteArray[Math.floor(Math.random() * this.emoteArray.length)]);
+        if(this.cardGameStreak % 3 == 0){         
+          this.emote="";
+          await this.delay(250);
+          this.emote= ( this.emoteArray[Math.floor(Math.random() * this.emoteArray.length)]);
         }
 
 
@@ -212,6 +214,9 @@ export class HiraganaComponent {
 
   //Funcion para conseguir los kanas para adivinar
   nuevoKana(){
+
+    this.typeGameShowKanaValue = false;
+    this.typeGameFail = false;
 
     //Dificultad para ver cuantos kanas consigues
     let numeroKanas = 4;
@@ -324,7 +329,9 @@ export class HiraganaComponent {
 
       //Cada 3 seguidas correctas mostrar emote
       if(this.typeGameStreak % 3 == 0){
-        this.showEmoteArray.push( this.emoteArray[Math.floor(Math.random() * this.emoteArray.length)]);
+        this.emote="";
+        await this.delay(250);
+        this.emote=( this.emoteArray[Math.floor(Math.random() * this.emoteArray.length)]);       
       }
 
       this.nuevoKana();
@@ -577,4 +584,10 @@ export class HiraganaComponent {
 
    return array;
  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
 }
+

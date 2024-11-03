@@ -18,6 +18,10 @@ export class InicioComponent {
 
   right:boolean = false;
 
+  isHelpModalOpen: boolean = false;
+
+  isContactModalOpen: boolean = false;
+
   ngOnInit() {
     //Handset 600px
     //RESPONSIVE mira si es movil
@@ -53,6 +57,24 @@ export class InicioComponent {
     this.left = false;
 
     window.scrollTo(0, 0);
+  }
+
+
+  
+  openHelpModal() {
+    this.isHelpModalOpen = true;
+  }
+
+  closeHelpModal() {
+    this.isHelpModalOpen = false;
+  }
+
+  openContactModal() {
+    this.isContactModalOpen = true;
+  }
+
+  closeContactModal() {
+    this.isContactModalOpen = false;
   }
 
 

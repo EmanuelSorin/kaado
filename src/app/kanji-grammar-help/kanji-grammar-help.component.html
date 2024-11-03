@@ -1,1 +1,43 @@
-<p>kanji-grammar-help works!</p>
+  <div class="container" (scroll)="onWindowScroll($event)">
+    <div class="fullHeader">
+      <div class="row header">
+        <a href='/' class="link" matTooltip="Go main menu" [matTooltipPosition]="'after'">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <h1 class="title">Alphabet overview <small class="buscadorContador" *ngIf="isSearching"> ({{searchResults.length}})</small></h1>
+        <input type="text" class="buscador" placeholder="  Search meaning or romaji"  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
+    
+      </div>
+      <div class="row rowBuscadorPhone">
+      <input type="text" class="buscadorPhone" placeholder="  Search meaning or romaji"  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
+    
+      </div>
+      <div class="rowHeader">
+        <div class="kanjiHeader" (click)="seleccionarKanji(5)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 5}">Grammar N5 <small> ({{grammarN5Array.length}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarKanji(4)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 4}">Grammar N4 <small> ({{grammarN4Array.length}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarKanji(3)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 3}">Grammar N3 <small> ({{grammarN3Array.length}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarKanji(2)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 2}">Grammar N2 <small> ({{grammarN2Array.length}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarKanji(1)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 1}">Grammar N1 <small> ({{grammarN1Array.length}})</small></div>
+      </div>
+    </div>
+    <div class="grid-container"> 
+  
+         <div class="card" *ngFor="let kanji of kanjiSeleccionado">
+          <div class="id">#{{kanji.id}}</div>
+            <div class="kanji">
+              <div class="kana">
+                {{kanji.kana}}
+              </div> 
+              <div class="romaji">
+                {{kanji.romaji}}
+              </div>      
+            </div>       
+            <div class="meaning">
+              {{kanji.meaning}}
+            </div>
+         </div>
+    </div>
+  </div>
+  
+  
+  

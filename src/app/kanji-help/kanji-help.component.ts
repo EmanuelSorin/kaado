@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { Kanji } from '../kanji/kanji';
 import { kanjiN1 } from '../kanji/kanjiN1';
 import { kanjiN2 } from '../kanji/kanjiN2';
@@ -17,10 +17,12 @@ export class KanjiHelpComponent {
 
   isSearching: boolean = false;
 
+  constructor(private el: ElementRef) { }
+
   // Detectar el scroll para mostrar o esconder el botón
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: any) {
+    const scrollPosition = this.el.nativeElement.scrollTop;
     this.isScrolled = scrollPosition > 200;
   }
 
@@ -82,6 +84,8 @@ export class KanjiHelpComponent {
 
     this.allKanjis.forEach((kanji) => {
       const meaningArray = kanji.meaning.split(',').map(item => item.trim().toLowerCase()); // Dividir el campo 'meaning'
+      meaningArray.push(kanji.kunyomi_text);
+      meaningArray.push(kanji.onyomi_text);
 
        // Verificar si alguna palabra del array de meanings contiene el texto de búsqueda
        const hasPartialMatch = meaningArray.some(meaning => meaning.includes(searchWord));

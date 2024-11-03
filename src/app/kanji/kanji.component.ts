@@ -98,6 +98,27 @@ export class KanjiComponent {
   private touchStartX: number = 0;
   private touchEndX: number = 0;
 
+
+  //Variables SLIDER
+  isModalOpen = false;
+  minKanjiN5:number = 1;
+  maxKanjiN5 :number = this.kanjiN5Array.length;
+  sliderErrorN5: string;
+  minKanjiN4:number = 1;
+  maxKanjiN4 :number = this.kanjiN4Array.length;
+  sliderErrorN4: string;
+  minKanjiN3:number = 1;
+  maxKanjiN3 :number = this.kanjiN3Array.length;
+  sliderErrorN3: string;
+  minKanjiN2:number = 1;
+  maxKanjiN2 :number = this.kanjiN2Array.length;
+  sliderErrorN2: string;
+  minKanjiN1:number = 1;
+  maxKanjiN1 :number = this.kanjiN1Array.length;
+  sliderErrorN1: string;
+
+
+
   ngOnInit() {
 
     //Handset 600px
@@ -228,20 +249,44 @@ export class KanjiComponent {
     this.kanaArray = [];
 
     //Añadir mainKata o dakuten o combination
-    if(this.kanjiN5){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN5Array];
+    if(this.kanjiN5){      
+      if((this.maxKanjiN5 - this.minKanjiN5) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN5Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN5Array.slice(this.minKanjiN5-1,this.maxKanjiN5)];
+      }    
     }
+
     if(this.kanjiN4){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN4Array];
+      if((this.maxKanjiN4 - this.minKanjiN4) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN4Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN4Array.slice(this.minKanjiN4-1,this.maxKanjiN4)];
+      }     
     }
+
     if(this.kanjiN3){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN3Array];
+      if((this.maxKanjiN3 - this.minKanjiN3) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN3Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN3Array.slice(this.minKanjiN3-1,this.maxKanjiN3)];
+      }  
     }
+
     if(this.kanjiN2){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN2Array];
-    }
+      if((this.maxKanjiN2 - this.minKanjiN2) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN2Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN2Array.slice(this.minKanjiN2-1,this.maxKanjiN2)];
+      } 
+    } 
+
     if(this.kanjiN1){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN1Array];
+      if((this.maxKanjiN1 - this.minKanjiN1) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN1Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.kanjiN1Array.slice(this.minKanjiN1-1,this.maxKanjiN1)];
+      } 
     }
 
 
@@ -351,7 +396,6 @@ export class KanjiComponent {
   }
   compareStrings(str1: string, str2: string, threshold: number = 0.85): boolean {
     const similarity = stringSimilarity.compareTwoStrings(str1, str2);
-    console.log(similarity);
     return similarity >= threshold;
   }
 
@@ -472,7 +516,6 @@ export class KanjiComponent {
   }
 
   showMenuLateral(){
-    console.log("AA");
     this.menuLateral = true;
   }
 
@@ -688,4 +731,209 @@ export class KanjiComponent {
 
    return array;
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+
+  validateRange() {
+
+    // Si la diferencia es menor a la mínima permitida, ajustamos los valores
+    if ((this.maxKanjiN5 - this.minKanjiN5) < 8) {
+     //No puedes guardar
+      this.sliderErrorN5="The difference between the minimum and maximum must be at least 9. All kanji will be shown.";
+      return;
+    }else{
+      this.sliderErrorN5="";
+    }
+
+    if ((this.maxKanjiN4 - this.minKanjiN4) < 8) {
+      //No puedes guardar
+       this.sliderErrorN4="The difference between the minimum and maximum must be at least 9. All kanji will be shown.";
+       return;
+     }else{
+       this.sliderErrorN4="";
+     }
+
+     if ((this.maxKanjiN3 - this.minKanjiN3) < 8) {
+      //No puedes guardar
+       this.sliderErrorN3="The difference between the minimum and maximum must be at least 9. All kanji will be shown";
+       return;
+     }else{
+       this.sliderErrorN3="";
+     }
+
+     if ((this.maxKanjiN2 - this.minKanjiN2) < 8) {
+      //No puedes guardar
+       this.sliderErrorN2="The difference between the minimum and maximum must be at least 9. All kanji will be shown";
+       return;
+     }else{
+       this.sliderErrorN2="";
+     }
+
+     if ((this.maxKanjiN1 - this.minKanjiN1) < 8) {
+      //No puedes guardar
+       this.sliderErrorN1="The difference between the minimum and maximum must be at least 9. All kanji will be shown";
+       return;
+     }else{
+       this.sliderErrorN1="";
+     }
+
+
+    this.closeModal();
+    this.setKanaArray();
+    
+  }
+
+  minusMin(kanjiN: number){
+   if(kanjiN == 5){
+    if(this.minKanjiN5 > 1){
+      this.minKanjiN5--;
+    }
+   }
+
+   if(kanjiN == 4){
+    if(this.minKanjiN4 > 1){
+      this.minKanjiN4--;
+    }
+   }
+
+   if(kanjiN == 3){
+    if(this.minKanjiN3 > 1){
+      this.minKanjiN3--;
+    }
+   }
+
+   if(kanjiN == 2){
+    if(this.minKanjiN2 > 1){
+      this.minKanjiN2--;
+    }
+   }
+
+   if(kanjiN == 1){
+    if(this.minKanjiN1 > 1){
+      this.minKanjiN1--;
+    }
+   }
+  }
+
+  plusMin(kanjiN: number){
+    if(kanjiN == 5){
+      if(this.minKanjiN5 < this.kanjiN5Array.length && this.minKanjiN5 < this.maxKanjiN5){
+        this.minKanjiN5++;
+      }
+    }
+
+    if(kanjiN == 4){
+      if(this.minKanjiN4 < this.kanjiN4Array.length && this.minKanjiN4 < this.maxKanjiN4){
+        this.minKanjiN4++;
+      }
+    }
+
+    if(kanjiN == 3){
+      if(this.minKanjiN3 < this.kanjiN3Array.length && this.minKanjiN3 < this.maxKanjiN3){
+        this.minKanjiN3++;
+      }
+    }
+
+    if(kanjiN == 2){
+      if(this.minKanjiN2 < this.kanjiN2Array.length && this.minKanjiN2 < this.maxKanjiN2){
+        this.minKanjiN2++;
+      }
+    }
+
+    if(kanjiN == 1){
+      if(this.minKanjiN1 < this.kanjiN1Array.length && this.minKanjiN1 < this.maxKanjiN1){
+        this.minKanjiN1++;
+      }
+    }
+  }
+
+  minusMax(kanjiN: number){
+    if(kanjiN == 5){
+      if(this.maxKanjiN5 > 1 && this.maxKanjiN5 > this.minKanjiN5){
+        this.maxKanjiN5--;
+      }
+    }
+
+    if(kanjiN == 4){
+      if(this.maxKanjiN4 > 1 && this.maxKanjiN4 > this.minKanjiN4){
+        this.maxKanjiN4--;
+      }
+    }
+
+    if(kanjiN == 3){
+      if(this.maxKanjiN3 > 1 && this.maxKanjiN3 > this.minKanjiN3){
+        this.maxKanjiN3--;
+      }
+    }
+
+    if(kanjiN == 2){
+      if(this.maxKanjiN2 > 1 && this.maxKanjiN2 > this.minKanjiN2){
+        this.maxKanjiN2--;
+      }
+    }
+
+    if(kanjiN == 1){
+      if(this.maxKanjiN1 > 1 && this.maxKanjiN1 > this.minKanjiN1){
+        this.maxKanjiN1--;
+      }
+    }
+  }
+
+  plusMax(kanjiN: number){
+    if(kanjiN == 5){
+      if(this.maxKanjiN5 < this.kanjiN5Array.length){
+        this.maxKanjiN5++;
+      }
+    }
+
+    if(kanjiN == 4){
+      if(this.maxKanjiN4 < this.kanjiN4Array.length){
+        this.maxKanjiN4++;
+      }
+    }
+
+    if(kanjiN == 3){
+      if(this.maxKanjiN3 < this.kanjiN3Array.length){
+        this.maxKanjiN3++;
+      }
+    }
+
+    if(kanjiN == 2){
+      if(this.maxKanjiN2 < this.kanjiN2Array.length){
+        this.maxKanjiN2++;
+      }
+    }
+
+    if(kanjiN == 1){
+      if(this.maxKanjiN1 < this.kanjiN1Array.length){
+        this.maxKanjiN1++;
+      }
+    }
+  }
+
 }

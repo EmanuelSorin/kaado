@@ -1,0 +1,1581 @@
+@media only screen and (max-width:839.98px) and (orientation: portrait),
+(max-width: 1279.98px) and (orientation: landscape) {
+
+  html, body { height: 100% !important; }
+  body{
+    height: 100%  !important;
+    padding:10px !important;
+  }
+
+  .container{
+    height:100%;
+    overflow-y:scroll;
+  }
+
+  .game{
+    border-radius:20px;
+  }
+
+  .game .grid-list {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+  .game-description {
+    font-size: 0.9rem;
+    width:90%;
+    text-align: center;
+    gap:30px;
+  }
+
+  .game-description .game-description-button{
+    flex:0 1 50px;
+    height:50px;
+    width:50px;
+    background-color: var(--selected);
+    border-radius:5px;
+    color:var(--container-light);
+    font-size:1rem;
+    text-align: center;
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
+  }
+  .game-description-button{
+    text-decoration: none;
+  }
+
+  .kana-failed-solution{
+    font-size: 1.4rem;  
+  }
+  .failedAdivinaKanji{
+    font-size: 1rem !important;
+  }
+
+  .text-option{
+    font-size:0.8rem;
+    line-height: 0.8rem;
+  }
+
+  .grid-item .grammar-romaji{
+    font-size:0.7rem;
+    line-height: 0.7rem;
+    flex:1;
+
+  }
+
+  .kana-type-card{
+    padding:20px;
+  }
+
+  .kana-type-controls{
+    gap:10px !important;
+  }
+
+  .phone-strike-container{
+    flex: 0 1 40px;
+  }
+
+  .phone-strike-container .phone-strike{
+    font-size: 1rem !important;
+    text-align: center;
+  }
+
+  .phone-strike h1{
+    margin:0;
+    font-size:1rem;
+  }
+
+  .phone-strike h2{
+    margin:0;
+    color: var(--selected);
+    line-height:0;
+    font-size:0.8rem;
+  }
+  
+  .phone-strike .normalGradient{    
+    font-weight: bold;
+    color: var(--selected);
+  }
+  .phone-strike .normalGradient i{
+    background: linear-gradient(0deg, #f3ab27 0%, #ef3131 100%);
+    background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+  }   
+ 
+  .phone-strike h2 i{
+    background: linear-gradient(0deg, rgb(193 133 77) 0%, rgb(219 161 26) 100%);
+    background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  }
+
+  .showMeaning{
+    font-size:1rem !important;
+    line-height: 0.9rem !important;
+  }
+
+  .streakFailShake{
+    background: linear-gradient(0deg, #ec6464 0%,#d31c1c 100%);
+    animation: shake 0.5s ease;
+    font-size:1rem !important;
+    margin-bottom:0 !important;
+    background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold !important;
+  }
+/* ===========================================================
+    MENU LATERAL
+   =========================================================== */
+  .menuLateral{
+    background-color:var(--container-light);
+    height:100%;
+    width:90%;
+    position: fixed;
+    top: 0;
+    left:0;
+    z-index: 10;
+    transition: transform 0.4s ease;
+    transform: translateX(0);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 4px 2px 10px 5px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+    background-image: url(/assets/img/sakura-30.png);
+    background-size: cover;
+    background-blend-mode: overlay;
+    overflow-y: scroll;
+    display:flex;
+    flex-direction: column;
+  }
+
+  .menuLateral-hidden{
+    transform: translateX(-150%); 
+    transition: transform 0.4s ease; 
+    box-shadow: none;
+  }
+
+  .menuLateral-option-title{
+    flex: 0 1 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;     
+    margin-top: 8px;
+  }
+  
+  .menuLateral-option-title h1 {
+    flex: 1;
+    text-align: center;
+    margin-right: 70px;
+    margin-bottom: 0;
+  }
+  
+  .menuLateral-option-title .exit-menuLateral {
+    flex: 0 1 40px;
+    height:40px;
+    width:40px;
+    margin-left:10px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    background-color: var(--container-light);
+    color: var(--text);
+    box-shadow: 2px 2px 5px 0px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+    z-index:20;
+  
+  }
+
+  .menuLateral-options-container {
+    width: 95%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .menuLateral-options-container .option {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    gap: 10px;
+  }
+  
+  .menuLateral-options-container .option .title {
+    flex: 0 1 25px;
+    margin-top: 15px;
+    border-bottom: 2px solid var(--container-dark);
+    width: 60%;
+  }
+  
+  .menuLateral-options-container .option .option-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+  }
+
+  
+  .option-mode {
+    border-radius: 15px;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .option-mode i {
+    font-size: 1.3rem;
+  }
+
+  .option .level {   
+    min-width: 90px;
+    margin: 0;
+}
+  /* ===========================================================
+    END MENU LATERAL
+   =========================================================== */
+
+   .card-failed .type_content{    
+    align-self: center;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+  
+  .card-failed .text{
+    display:flex;
+    flex-direction: column;
+    align-items: start;
+    font-size:1.2rem;
+    line-height: 1.2rem;
+    font-weight: 400;
+  }
+  
+  .card-failed .text .kana{
+    flex:1;
+    font-weight: 400;
+    font-size:1.2rem;
+    line-height: 1.2rem;
+  }
+  
+  .card-failed .text .romaji{
+    font-size: 0.8rem !important;
+    line-height:0.8rem !important;
+  }
+
+
+   
+   .cardGameAdivinarPhone .yomi{
+    font-size:1rem;
+    font-weight: normal;
+    justify-content: center;
+    align-items: center;
+  }
+
+ .cardGameAdivinarPhone .yomi .title{
+    text-decoration: underline;
+    margin-bottom:5px;
+    color: var(--color-gray);
+  }
+ .cardGameAdivinarPhone .yomi .text{
+
+    font-style: italic;
+  }
+
+  .cardGameAdivinarPhone .yomi .onyomi{
+    margin-bottom: 15px;
+  }
+
+  .typeCardPhone{
+    margin-top:20px;
+  }
+
+.typeCardPhone .yomi{
+  margin-top:20px;
+  margin-left:40px;
+  font-size:1rem;
+  font-weight: normal;
+  justify-content: center;
+  align-items: center;
+  line-height: normal !important;
+}
+
+.typeCardPhone .yomi .title{
+  text-decoration: underline;
+  margin-bottom:5px;
+  color: var(--color-gray);
+}
+.typeCardPhone .yomi .text{
+
+  font-style: italic;
+}
+.typeCardPhone .yomi .onyomi{
+  margin-bottom:10px;
+}
+
+.kanjiInfo{
+  border:1px solid var(--color-primary);
+  background-color:var(--color-primary);
+  color:var(--color-secondary);
+  width:30px;
+  height:30px;
+  text-align: center;
+  cursor: pointer;
+  font-size:1rem;
+  border-radius:10px;
+  align-content: center;
+  margin-left: 10px;
+}
+
+.typeCardNewKana{
+  width:80px;
+  height:80px;
+  border-radius: 10px;
+  background-color: var(--selected);
+  text-align: center;
+  color:var(--container-light);
+  margin-top:40px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center;     /* Centra el contenido horizontalmente */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.typeCardNewKana small{
+  font-size: .8rem !important;
+}
+
+
+.kana-type-text .type_content{     
+  font-size: 1.5rem !important;
+  line-height: 1.5rem !important;
+}
+
+.kana-type-text {
+  gap:20px !important;
+}
+
+.kana-type-text .text .romaji{
+  font-size:1.3rem !important;
+  line-height: 1.3rem !important;
+}
+
+
+
+.modal{
+  overflow-y: scroll;
+}
+
+.slider-row{
+  gap:0 !important;
+  flex-direction: column;
+}
+.slider-text{
+  flex:1 !important;
+}
+.slider-slider{
+  flex:1 !important;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+}
+.slider-error{
+  flex:1 !important
+}
+
+.modal-content{
+  width:90% !important;
+}
+
+mat-slider{
+  width:120px !important;
+}
+
+
+
+}
+
+/* ===========================================================
+
+   =========================================================== */
+/* ===========================================================
+   ESTILOS ORDENADOR
+   =========================================================== */
+/* ===========================================================
+
+   =========================================================== */
+
+@media only screen and (min-width: 840px) and (orientation: portrait),
+(min-width: 1280px) and (orientation: landscape) {
+
+  .game .grid-list {
+    width: 70%;
+    margin-bottom: 20px;
+  }
+
+  .game-description {
+    font-size: 1.3rem;
+  }
+  .kana-failed-solution{
+    font-size: 1.2vw;  
+  }
+  .failedAdivinaKanji{
+    font-size: 1rem !important;
+  }
+
+  .option-mode {
+    border-radius: 20px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .option-mode i {
+    font-size: 2rem;
+  }
+
+  .option .level {   
+    min-width: 100px;
+    margin: 0 10px;
+  }
+
+  .kana-type-card{
+    padding:40px;
+  }
+
+  .grid-item:hover {
+    border: none;
+    background-color: var(--selected-50);
+    color: var(--container-light);
+  }
+  
+  .option-mode:hover {
+    background-color: var(--selected-50);
+    //color:var(--color-secondary);
+    color: var(--container-light);
+    border: none;
+  }
+
+  .adivinar:hover {
+    cursor: pointer;
+    background-color: var(--selected-50);
+    border: 1px solid var(--selected-50);
+    color: var(--container-light);
+  }
+
+
+  
+  .kanjiInfo{
+    border:1px solid var(--selected);   
+    color:var(--selected);
+    width:40px;
+    height:40px;
+    text-align: center;
+    cursor: pointer;
+    font-size:1rem;
+    border-radius:5px;
+    align-content: center;
+  }
+
+  .kanjiInfo:hover{
+    border:none;
+    color:var(--container-light);
+    background-color:var(--selected-50);
+  }
+
+
+  /* Webkit (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width:8px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--selected-50);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+   // background-color: var(--container-light);
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  /* Firefox */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--selected) var(--container-light);
+  }
+
+  /* Hover effects para mejorar la interacción */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--container-dark);
+  }
+
+  ::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 8px; 
+}
+
+  ::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-top: 8px;
+}
+
+  .typeCardNewKana{
+    width:80px;
+    height:80px;
+    border-radius: 10px;
+    background-color: var(--selected);
+    text-align: center;
+    color:var(--container-light);
+    margin-top:40px;
+    font-size: 2rem;
+    cursor: pointer;
+    justify-content: center;     /* Centra el contenido horizontalmente */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .typeCardNewKana small{
+    font-size: .9rem !important;
+  }
+
+}
+
+/* ===========================================================
+
+   =========================================================== */
+/* ===========================================================
+   ESTILOS GENERALES
+   =========================================================== */
+/* ===========================================================
+
+   =========================================================== */
+
+.container {
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  box-shadow: 20px 20px 25px 5px var(--box-shadow-dark);
+}
+
+.options {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: var(--container-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  box-shadow: inset 1px 1px 2px 0px var(--box-shadow-light);
+  height: 100%;
+  gap: 20px;
+  padding: 20px 0;
+  flex:0 1 25%;
+}
+
+.option {
+  flex: 1;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ===========================================================
+   TITULO "OPTIONS"
+   =========================================================== */
+.option-title {
+  flex: 0 1 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.option-title h1 {
+  flex: 1;
+  text-align: center;
+  margin-right: 70px;
+  margin-bottom: 0;
+}
+
+.option-title a {
+  flex: 0 1 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
+  font-size: 2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: var(--container-light);
+  color: var(--text);
+  box-shadow: 2px 2px 5px 0px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+
+}
+
+.option-title a i {
+  transition: transform .5s;
+}
+
+.option-title a:hover i {
+  transition: transform .5s;
+  transform: translateX(-5px);
+}
+
+/* ===========================================================
+   END TITULO "OPTIONS"
+   =========================================================== */
+
+
+/* ===========================================================
+   CONTAINER DE OPCIONES
+   =========================================================== */
+.option-container {
+  background-color: var(--container-light);
+  width: 90%;
+  border-radius: 20px;
+  flex: 1;
+  box-shadow: 2px 2px 5px 0px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url(/assets/img/sakura-30.png);
+    background-size: cover;
+    background-blend-mode: overlay;
+    overflow-y:scroll;
+}
+
+.option-container .option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  gap: 20px;
+}
+
+.option-container .option .title {
+  flex: 0 1 25px;
+  margin-top: 15px;
+  border-bottom: 2px solid var(--container-dark);
+  width: 60%;
+}
+
+.option-container .option .option-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.option-content .vocabN{
+    flex:1;
+    align-self: flex-start;
+    text-align: left;
+}
+
+.option-content .vocabOption{
+    flex:1;
+    align-self: flex-start;
+    text-align: left;
+}
+
+/* ===========================================================
+   END CONTAINER DE OPCIONES
+   =========================================================== */
+
+
+/* ===========================================================
+   MODO DE JUEGO
+   =========================================================== */
+.option-mode {
+  border: 1px solid var(--selected);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  color: var(--selected);
+}
+
+
+.option-mode-selected {
+  background-color: var(--selected);
+  color: var(--container-light);
+}
+
+.option-mode-selected:hover {
+  background-color: var(--selected);
+}
+
+/* ===========================================================
+   END MODO DE JUEGO
+   =========================================================== */
+
+/* ===========================================================
+   DIFICULTAD
+   =========================================================== */
+.option .level {
+  border: 1px solid var(--selected);
+  border-radius: 65px;
+  padding: 5px;
+  text-align: center;
+  color: var(--selected);
+}
+
+.option .level:hover {
+  background-color: var(--selected);
+  cursor: pointer;
+  border: none;
+  color: var(--container-light);
+}
+
+.option .level-selected {
+  background-color: var(--selected);
+  color: var(--container-light);
+}
+
+/* ===========================================================
+   END DIFICULTAD
+   =========================================================== */
+
+
+/* ===========================================================
+  QUE ADIVINA
+   =========================================================== */
+.adivinar {
+  border: 1px solid var(--selected);
+  border-radius: 65px;
+  text-align: center;
+  padding: 15px;
+  min-width: 200px;
+}
+
+
+
+.adivinar i {
+  margin: 0 5px;
+  transition: transform .3s;
+}
+
+.adivinar:hover i {
+  transition: transform .4s;
+  transform: rotate(90deg);
+}
+
+/* ===========================================================
+   END QUE ADIVINA
+   =========================================================== */
+
+
+
+
+/* ===========================================================
+   COLUMNA 2
+   =========================================================== */
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  background-color: var(--container-light);
+  height: 100%;
+  box-shadow: inset 0.5px 1px 0px 0px var(--box-shadow-light-60);
+  flex:1;
+}
+
+.game-description {
+  flex: 0 1 100px;
+  color: var(--selected);
+  display: flex;
+  align-items: center;
+}
+.game-description article{
+  flex:1;
+}
+
+.game .kana {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+
+.grid-1x2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  /* Dos columnas de igual tamaño */
+  gap: 10px;
+  /* Espacio entre los elementos del grid */
+}
+
+.grid-2x2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(2, 1fr);
+  /* Tres filas de igual tamaño */
+  gap: 10px;
+  /* Espacio entre los elementos del grid */
+}
+
+.grid-3x3 {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(3, 1fr);
+  /* Tres filas de igual tamaño */
+  gap: 10px;
+  /* Espacio entre los elementos del grid */
+}
+
+.grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ font-size:1.5em;
+ line-height: 1.5em;
+  border-radius: 25px;
+  cursor: pointer;
+  border: 1px solid var(--selected);
+  color: var(--selected);
+  text-align: center;
+  gap:10px;
+}
+
+.grid-item .grammar-romaji{
+  font-size:1.2rem;
+  line-height: 1.2rem;
+  flex:0 1 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-weight: 300;
+    font-style: italic;
+}
+
+.grid-item .grammar-kana{
+  font-size:2rem !important;
+  line-height: 2rem !important; 
+}
+
+.grid-item .text-option{
+  flex:1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.kana-failed-solution{
+  flex: 0 1 40%;
+}
+
+.failed {
+  pointer-events: none !important;
+  opacity: 0.6 !important;
+  border: 1px solid var(--error) !important;
+  color: var(--error) !important;
+}
+
+
+
+.kana-type{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kana-type-card{
+  background-color: var(--selected-50);
+  border-radius:20px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 2px 5px 0px var(--box-shadow-dark);
+}
+
+.kana-type-text{
+  min-height:150px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap:40px;
+  text-align: center;
+}
+
+.showMeaning{
+  font-size:1.5rem;
+  font-weight: 200;
+  width:100%;
+  line-height: 1.5rem;
+  margin-bottom:30px;
+  text-align:center;
+}
+
+.kana-type-controls{
+  display:flex;
+  flex-direction: row;
+  gap:20px;
+}
+
+.kana-type-input{
+  flex: 1;
+}
+
+.kana-type-input input{
+  height:50px;
+  border-radius:10px;
+  border:none;
+  background-color:var(--container-light);
+  color:var(--text);
+  text-align: center;
+  font-size:1.5rem;
+}
+
+.kana-type-submit{
+  flex: 0 1 50px;
+}
+
+.kana-type-submit button{
+  border:1px solid var(--selected);
+  background-color: var(--selected);
+  color:var(--container-light);
+  border-radius:5px;
+  height:50px;
+  width:50px;
+  max-height:50px;
+  max-width:50px;
+  cursor: pointer;
+  font-size:1.5rem;
+  text-align:center;
+}
+
+
+.kana-type-submit button i{
+  transition: transform .5s;
+}
+
+.kana-type-submit button:hover i{
+  transition: transform .5s;
+  transform: translateX(3px);
+}
+.kana-type-failed{
+  background-color: var(--error);
+}
+
+.kana-type .buttons{
+  display: flex;             
+  justify-content: center;    
+  align-items: center;
+  flex-direction: row;
+}
+
+.buttons .skip-kana{
+  width:80px;
+  height:80px;
+  border-radius: 10px;
+ // border:1px solid var(--color-primary);
+  background-color: var(--selected);
+  text-align: center;
+  color:var(--container-light);
+  margin-top:20px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center; 
+  align-items: center;
+  display: flex;
+  margin-left:80px;
+}
+
+.buttons .show-kana{
+  width:50px;
+  height:50px;
+  border-radius: 10px;
+ // border:1px solid var(--color-primary);
+  background-color: var(--selected);
+  text-align: center;
+  color:var(--container-light);
+  margin-top:20px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center; 
+  align-items: center;
+  display: flex;
+  margin-left:30px;
+}
+
+/* ===========================================================
+   END COLUMNA 2
+   =========================================================== */
+
+
+
+
+
+
+
+/* ===========================================================
+   COLUMNA 3
+   =========================================================== */
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: var(--container-light);
+  height: 100%;
+  box-shadow: inset 0px 1px 0px 0px var(--box-shadow-light-60);
+  flex:0 1 25%;
+}
+
+.strike-container{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.emote-container{
+  height:100%;
+}
+
+.emote{
+  font-size:8rem;
+ 
+  display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+.emote-animation{
+  animation: fadeOut 3s ease-in-out forwards, heartbeat 3s ease-in-out forwards;
+}
+
+.strike{
+  text-align: center;
+}
+
+.strike .normalGradient{
+  font-size:3rem;
+margin-bottom:30px;
+
+    font-weight: bold;
+    color: var(--selected);
+}
+.strike .normalGradient i{
+  background: linear-gradient(0deg, #f3ab27 0%, #ef3131 100%);
+  background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+}
+
+
+.strike h2{
+
+    font-weight: bold;
+    color: var(--selected);
+}
+
+.strike h2 i{
+  background: linear-gradient(0deg, rgb(193 133 77) 0%, rgb(219 161 26) 100%);
+background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.streakFailShake{
+  background: linear-gradient(0deg, #ec6464 0%,#d31c1c 100%);
+  animation: shake 0.5s ease;
+  font-size:3rem ;
+  margin-bottom:30px ;
+  background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold !important;
+}
+
+/* ===========================================================
+   END COLUMNA 3
+   =========================================================== */
+
+
+
+
+
+
+
+
+/* ===========================================================
+   ESTILOS TICK VERDE
+   =========================================================== */
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.success {
+  color: var(--success);
+  font-size: 12rem;
+  display: block;
+}
+/* ===========================================================
+   END ESTILOS TICK VERDE
+   =========================================================== */
+
+
+
+   
+.custom-popup{
+  background-color: red !important;
+}
+  .custom-popup .swalYomi  .onyomi{
+    margin-bottom: 30px !important;
+  }
+
+  .custom-popup .swalYomi {
+    font-size:1rem;
+    font-weight: normal;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custom-popup > .swalYomi > .title{
+    text-decoration: underline!important;
+    margin-bottom:5px!important;
+    color: var(--color-gray)!important;
+  }
+  .custom-popup .swalYomi  .text{
+
+    font-style: italic;
+  }
+
+  .custom-popup .swalKanjiInfoTitle{
+    font-size:large
+  }
+
+
+
+  .kana-type-text{
+    margin-bottom:10px;
+  }
+
+
+  .kana-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width:100%;
+    flex-direction: column;
+  }
+  
+.kana-card .grammar-romaji{
+  font-weight: 300;
+  font-size:2rem;
+  font-style: italic;
+}
+  
+    .kana-card .queAdivina{
+      font-size:3rem;
+      line-height: 3rem;
+      text-align:center;
+      font-weight: 600;
+    }
+
+
+.failedRomaji{
+  font-size:1rem;
+  line-height:0.9rem;
+  font-weight: 400;
+  font-style: italic;
+  display: block;
+}
+
+
+.typeCardInfo{
+  flex:0 1 20px;
+  margin-bottom:5px;
+}
+
+.grid-list{
+  max-height: 100%;
+    overflow-y: scroll;
+}
+
+
+
+.vocab-card-kana {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    gap:60px;
+  }
+  
+  .vocab-card-kana .type_content{    
+    align-self: center;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+  
+  .vocab-card-kana .text{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:30px;
+    font-size:1.5rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+  }
+  
+  .vocab-card-kana .text .kana{
+    flex:1;
+    text-align: left !important;
+  }
+  
+  .vocab-card-kana .text .romaji{
+    flex:1;
+    font-style: italic;
+    font-weight: 300;
+    text-align: left !important;
+  }
+
+
+
+  .kana-type-text .type_content{    
+    align-self: center;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+  
+  .kana-type-text .text{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+    font-size:1.5rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+  }
+  
+  .kana-type-text .text .kana{
+    flex:1;
+  }
+  
+  .kana-type-text .text .romaji{
+    flex:1;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+
+  .card-failed {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    gap:20px;
+  }
+  
+  .card-failed .type_content{    
+    align-self: center;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+  
+  .card-failed .text{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  //  gap:10px;
+  font-size:1.2rem;
+  line-height: 1.2rem;
+    font-weight: 400;
+  }
+  
+  .card-failed .text .kana{
+    flex:1;
+    font-weight: 400;
+    font-size:1.2rem;
+    line-height: 1.2rem;
+  }
+  
+  .card-failed .text .romaji{
+    flex:1;
+    font-style: italic;
+    font-weight: 300;
+    font-size:1.2rem;
+    line-height: 1.2rem;
+  }
+
+  .vocab-card-meaning{
+    font-size:2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+  }
+
+
+  .card-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    gap:20px;
+  }
+  
+  .card-option .type_content{    
+    align-self: center;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .card-option .text{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-size:1.3rem;
+    line-height: 1.3rem;
+    font-weight: 400;
+  }
+  
+  .card-option .text .kana{
+    font-size:1.3rem;
+    line-height: 1.3rem;
+    flex:1;
+    font-weight: 400;
+  }
+  
+  .card-option .text .romaji{
+    font-size:1.3rem;
+    line-height: 1.3rem;
+    flex:1;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .info-title{
+    text-decoration: underline;
+    margin-bottom:5px;
+    color: var(--selected);
+    flex:0 1 20px;
+    text-transform: capitalize;
+    font-weight: 300;
+    font-size: 1rem;
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .romaji{
+    text-align:left !important;
+  }
+
+
+  
+/* modal.component.css */
+.modal {
+  display: block; 
+  position: fixed; 
+  z-index: 11; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro semitransparente */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 4% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 1000px;
+  border-radius: 8px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.slider-container{
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  min-height:200px;
+  gap:20px;
+}
+
+.slider-row{
+  flex:1;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width:100%;
+
+}
+
+mat-slider{
+  width: 200px;
+}
+
+
+.slider-button{
+  gap: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top:30px;
+}
+
+.slider-submit{
+  padding: 10px 20px;
+    border-radius: 10px;
+  background-color: var(--selected);
+  color:white;
+  cursor:pointer;
+}
+
+.slider-cancel{
+  padding: 10px 20px;
+    border-radius: 10px;
+  background-color: lightgray;
+  color:white;
+  cursor:pointer;
+}
+
+
+.slider-text{
+  flex:0 1 100px;
+  font-weight: bold;
+  text-align: end;
+}
+
+.slider-slider{
+  flex:1;
+  display:flex;
+  gap:20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-error{
+  flex:0 1 25%;
+  color:var(--error);
+  font-size:15px;
+}
+
+
+.slider-config{
+//  display: inline;
+   
+    cursor: pointer;
+    
+}
+
+.slider-config i{
+  padding: 7px;
+  border-radius: 5px;
+  background-color: var(--selected);
+  color: var(--container-light);
+}
+
+
+
+
+
+.mat-mdc-slider.mat-primary{
+  --mdc-slider-handle-color: var(--selected);;
+  --mdc-slider-focus-handle-color: var(--selected);;
+  --mdc-slider-hover-handle-color: var(--selected);;
+  --mdc-slider-active-track-color: var(--selected);;
+  --mdc-slider-inactive-track-color: var(--selected);;
+  --mdc-slider-with-tick-marks-active-container-color: #fff;
+  --mdc-slider-with-tick-marks-inactive-container-color: var(--selected);;
+  --mat-mdc-slider-ripple-color: var(--selected);;
+  --mat-mdc-slider-hover-ripple-color: rgba(103, 58, 183, 0.05);
+  --mat-mdc-slider-focus-ripple-color: rgba(103, 58, 183, 0.2);
+}
+
+.slider-slider-text{
+  display:flex;
+  flex-direction: column;
+}
+
+.slider-slider-buttons{
+  display:flex;
+  gap:5px;  
+}
+
+.minus-button{
+  background-color:var(--selected);
+  border-radius:3px;
+  color:var(--container-light);
+  width:20px;
+  height:20px;
+  border:none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.minus-button:hover{
+  cursor: pointer;
+}
+
+fieldset{
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.modal-slider-container{
+  max-height:600px;
+  overflow-y:scroll;
+}

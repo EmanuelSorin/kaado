@@ -5,11 +5,6 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { CookieService } from 'ngx-cookie-service';
 import * as stringSimilarity from 'string-similarity';
 import Swal from 'sweetalert2';
-import { kanjiN1 } from '../kanji/kanjiN1';
-import { kanjiN2 } from '../kanji/kanjiN2';
-import { kanjiN3 } from '../kanji/kanjiN3';
-import { kanjiN4 } from '../kanji/kanjiN4';
-import { kanjiN5 } from '../kanji/kanjiN5';
 import { N1Grammar } from './N1Grammar';
 import { N2Grammar } from './N2Grammar';
 import { N3Grammar } from './N3Grammar';
@@ -28,22 +23,42 @@ export class KanjiGrammarComponent {
   @ViewChild('tooltipTypeGameAdvice', { static: false }) tooltip: MatTooltip;
 
   //Conseguimos los array con los distintos kanas
-  kanjiN5Array: Grammar[] = JSON.parse(N1Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
-  kanjiN4Array: Grammar[] = JSON.parse(N2Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
-  kanjiN3Array: Grammar[] = JSON.parse(N3Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
-  kanjiN2Array: Grammar[] = JSON.parse(N4Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
-  kanjiN1Array: Grammar[] = JSON.parse(N5Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  grammarN5Array: Grammar[] = JSON.parse(N5Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  grammarN4Array: Grammar[] = JSON.parse(N4Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  grammarN3Array: Grammar[] = JSON.parse(N3Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  grammarN2Array: Grammar[] = JSON.parse(N2Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
+  grammarN1Array: Grammar[] = JSON.parse(N1Grammar).map((item: any) => new Grammar(item.id, item.romaji, item.kana, item.meaning));
 
 
   //Opciones de kanji
-  kanjiN5: boolean = true;
-  kanjiN4: boolean = false;
-  kanjiN3: boolean = false;
-  kanjiN2: boolean = false;
-  kanjiN1: boolean = false;
+  grammarN5: boolean = true;
+  grammarN4: boolean = false;
+  grammarN3: boolean = false;
+  grammarN2: boolean = false;
+  grammarN1: boolean = false;
 
   kanaCopiaArray: Grammar[] = [];
   kanaArray : Grammar[] = [];
+
+
+  //Variables SLIDER
+  isModalOpen = false;
+  minKanjiN5:number = 1;
+  maxKanjiN5 :number = this.grammarN5Array.length;
+  sliderErrorN5: string;
+  minKanjiN4:number = 1;
+  maxKanjiN4 :number = this.grammarN4Array.length;
+  sliderErrorN4: string;
+  minKanjiN3:number = 1;
+  maxKanjiN3 :number = this.grammarN3Array.length;
+  sliderErrorN3: string;
+  minKanjiN2:number = 1;
+  maxKanjiN2 :number = this.grammarN2Array.length;
+  sliderErrorN2: string;
+  minKanjiN1:number = 1;
+  maxKanjiN1 :number = this.grammarN1Array.length;
+  sliderErrorN1: string;
+
 
 
   //Opcion que se muestra para adivinar
@@ -129,7 +144,7 @@ export class KanjiGrammarComponent {
 
 
         this.cardGameStreak++;
-        this.cookieService.set('kanji-cardGameStreak', this.cardGameStreak.toString());
+        this.cookieService.set('grammar-cardGameStreak', this.cardGameStreak.toString());
 
          //Cada 3 seguidas correctas mostrar emote
         if(this.cardGameStreak % 3 == 0){
@@ -147,14 +162,14 @@ export class KanjiGrammarComponent {
 
     }else{
       if(this.cardGameStreak > this.cardGameBest){
-        this.cookieService.set('kanji-cardGameBest', this.cardGameStreak.toString());
+        this.cookieService.set('grammar-cardGameBest', this.cardGameStreak.toString());
         this.cardGameBest=this.cardGameStreak;
       }
       if(this.typeGameStreak > 0){
         this.animationStreakLose();
       }
       this.cardGameStreak = 0;
-      this.cookieService.set('kanji-cardGameStreak', this.cardGameStreak.toString());
+      this.cookieService.set('grammar-cardGameStreak', this.cardGameStreak.toString());
       this.success = false;
       seleccionado.estado = false;
     }
@@ -164,28 +179,28 @@ export class KanjiGrammarComponent {
   toogleQueAdivina(){
     if(this.queAdivina == 'kana'){
       this.queAdivina = 'romaji';
-      this.cookieService.set('kanji-queAdivina', "romaji");
+      this.cookieService.set('grammar-queAdivina', "romaji");
     }else{
       this.queAdivina = 'kana';
-      this.cookieService.set('kanji-queAdivina', "kana");
+      this.cookieService.set('grammar-queAdivina', "kana");
     }
     this.setKanaArray();
   }
 
   //Funcion que decide que kanas mostrar, main, dakuten o combination
   toogleKanaOptions(variableName: string, event: Event): void{
-    if(variableName == 'kanjiN5' && !this.kanjiN4 && !this.kanjiN3 && !this.kanjiN2 && !this.kanjiN1 ){
-      //Si quiere deseleccionar kanjiN5 y las demas no estan marcadas no se permite
+    if(variableName == 'grammarN5' && !this.grammarN4 && !this.grammarN3 && !this.grammarN2 && !this.grammarN1 ){
+      //Si quiere deseleccionar grammarN5 y las demas no estan marcadas no se permite
       event.preventDefault();
       return;
     }
 
-    this.cookieService.set("kanji-"+variableName, (!this[variableName]).toString());
+    this.cookieService.set("grammar-"+variableName, (!this[variableName]).toString());
     this[variableName] = !this[variableName];
 
-    if(!this.kanjiN5 && !this.kanjiN4 && !this.kanjiN3 && !this.kanjiN2 && !this.kanjiN1){
-      this.kanjiN5 = true;
-      this.cookieService.set('kanji-kanjiN5', "true");
+    if(!this.grammarN5 && !this.grammarN4 && !this.grammarN3 && !this.grammarN2 && !this.grammarN1){
+      this.grammarN5 = true;
+      this.cookieService.set('grammar-grammarN5', "true");
 
     }
 
@@ -196,10 +211,10 @@ export class KanjiGrammarComponent {
    toogleYomi(): void{
     if(this.showYomi){
       this.showYomi = false;
-      this.cookieService.set('kanji-showYomi', "false");
+      this.cookieService.set('grammar-showYomi', "false");
     }else{
       this.showYomi = true;
-      this.cookieService.set('kanji-showYomi', "true");
+      this.cookieService.set('grammar-showYomi', "true");
     }
   }
 
@@ -207,10 +222,10 @@ export class KanjiGrammarComponent {
     toogleStreak(): void{
       if(this.showStreak){
         this.showStreak = false;
-        this.cookieService.set('kanji-showStreak', "false");
+        this.cookieService.set('grammar-showStreak', "false");
       }else{
         this.showStreak = true;
-        this.cookieService.set('kanji-showStreak', "true");
+        this.cookieService.set('grammar-showStreak', "true");
       }
     }
 
@@ -224,7 +239,7 @@ export class KanjiGrammarComponent {
       this.setKanaArray();
     }
 
-    this.cookieService.set('kanji-level', level.toString());
+    this.cookieService.set('grammar-level', level.toString());
   }
 
 
@@ -232,20 +247,44 @@ export class KanjiGrammarComponent {
     this.kanaArray = [];
 
     //Añadir mainKata o dakuten o combination
-    if(this.kanjiN5){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN5Array];
+    if(this.grammarN5){      
+      if((this.maxKanjiN5 - this.minKanjiN5) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN5Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN5Array.slice(this.minKanjiN5-1,this.maxKanjiN5)];
+      }    
     }
-    if(this.kanjiN4){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN4Array];
+
+    if(this.grammarN4){
+      if((this.maxKanjiN4 - this.minKanjiN4) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN4Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN4Array.slice(this.minKanjiN4-1,this.maxKanjiN4)];
+      }     
     }
-    if(this.kanjiN3){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN3Array];
+
+    if(this.grammarN3){
+      if((this.maxKanjiN3 - this.minKanjiN3) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN3Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN3Array.slice(this.minKanjiN3-1,this.maxKanjiN3)];
+      }  
     }
-    if(this.kanjiN2){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN2Array];
-    }
-    if(this.kanjiN1){
-      this.kanaArray = [ ... this.kanaArray, ...this.kanjiN1Array];
+
+    if(this.grammarN2){
+      if((this.maxKanjiN2 - this.minKanjiN2) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN2Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN2Array.slice(this.minKanjiN2-1,this.maxKanjiN2)];
+      } 
+    } 
+
+    if(this.grammarN1){
+      if((this.maxKanjiN1 - this.minKanjiN1) < 8){
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN1Array];
+      }else{
+        this.kanaArray = [ ... this.kanaArray, ...this.grammarN1Array.slice(this.minKanjiN1-1,this.maxKanjiN1)];
+      } 
     }
 
 
@@ -330,8 +369,8 @@ export class KanjiGrammarComponent {
 
     this.streakFailShake = false;
 
-    this.cookieService.set('kanji-cardGame','true');
-    this.cookieService.set('kanji-typeGame', 'false');
+    this.cookieService.set('grammar-cardGame','true');
+    this.cookieService.set('grammar-typeGame', 'false');
   }
 
   //Funcion para elegir el modo de Type
@@ -345,8 +384,8 @@ export class KanjiGrammarComponent {
 
     this.streakFailShake = false;
 
-    this.cookieService.set('kanji-cardGame','false');
-    this.cookieService.set('kanji-typeGame', 'true');
+    this.cookieService.set('grammar-cardGame','false');
+    this.cookieService.set('grammar-typeGame', 'true');
   }
 
 
@@ -355,7 +394,6 @@ export class KanjiGrammarComponent {
   }
   compareStrings(str1: string, str2: string, threshold: number = 0.85): boolean {
     const similarity = stringSimilarity.compareTwoStrings(str1, str2);
-    console.log(similarity);
     return similarity >= threshold;
   }
 
@@ -371,7 +409,7 @@ export class KanjiGrammarComponent {
       return;
     }
 
-    const meanings= this.adivinar.meaning.toLowerCase().split(",");
+    const meanings= this.adivinar.meaning.toLowerCase().split(";");
 
     let similar = false;
     for(const meaning of meanings){
@@ -383,7 +421,7 @@ export class KanjiGrammarComponent {
     if(similar){
       //Acerto el kana, sumar racha y pasar al siguiente
       this.typeGameStreak++;
-      this.cookieService.set('kanji-typeGameStreak', this.typeGameStreak.toString());
+      this.cookieService.set('grammar-typeGameStreak', this.typeGameStreak.toString());
 
       this.success = true;
       this.typeGameFail = false;
@@ -402,7 +440,7 @@ export class KanjiGrammarComponent {
     }else{
       //Indicar que fallo, reiniciar racha
       if(this.typeGameStreak > this.typeGameBest){
-        this.cookieService.set('kanji-typeGameBest', this.typeGameStreak.toString());
+        this.cookieService.set('grammar-typeGameBest', this.typeGameStreak.toString());
         this.typeGameBest=this.typeGameStreak;
       }
 
@@ -421,7 +459,7 @@ export class KanjiGrammarComponent {
       this.typeCardCorrect = false;
       this.success = false;
       this.typeGameStreak= 0;
-      this.cookieService.set('kanji-typeGameStreak', this.typeGameStreak.toString());
+      this.cookieService.set('grammar-typeGameStreak', this.typeGameStreak.toString());
     }
     this.typeGameShowKanaValue = false;
     this.typeGameInput.nativeElement.value = '';
@@ -430,7 +468,7 @@ export class KanjiGrammarComponent {
 
   typeGameSkipKana(){
     if(this.typeGameStreak > this.typeGameBest){
-      this.cookieService.set('kanji-typeGameBest', this.typeGameStreak.toString());
+      this.cookieService.set('grammar-typeGameBest', this.typeGameStreak.toString());
       this.typeGameBest=this.typeGameStreak;
     }
 
@@ -440,7 +478,7 @@ export class KanjiGrammarComponent {
 
     this.success = false;
     this.typeGameStreak= 0;
-    this.cookieService.set('kanji-typeGameStreak', this.typeGameStreak.toString());
+    this.cookieService.set('grammar-typeGameStreak', this.typeGameStreak.toString());
     this.typeGameFail = false;
     this.typeGameFailShake = false;
     this.typeGameShowKanaValue = false;
@@ -450,7 +488,7 @@ export class KanjiGrammarComponent {
 
   typeGameShowKana(){
     if(this.typeGameStreak > this.typeGameBest){
-      this.cookieService.set('kanji-typeGameBest', this.typeGameStreak.toString());
+      this.cookieService.set('grammar-typeGameBest', this.typeGameStreak.toString());
       this.typeGameBest=this.typeGameStreak;
     }
 
@@ -460,7 +498,7 @@ export class KanjiGrammarComponent {
 
     this.success = false;
     this.typeGameStreak= 0;
-    this.cookieService.set('kanji-typeGameStreak', this.typeGameStreak.toString());
+    this.cookieService.set('grammar-typeGameStreak', this.typeGameStreak.toString());
     this.typeGameFail = false;
     this.typeGameFailShake = false;
 
@@ -476,7 +514,6 @@ export class KanjiGrammarComponent {
   }
 
   showMenuLateral(){
-    console.log("AA");
     this.menuLateral = true;
   }
 
@@ -541,115 +578,115 @@ export class KanjiGrammarComponent {
   setCookies(){
 
     //COOKIES DE LOS TIPOS DE KANJI QUE APARECEN
-    if(this.cookieService.check('kanji-kanjiN5')){
-      this.kanjiN5 =(this.cookieService.get('kanji-kanjiN5') === "true");
+    if(this.cookieService.check('grammar-grammarN5')){
+      this.grammarN5 =(this.cookieService.get('grammar-grammarN5') === "true");
     }else{
-      this.cookieService.set('kanji-kanjiN5', "true");
-      this.kanjiN5 = true;
+      this.cookieService.set('grammar-grammarN5', "true");
+      this.grammarN5 = true;
     }
 
-    if(this.cookieService.check('kanji-kanjiN4')){
-      this.kanjiN4 = (this.cookieService.get('kanji-kanjiN4') === "true");
+    if(this.cookieService.check('grammar-grammarN4')){
+      this.grammarN4 = (this.cookieService.get('grammar-grammarN4') === "true");
     }else{
-      this.cookieService.set('kanji-kanjiN4', "false");
-      this.kanjiN4 = false;
+      this.cookieService.set('grammar-grammarN4', "false");
+      this.grammarN4 = false;
     }
 
-    if(this.cookieService.check('kanji-kanjiN3')){
-      this.kanjiN3 = (this.cookieService.get('kanji-kanjiN3') === "true");
+    if(this.cookieService.check('grammar-grammarN3')){
+      this.grammarN3 = (this.cookieService.get('grammar-grammarN3') === "true");
     }else{
-      this.cookieService.set('kanji-kanjiN3', "false");
-      this.kanjiN3 = false;
+      this.cookieService.set('grammar-grammarN3', "false");
+      this.grammarN3 = false;
     }
 
-    if(this.cookieService.check('kanji-kanjiN2')){
-      this.kanjiN2 = (this.cookieService.get('kanji-kanjiN2') === "true");
+    if(this.cookieService.check('grammar-grammarN2')){
+      this.grammarN2 = (this.cookieService.get('grammar-grammarN2') === "true");
     }else{
-      this.cookieService.set('kanji-kanjiN2', "false");
-      this.kanjiN2 = false;
+      this.cookieService.set('grammar-grammarN2', "false");
+      this.grammarN2 = false;
     }
 
-    if(this.cookieService.check('kanji-kanjiN1')){
-      this.kanjiN1 = (this.cookieService.get('kanji-kanjiN1') === "true");
+    if(this.cookieService.check('grammar-grammarN1')){
+      this.grammarN1 = (this.cookieService.get('grammar-grammarN1') === "true");
     }else{
-      this.cookieService.set('kanji-kanjiN1', "false");
-      this.kanjiN1 = false;
+      this.cookieService.set('grammar-grammarN1', "false");
+      this.grammarN1 = false;
     }
 
 
     //COOKIES DEL NIVEL - 2 es medium
-    if(this.cookieService.check('kanji-level')){
-      this.level = Number(this.cookieService.get('kanji-level'));
+    if(this.cookieService.check('grammar-level')){
+      this.level = Number(this.cookieService.get('grammar-level'));
     }else{
-      this.cookieService.set('kanji-level', "2");
+      this.cookieService.set('grammar-level', "2");
       this.level = 2;
     }
 
     //COOKIES DEL TIPO QUE ADIVINA
-    if(this.cookieService.check('kanji-queAdivina')){
-      this.queAdivina = this.cookieService.get('kanji-queAdivina');
+    if(this.cookieService.check('grammar-queAdivina')){
+      this.queAdivina = this.cookieService.get('grammar-queAdivina');
     }else{
-      this.cookieService.set('kanji-queAdivina', "kana");
+      this.cookieService.set('grammar-queAdivina', "kana");
       this.queAdivina = 'kana';
     }
 
     //COOKIES DE LA PUNTUACION INDIVIDUAL ENTRE CARD Y TYPE GAME
     //Miramos si existe la cookie con el Streak y Best de los modos Card y Type
-    if(this.cookieService.check('kanji-cardGameStreak')){
-      this.cardGameStreak = Number(this.cookieService.get('kanji-cardGameStreak'));
+    if(this.cookieService.check('grammar-cardGameStreak')){
+      this.cardGameStreak = Number(this.cookieService.get('grammar-cardGameStreak'));
     }else{
-      this.cookieService.set('kanji-cardGameStreak', "0");
+      this.cookieService.set('grammar-cardGameStreak', "0");
       this.cardGameStreak = 0;
     }
-    if(this.cookieService.check('kanji-cardGameBest')){
-      this.cardGameBest = Number(this.cookieService.get('kanji-cardGameBest'));
+    if(this.cookieService.check('grammar-cardGameBest')){
+      this.cardGameBest = Number(this.cookieService.get('grammar-cardGameBest'));
     }else{
-      this.cookieService.set('kanji-cardGameBest', "0");
+      this.cookieService.set('grammar-cardGameBest', "0");
       this.cardGameBest = 0;
     }
 
-    if(this.cookieService.check('kanji-typeGameStreak')){
-      this.typeGameStreak = Number(this.cookieService.get('kanji-typeGameStreak'));
+    if(this.cookieService.check('grammar-typeGameStreak')){
+      this.typeGameStreak = Number(this.cookieService.get('grammar-typeGameStreak'));
     }else{
-      this.cookieService.set('kanji-typeGameStreak', "0");
+      this.cookieService.set('grammar-typeGameStreak', "0");
       this.typeGameStreak = 0;
     }
 
-    if(this.cookieService.check('kanji-typeGameBest')){
-      this.typeGameBest = Number(this.cookieService.get('kanji-typeGameBest'));
+    if(this.cookieService.check('grammar-typeGameBest')){
+      this.typeGameBest = Number(this.cookieService.get('grammar-typeGameBest'));
     }else{
-      this.cookieService.set('kanji-typeGameBest', "0");
+      this.cookieService.set('grammar-typeGameBest', "0");
       this.typeGameBest = 0;
     }
 
     //Definimos que tipo de juego quiere, si seleccionar cartas o escribir la solucion
     //Por defecto elegimos la opcion de cartas
-    if(this.cookieService.check('kanji-cardGame')){
-      this.cardGame = (this.cookieService.get('kanji-cardGame') == 'true');
+    if(this.cookieService.check('grammar-cardGame')){
+      this.cardGame = (this.cookieService.get('grammar-cardGame') == 'true');
     }else{
-      this.cookieService.set('kanji-cardGame', "true");
+      this.cookieService.set('grammar-cardGame', "true");
       this.cardGame = true;
     }
-    if(this.cookieService.check('kanji-typeGame')){
-      this.typeGame = (this.cookieService.get('kanji-typeGame')  == 'true');
+    if(this.cookieService.check('grammar-typeGame')){
+      this.typeGame = (this.cookieService.get('grammar-typeGame')  == 'true');
     }else{
-      this.cookieService.set('kanji-typeGame', "false");
+      this.cookieService.set('grammar-typeGame', "false");
       this.typeGame = false;
     }
 
     //COOKIES PARA OCULTAR PUNTUACION
-    if(this.cookieService.check('kanji-showStreak')){
-      this.showStreak = (this.cookieService.get('kanji-showStreak') === "true");
+    if(this.cookieService.check('grammar-showStreak')){
+      this.showStreak = (this.cookieService.get('grammar-showStreak') === "true");
     }else{
-      this.cookieService.set('kanji-showStreak', "true");
+      this.cookieService.set('grammar-showStreak', "true");
       this.showStreak = true;
     }
 
      //COOKIES PARA OCULTAR YOMI
-     if(this.cookieService.check('kanji-showYomi')){
-      this.showYomi = (this.cookieService.get('kanji-showYomi') === "true");
+     if(this.cookieService.check('grammar-showYomi')){
+      this.showYomi = (this.cookieService.get('grammar-showYomi') === "true");
     }else{
-      this.cookieService.set('kanji-showYomi', "true");
+      this.cookieService.set('grammar-showYomi', "true");
       this.showYomi = true;
     }
   }
@@ -692,4 +729,200 @@ export class KanjiGrammarComponent {
 
    return array;
  }
+
+ 
+
+
+
+
+
+
+
+
+
+ openModal() {
+  this.isModalOpen = true;
+}
+
+closeModal() {
+  this.isModalOpen = false;
+}
+
+
+validateRange() {
+
+  // Si la diferencia es menor a la mínima permitida, ajustamos los valores
+  if ((this.maxKanjiN5 - this.minKanjiN5) < 8) {
+   //No puedes guardar
+    this.sliderErrorN5="The difference between the minimum and maximum must be at least 9. All grammar will be shown.";
+    return;
+  }else{
+    this.sliderErrorN5="";
+  }
+
+  if ((this.maxKanjiN4 - this.minKanjiN4) < 8) {
+    //No puedes guardar
+     this.sliderErrorN4="The difference between the minimum and maximum must be at least 9. All grammar will be shown.";
+     return;
+   }else{
+     this.sliderErrorN4="";
+   }
+
+   if ((this.maxKanjiN3 - this.minKanjiN3) < 8) {
+    //No puedes guardar
+     this.sliderErrorN3="The difference between the minimum and maximum must be at least 9. All grammar will be shown";
+     return;
+   }else{
+     this.sliderErrorN3="";
+   }
+
+   if ((this.maxKanjiN2 - this.minKanjiN2) < 8) {
+    //No puedes guardar
+     this.sliderErrorN2="The difference between the minimum and maximum must be at least 9. All grammar will be shown";
+     return;
+   }else{
+     this.sliderErrorN2="";
+   }
+
+   if ((this.maxKanjiN1 - this.minKanjiN1) < 8) {
+    //No puedes guardar
+     this.sliderErrorN1="The difference between the minimum and maximum must be at least 9. All grammar will be shown";
+     return;
+   }else{
+     this.sliderErrorN1="";
+   }
+
+
+  this.closeModal();
+  this.setKanaArray();
+  
+}
+
+minusMin(kanjiN: number){
+ if(kanjiN == 5){
+  if(this.minKanjiN5 > 1){
+    this.minKanjiN5--;
+  }
+ }
+
+ if(kanjiN == 4){
+  if(this.minKanjiN4 > 1){
+    this.minKanjiN4--;
+  }
+ }
+
+ if(kanjiN == 3){
+  if(this.minKanjiN3 > 1){
+    this.minKanjiN3--;
+  }
+ }
+
+ if(kanjiN == 2){
+  if(this.minKanjiN2 > 1){
+    this.minKanjiN2--;
+  }
+ }
+
+ if(kanjiN == 1){
+  if(this.minKanjiN1 > 1){
+    this.minKanjiN1--;
+  }
+ }
+}
+
+plusMin(kanjiN: number){
+  if(kanjiN == 5){
+    if(this.minKanjiN5 < this.grammarN5Array.length && this.minKanjiN5 < this.maxKanjiN5){
+      this.minKanjiN5++;
+    }
+  }
+
+  if(kanjiN == 4){
+    if(this.minKanjiN4 < this.grammarN4Array.length && this.minKanjiN4 < this.maxKanjiN4){
+      this.minKanjiN4++;
+    }
+  }
+
+  if(kanjiN == 3){
+    if(this.minKanjiN3 < this.grammarN3Array.length && this.minKanjiN3 < this.maxKanjiN3){
+      this.minKanjiN3++;
+    }
+  }
+
+  if(kanjiN == 2){
+    if(this.minKanjiN2 < this.grammarN2Array.length && this.minKanjiN2 < this.maxKanjiN2){
+      this.minKanjiN2++;
+    }
+  }
+
+  if(kanjiN == 1){
+    if(this.minKanjiN1 < this.grammarN1Array.length && this.minKanjiN1 < this.maxKanjiN1){
+      this.minKanjiN1++;
+    }
+  }
+}
+
+minusMax(kanjiN: number){
+  if(kanjiN == 5){
+    if(this.maxKanjiN5 > 1 && this.maxKanjiN5 > this.minKanjiN5){
+      this.maxKanjiN5--;
+    }
+  }
+
+  if(kanjiN == 4){
+    if(this.maxKanjiN4 > 1 && this.maxKanjiN4 > this.minKanjiN4){
+      this.maxKanjiN4--;
+    }
+  }
+
+  if(kanjiN == 3){
+    if(this.maxKanjiN3 > 1 && this.maxKanjiN3 > this.minKanjiN3){
+      this.maxKanjiN3--;
+    }
+  }
+
+  if(kanjiN == 2){
+    if(this.maxKanjiN2 > 1 && this.maxKanjiN2 > this.minKanjiN2){
+      this.maxKanjiN2--;
+    }
+  }
+
+  if(kanjiN == 1){
+    if(this.maxKanjiN1 > 1 && this.maxKanjiN1 > this.minKanjiN1){
+      this.maxKanjiN1--;
+    }
+  }
+}
+
+plusMax(kanjiN: number){
+  if(kanjiN == 5){
+    if(this.maxKanjiN5 < this.grammarN5Array.length){
+      this.maxKanjiN5++;
+    }
+  }
+
+  if(kanjiN == 4){
+    if(this.maxKanjiN4 < this.grammarN4Array.length){
+      this.maxKanjiN4++;
+    }
+  }
+
+  if(kanjiN == 3){
+    if(this.maxKanjiN3 < this.grammarN3Array.length){
+      this.maxKanjiN3++;
+    }
+  }
+
+  if(kanjiN == 2){
+    if(this.maxKanjiN2 < this.grammarN2Array.length){
+      this.maxKanjiN2++;
+    }
+  }
+
+  if(kanjiN == 1){
+    if(this.maxKanjiN1 < this.grammarN1Array.length){
+      this.maxKanjiN1++;
+    }
+  }
+}
 }

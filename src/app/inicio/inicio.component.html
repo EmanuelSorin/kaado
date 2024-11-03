@@ -5,33 +5,53 @@
       <h3>kana - card</h3>
     </div>
     <div class="description">
-      Welcome to our Japanese learning app, designed to make studying Japanese fun and effective. The app offers two game modes:
-<br/><br/>
-<b>• Multiple Choice Mode:</b> Choose the correct answer from several cards to quickly test your knowledge of Japanese characters.
+      Welcome to our Japanese learning app, designed to make studying Japanese fun and effective. The app offers two
+      game modes:
+      <br /><br />
+      <b>• Multiple Choice Mode:</b> Choose the correct answer from several cards to quickly test your knowledge of
+      Japanese characters.
       <br><br>
       <b>• Writing Mode:</b> Write the correct meaning of a kana, ideal for reinforcing character recognition.
       <br>
-      <br>The app allows you to customize your practice, adjust difficulty, and choose between guessing kana or romaji. It also includes an alphabet section and a Kanji search tool for deeper exploration.
-      <br/><br/>
+      <br>The app allows you to customize your practice, adjust difficulty, and choose between guessing kana or romaji.
+      It also includes an alphabet section and a Kanji search tool for deeper exploration.
+      <br /><br />
       No matter your level, our app helps you learn Japanese at your own pace. Enjoy the journey!
     </div>
 
+    <div class="buttons">
+      <div class="button-information" (click)="openHelpModal()">
+        <i class="fa-solid fa-circle-question"></i>
+        Information & Help
+      </div>
+  
+      <!-- <div class="contact-information" (click)="openContactModal()">
+        <i class="fa-solid fa-envelope"></i>
+        Contact us
+      </div> -->
 
-    <div class="goRight" *ngIf="isPhone && left" (click)="showRight()">
-      <i class="fa-solid fa-list-ul"></i>
-      Go menu
+      <div class="goRight" *ngIf="isPhone && left" (click)="showRight()">
+        <i class="fa-solid fa-list-ul"></i>
+        Go menu
+      </div>
+  
+      
     </div>
+
+  
+
+   
   </div>
 
 
 
   <div class="right" *ngIf="!isPhone || right">
-    <div class="option">
+    <div class="option mt-2">
       Let's practice...
     </div>
     <div class="option">
       <a href="/hiragana" class="game">
-        Hiragana  <span> あ い う え お</span>
+        Hiragana <span> あ い う え お</span>
       </a>
       <a href="/hiragana-help" class="library" matTooltip="Alphabet overview" [matTooltipPosition]="'after'">
         <i class="fa-solid fa-book"></i>
@@ -77,4 +97,180 @@
   </div>
 
 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- modal.component.html -->
+<div class="modal" *ngIf="isHelpModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Information & Help</h2>
+
+    <div class="information-content">
+
+
+      <h2>Welcome to Your Japanese Practice Platform</h2>
+      <p>
+        This website is designed to make learning Japanese fun and interactive! Choose from different game modes,
+        practice kanas (hiragana and katakana), kanji, grammar, and vocabulary from JLPT levels N5 to N1. Here’s how to
+        get started:
+      </p>
+
+      <div class="section">
+        <h2>
+          Main Menu
+        </h2>
+        From the main menu, you can choose to:
+        <ul>
+          <li>
+            <b>Practice Japanese</b> - Access the game modes to test your knowledge. </li>
+          <li><b>Alphabet Section </b>- Review all the kana types and kanji available and use the search tool to quickly locate
+            specific kanji. Kanji are organized by JLPT level (N5
+            through N1).</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h2>
+          Game Modes
+
+        </h2>
+        There are two game modes for practicing Japanese:
+
+        <ul>
+          <li>
+            <b> Flashcard Mode</b> - Choose the correct answer from multiple options.</li>
+          <li><b>Typing Mode</b> - Type the answer to match the prompt displayed.</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h2>
+          Game Interface Overview
+
+        </h2>
+        The game window has three main sections:<br><br>
+
+        <h3>
+          <b> 1. Options Panel</b>
+        </h3>
+        The options panel lets you customize your learning experience. Here are the features you can adjust:
+        <ul>
+          <li>
+            <b> Mode</b> - Switch between flashcard and typing modes.
+          </li>
+          <li>
+            <b>Practice Type</b> - Choose what you want to study:
+            <ul>
+              <li>
+                For kana, select from main kana, dakuten, etc.</li>
+              <li>For kanji, select by JLPT level (N5, N4, N3, etc.).</li>
+              <li>You can specify the range of kanji you want to practice by clicking on the title icon in this section.
+                For example, select only kanji 1 to 20.</li>
+            </ul>
+          </li>
+
+          <li>
+            <b> Difficulty</b> - Adjust the difficulty level (available in flashcard mode only):
+            <ul>
+              <li>
+                Easy - Shows 2 choices.</li>
+              <li>
+                Medium - Shows 4 choices.</li>
+              <li>
+                Hard - Shows 9 choices.</li>
+            </ul>
+          </li>
+
+          <li>
+            <b>  Guess Mode</b> - Choose if you want to guess using:
+            <ul>
+
+              <li>Romaji - The prompt appears in romaji.</li>
+              <li>Kana - The prompt appears in kana. (This option is available only in flashcard mode.)</li>
+
+
+            </ul>
+          </li>
+
+          <li>
+           
+            <b>Toggle Options</b> - Check these boxes to further customize your view:
+              <ul>
+              <li>Streak and Points Display - Show or hide information about your score streak and points.</li>
+              <li>On'yomi and Kun'yomi Details - Display or hide readings for kanji.</li>
+            </ul>
+          </li>
+        </ul>
+        <br>
+        <h3>
+          <b> 2. Game Panel</b></h3>
+        This panel displays the main gameplay area, where you’ll see flashcards or the input field for typing mode,
+        based
+        on your selected game mode.
+        <br><br>
+        <h3>
+          <b> 3. Score Panel</b></h3>
+        Here you can track your score throughout the game. If you prefer a cleaner screen, you can hide this panel from
+        the options.
+        <br><br>
+      </div>
+    </div>
+
+
+
+    <div class="button-close" (click)="closeHelpModal()">
+      Close
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+<!-- modal.component.html -->
+<div class="modal" *ngIf="isContactModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeContactModal()">&times;</span>
+    <h2>Contact us</h2>
+
+    <div class="contact-content">
+
+      Your email (if want a response)
+      <br>
+      <input type="email" />
+
+      Subject
+      <br>
+      <input type="text"/>
+
+      Message 
+      <br>
+      <textarea></textarea>
+    
+
+    </div>
+   
+
+
+
+    <div class="button-close" (click)="closeContactModal()">
+      Close
+    </div>
+
+
+
+  </div>
 </div>

@@ -1,442 +1,363 @@
-<div class="container" *ngIf="!isPhone">
+<div class="container">
 
-  <!-- COLUMNA 1 OPCIONES -->
-  <div class="split optionsColumn" *ngIf="!isPhone">
-    <div class="top-half botonMenu">
-      <a href='/' class="link" matTooltip="Go main   menu" [matTooltipPosition]="'after'">
+  <div class="flex options" *ngIf="!isPhone">
+
+    <div class="option-title">
+      <a href='/' class="goHomeButton" matTooltip="Go main menu" [matTooltipPosition]="'after'">
         <i class="fa-solid fa-chevron-left"></i>
       </a>
-    </div>
-    <div class="top-half textOption">
-      MODE
-    </div>
-    <div class="top-half">
-      <div class="optionGame" [ngClass]="{'optionGameSelected' : cardGame}" (click)="changeToCardGame()">
-        <i class="fa-solid fa-border-all"></i>
-        Card
-      </div>
-      <div class="optionGame" [ngClass]="{'optionGameSelected' : typeGame}" (click)="changeToTypeGame()">
-        <i class="fa-regular fa-keyboard"></i>
-        Type
-      </div>
-    </div>
-    <div class="top-half textOption">
-      GUESS KANJI SET
+      <h1>OPTIONS</h1>
     </div>
 
-    <div class="top-half">
-      <div class="center-content">
-        <div>
-          <mat-checkbox [checked]="kanjiN5" (click)="toogleKanaOptions('kanjiN5',$event)">Kanji N5</mat-checkbox>
+    <div class="option-container">
+
+      <div class="option">
+        <div class="title">
+          MODE
         </div>
-        <div>
-          <mat-checkbox [checked]="kanjiN4" (click)="toogleKanaOptions('kanjiN4',$event)">Kanji N4</mat-checkbox>
-        </div>
-        <div>
-          <mat-checkbox [checked]="kanjiN3" (click)="toogleKanaOptions('kanjiN3',$event)">Kanji N3</mat-checkbox>
-        </div>
-        <div>
-          <mat-checkbox [checked]="kanjiN2" (click)="toogleKanaOptions('kanjiN2',$event)">Kanji N2</mat-checkbox>
-        </div>
-        <div>
-          <mat-checkbox [checked]="kanjiN1" (click)="toogleKanaOptions('kanjiN1',$event)">Kanji N1</mat-checkbox>
-        </div>
-      </div>
-    </div>
-
-    <div class="top-half textOption" *ngIf="cardGame">
-      DIFFICULTY
-    </div>
-
-    <div class="difficulty top-half" [ngClass]="{'invisible': !cardGame}">
-      <div class="level" [ngClass]="{'levelSelected': level == 1}" (click)="changeLevel(1)">
-        <i class="fa-solid fa-fire"></i>
-        <br />
-        Easy
-      </div>
-      <div class="level" [ngClass]="{'levelSelected': level == 2}" (click)="changeLevel(2)">
-        <i class="fa-solid fa-fire"></i>
-        <i class="fa-solid fa-fire"></i>
-        <br />
-        Medium
-      </div>
-      <div class="level" [ngClass]="{'levelSelected': level == 3}" (click)="changeLevel(3)">
-        <i class="fa-solid fa-fire"></i>
-        <i class="fa-solid fa-fire"></i>
-        <i class="fa-solid fa-fire"></i>
-        <br />
-        Hard
-      </div>
-    </div>
-
-    <div class="top-half textOption" *ngIf="cardGame">
-      GUESS {{queAdivina == 'kana' ? 'KANJI CHARACTERS' : 'MEANINGS '}}
-      </div>
-
-    <div class="top-half alignItemsBaseline" [ngClass]="{'invisible': !cardGame}">
-      <div class="adivinar" (click)="toogleQueAdivina()">
-        {{queAdivina == 'kana' ? '漢 字' : 'Meanings'}}
-        <i class="fa-solid fa-arrows-rotate"></i>
-        {{queAdivina == 'kana' ? 'Meanings' : '漢 字'}}
-      </div>
-    </div>
-
-  </div>
-
-  <!-- COLUMNA 2   CARD GAME-->
-  <div class="split" *ngIf="cardGame">
-
-    <div class="top-half hints">
-      <div class="hint" *ngIf="cardGame">Click on the card that represents this kanji</div>
-    </div>
-    <div class="top-half">
-      <div class="center-content kanjiAdivinar">
-        <div [ngClass]="{'adivinarRomaji' : queAdivina == 'romaji'}">{{queAdivina == 'kana' ? adivinar.kana : adivinar.meaning}}</div>
-
-      </div>
-    </div>
-    <div class="bottom-half" [ngClass]="{'grid-1x2': level == 1, 'grid-2x2': level == 2, 'grid-3x3': level == 3}">
-      <div class="grid-item" (click)="this.resolver(this.option)"
-        [ngClass]="{'failed': !this.option.estado , 'disabled': success , 'adivinarRomaji' : queAdivina == 'romaji'}" *ngFor="let option of options" >
-
-          {{queAdivina == 'kana' ? option.meaning : option.kana}}
-          <div *ngIf="queAdivina == 'romaji' && option.estado" class="kanjiInfo"  matTooltip="Show onyomi and kunyomi"><i class="fa-solid fa-info"></i></div>
-
-
-        <div *ngIf="!this.option.estado">( {{queAdivina == 'kana' ? option.kana : option.meaning}} )</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- COLUMNA 2   TYPE GAME-->
-  <div class="split" *ngIf="typeGame">
-
-    <div class="top-half hints">
-      <div class="hint" *ngIf="typeGame">Type the kanji shown and press enter to submit</div>
-    </div>
-    <div class="top-half flexColumn">
-      <div class="typeCard" [ngClass]="{'typeGameFail' : typeGameFail, 'typeGameFailShake' : typeGameFailShake, 'typeGameCorrect' : typeCardCorrect}">
-
-
-        <div class="typeGameAdivina">
-          <h1>{{adivinar.kana}}
-
-
-
-          </h1>
-          <span *ngIf="typeGameShowKanaValue || typeCardCorrect" class="top-half">( {{adivinar.meaning}} )</span>
-
-        </div>
-
-        <div class="typeGameInputs" *ngIf="!typeCardCorrect">
-          <input type="text"  placeholder="Type the kanji" (keydown.enter)="adivinarTypeGame($event)" #typeGameInput>
-          <button class="typeGameSubmit" matTooltip="Submit answer" (click)="adivinarTypeGame($event)">
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-
-
-
-
-      </div>
-      <div class="typeGameButtons">
-        <ng-container *ngIf="!typeCardCorrect">
-        <div class="typeCardSkipKana" (click)="typeGameSkipKana()" matTooltip="Skip kana (lose streak)">
-          <i class="fa-solid fa-rotate-right "></i>
-        </div>
-        <div class="typeCardShowKana" (click)="typeGameShowKana()" matTooltip="Show kana (lose streak)">
-          <i class="fas fa-eye"></i>
-        </div>
-      </ng-container>
-        <div *ngIf="typeCardCorrect" class="typeCardNewKana" (click)="nuevoKana()" matTooltip="Well done! Next kanji">
-          <i class="fa-solid fa-check"></i>
-
-          <small>Next kanji</small>
-        </div>
-      </div>
-    </div>
-
-    <span class="typeCardInfo" matTooltip="Some meanings may fail even if they are correct, especially when they are long and include several words."><i class="fa-solid fa-circle-exclamation"></i> This mode may not be 100% accurated. </span>
-  </div>
-
-  <!-- COLUMNA 3 PUNTUACION -->
-  <div class="split" *ngIf="!isPhone">
-    <div class="top-half"></div>
-    <div class="top-half" id="emoteContainer">
-      <ng-container *ngIf="showStreak">
-      <div class="emote" *ngFor="let emote of showEmoteArray">{{emote}}</div>
-    </ng-container>
-    </div>
-    <div class="top-half alignItemsBaseline points">
-      <div *ngIf="showStreak">
-        <h1 [ngClass]="{'streakFailShake' : streakFailShake , 'normalGradient' : !streakFailShake}"><i class="fas fa-meteor"></i> Streak : {{cardGame ? cardGameStreak : typeGameStreak}}</h1>
-        <h2> <i class="fas fa-trophy"></i> &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}} &nbsp; <i
-            class="fas fa-trophy"></i> </h2>
-      </div>
-    </div>
-    <div class="top-half ">
-      <div class="display-flex flexColumn alignItemsBaseline">
-      <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
-      <mat-checkbox [checked]="showYomi" (click)="toogleYomi()">Show Onyomi & Kunyomi</mat-checkbox>
-    </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- CONTAINER VERSION MOVIL -->
-<div class="containerPhone" *ngIf="isPhone" (click)="menuLateral ? hideMenuLateral() : null">
-
-  <div class="halfPhone containerHintPhone">
-    <p class="hint" *ngIf="cardGame">Click on the card that represents this kanji</p>
-    <p class="hint" *ngIf="typeGame">Type the kanji shown and press enter to submit</p>
-  </div>
-
-  <div class="halfPhone pointsPhone" [ngClass]="{'typeGameScorePhone' : typeGame}" *ngIf="showStreak">
-    <div class="emotePhone" *ngFor="let emote of showEmoteArray">{{emote}}</div>
-    <div [ngClass]="{'streakFailShake' : streakFailShake, 'streakPhone': !streakFailShake}"><i class="fas fa-meteor"></i> Streak : {{cardGame ? cardGameStreak : typeGameStreak}}</div>
-    <div class="bestPhone"> <i class="fas fa-trophy"></i> &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}}
-      &nbsp; <i class="fas fa-trophy"></i> </div>
-  </div>
-
-
-  <div class="halfPhone" *ngIf="cardGame">
-    <div class="cardGameAdivinarPhone" *ngIf="cardGame">
-      <div [ngClass]="{'adivinarRomaji' : queAdivina == 'romaji'}">{{queAdivina == 'kana' ? adivinar.kana : adivinar.meaning}}</div>
-      <div *ngIf="queAdivina == 'kana' && showYomi" class="yomi">
-
-    </div>
-    </div>
-  </div>
-
-  <div class="halfPhone containerGamePhone"  [ngClass]="{'typeGamePhoneBaseline': typeGame}">
-    <div class="cardGameGridPhone"
-      [ngClass]="{'grid-1x2-phone': level == 1, 'grid-2x2-phone': level == 2, 'grid-3x3-phone': level == 3}"
-      *ngIf="cardGame">
-      <div class="grid-item-phone" (click)="this.resolver(this.option)"
-        [ngClass]="{'failed': !this.option.estado , 'disabled': success}" *ngFor="let option of options">
-
-        {{queAdivina == 'kana' ? option.meaning : option.kana}}
-        <div *ngIf="queAdivina == 'romaji' && option.estado" class="kanjiInfo"  matTooltip="Show onyomi and kunyomi"><i class="fa-solid fa-info"></i></div>
-
-        <div *ngIf="!this.option.estado"> &nbsp;<span class="romajiFailed">( {{queAdivina == 'kana' ? option.kana :
-            option.meaning}} )</span></div>
-      </div>
-    </div>
-
-    <ng-container *ngIf="typeGame">
-      <div class="flexColumn">
-        <div class="typeCardPhone" [ngClass]="{'typeGameFail' : typeGameFail, 'typeGameFailShake' : typeGameFailShake, 'typeGameCorrect' : typeCardCorrect}">
-          <div class="typeGameAdivina">
-            <h1>{{adivinar.kana}}
-
-
-            </h1>
-            <span *ngIf="typeGameShowKanaValue || typeCardCorrect" class="typeCardMeaning">( {{adivinar.meaning}} )</span>
+        <div class="option-content flex-row gap-20">
+          <div class="option-mode" [ngClass]="{'option-mode-selected' : cardGame}" (click)="changeToCardGame()">
+            <i class="fa-solid fa-border-all"></i>
+            Card
           </div>
-          <div class="typeGameInputs" *ngIf="!typeCardCorrect">
-          <input type="text"  placeholder="Type the kanji" (keydown.enter)="adivinarTypeGame($event)" #typeGameInput>
-          <div class="typeGameSubmit" matTooltip="Submit answer" (click)="adivinarTypeGame($event)">
-            <i class="fa-solid fa-arrow-right"></i>
+          <div class="option-mode" [ngClass]="{'option-mode-selected' : typeGame}" (click)="changeToTypeGame()">
+            <i class="fa-regular fa-keyboard"></i>
+            Type
           </div>
         </div>
+      </div>
+
+      <div class="option">
+        <div class="title">
+          <div (click)="openModal()" matTooltip="Select range of grammar" class="slider-config">GUESS GRAMMAR SET <i class="fa-solid fa-sliders"></i></div>
         </div>
-        <div class="typeGameButtons">
-          <ng-container *ngIf="!typeCardCorrect">
-            <div class="typeCardSkipKanaPhone" (click)="typeGameSkipKana()" matTooltip="Skip kana (lose streak)">
-              <i class="fa-solid fa-rotate-right "></i>
+        <div class="option-content flex-column align-items-baseline w-50 justify-flex-start">
+          <div>
+            <mat-checkbox [checked]="grammarN5" (click)="toogleKanaOptions('grammarN5',$event)">Grammar N5 <small>({{grammarN5Array.length}})</small></mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="grammarN4" (click)="toogleKanaOptions('grammarN4',$event)">Grammar N4 <small>({{grammarN4Array.length}})</small></mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="grammarN3" (click)="toogleKanaOptions('grammarN3',$event)">Grammar N3 <small>({{grammarN3Array.length}})</small></mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="grammarN2" (click)="toogleKanaOptions('grammarN2',$event)">Grammar N2 <small>({{grammarN2Array.length}})</small></mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="grammarN1" (click)="toogleKanaOptions('grammarN1',$event)">Grammar N1 <small>({{grammarN1Array.length}})</small></mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="option" *ngIf="cardGame">
+        <div class="title">
+          DIFFICULTY
+        </div>
+        <div class="option-content">
+          <div class="level" [ngClass]="{'level-selected': level == 1}" (click)="changeLevel(1)">
+            <i class="fa-solid fa-fire"></i>
+            <br />
+            Easy
+          </div>
+          <div class="level" [ngClass]="{'level-selected': level == 2}" (click)="changeLevel(2)">
+            <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-fire"></i>
+            <br />
+            Medium
+          </div>
+          <div class="level" [ngClass]="{'level-selected': level == 3}" (click)="changeLevel(3)">
+            <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-fire"></i>
+            <br />
+            Hard
+          </div>
+        </div>
+      </div>
+
+      <div class="option" *ngIf="cardGame">
+        <div class="title">
+          GUESS {{queAdivina == 'kana' ? 'GRAMMAR' : 'MEANINGS'}}
+        </div>
+        <div class="option-content">
+          <div class="adivinar" (click)="toogleQueAdivina()">
+            {{queAdivina == 'kana' ? '漢 字' : 'Meanings'}}
+            <i class="fa-solid fa-arrows-rotate"></i>
+            {{queAdivina == 'kana' ? 'Meanings' : '漢 字'}}
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="title">
+          STRIKE & BEST
+        </div>
+        <div class="option-content flex-column align-items-baseline w-60 justify-flex-start">
+          <div>
+            <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
+          </div>
+          <!-- <div>
+            <mat-checkbox [checked]="showYomi" (click)="toogleYomi()">Show Onyomi & Kunyomi</mat-checkbox>
+
+          </div> -->
+         
+        </div>
+          
+
+       
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="flex game">
+
+    <div class="game-description">
+      <div *ngIf="isPhone" class="game-description-button" (click)="showMenuLateral()">
+        <i class="fa-solid fa-sliders"></i>
+      </div>
+
+      <article *ngIf="cardGame">Click on the card that represents those characters</article>
+      <article *ngIf="typeGame">Type the meaning of characters shown and press enter to submit</article>
+
+      <a href='/' class="game-description-button" *ngIf="isPhone">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </div>
+
+    <div class="phone-strike-container" *ngIf="isPhone && showStreak">
+      <!-- <div class="emote-container flex">
+        <ng-container>
+          <div class="emote" [ngClass]="{'emote-animation': emote != ''}">{{emote}}</div>
+        </ng-container>
+      </div> -->
+      <div class="phone-strike flex">
+        <h1 [ngClass]="{'streakFailShake' : streakFailShake , 'normalGradient' : !streakFailShake}">
+          <i class="fas fa-meteor"></i>
+          Streak : {{cardGame ? cardGameStreak : typeGameStreak}}
+        </h1>
+        <h2>
+          <i class="fas fa-trophy"></i>
+          &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}} &nbsp;
+        </h2>
+      </div>
+    </div>
+
+    <div class="flex kana w-80">
+
+      <div class="kana-card" *ngIf="cardGame">
+        <div class="queAdivina">{{queAdivina == 'kana' ? adivinar.kana : adivinar.meaning}}</div> 
+        <div class="grammar-romaji" *ngIf="queAdivina == 'kana'">{{adivinar.romaji}}</div>       
+      </div>
+
+
+
+      <div class="kana-type w-100" *ngIf="typeGame">
+        <div class="kana-type-card w-100" [ngClass]="{'kana-type-failed' : typeGameFail, 'typeGameFailShake' : typeGameFailShake, 'typeGameCorrect' : typeCardCorrect}">
+          <div class="kana-type-text">
+            <div class="kana-type-kana">
+              {{adivinar.kana}}
+            </div>   
+            <div class="kana-type-romaji">
+              {{adivinar.romaji}}
+            </div>           
+           
+
+          </div>
+          <div class="showMeaning" *ngIf="typeGameShowKanaValue || typeCardCorrect">
+            <span > ( {{adivinar.meaning}} )</span>
+          </div>
+          <div class="kana-type-controls w-100" *ngIf="!typeCardCorrect">
+            <div class="kana-type-input w-100">
+              <input type="text" class="w-100" placeholder="Type the meaning" (keydown.enter)="adivinarTypeGame($event)"
+                #typeGameInput>
             </div>
-            <div class="typeCardShowKanaPhone" (click)="typeGameShowKana()" matTooltip="Show kana (lose streak)">
-              <i class="fas fa-eye"></i>
+            <div class="kana-type-submit">
+              <button matTooltip="Submit answer" (click)="adivinarTypeGame($event)">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
             </div>
-          </ng-container>
-          <div *ngIf="typeCardCorrect" class="typeCardNewKana" (click)="nuevoKana()" matTooltip="Well done! Next kanji">
-            <i class="fa-solid fa-check"></i>
-           <small> Next kanji</small>
           </div>
         </div>
+
+        <div class="buttons" >
+          <div class="skip-kana" (click)="typeGameSkipKana()" matTooltip="Skip grammar (lose streak)" *ngIf="!typeCardCorrect">
+            <i class="fa-solid fa-rotate-right "></i>
+          </div>
+          <div class="show-kana" (click)="typeGameShowKana()" matTooltip="Show grammar (lose streak)" *ngIf="!typeCardCorrect">
+            <i class="fas fa-eye"></i>
+          </div>
+          <div *ngIf="typeCardCorrect" class="typeCardNewKana" (click)="nuevoKana()" matTooltip="Well done! Next grammar">
+            <i class="fa-solid fa-check"></i>  
+            <small>Next grammar</small>
+          </div>
+        </div>
+
       </div>
-    </ng-container>
+
+    </div>
+
+    <!-- FLEX DONDE SE MUESTRAN LAS OPCIONES DISPONIBLES SOLO PARA CARD -->
+    <div class="flex grid-list " *ngIf="cardGame"
+      [ngClass]="{'grid-1x2': level == 1, 'grid-2x2': level == 2, 'grid-3x3': level == 3}">
+      <div class="grid-item flex-column" (click)="this.resolver(this.option)"
+        [ngClass]="{'failed': !this.option.estado , 'disabled': success , }" *ngFor="let option of options">
+
+        <div class="text-option" [ngClass]="{'grammar-kana': queAdivina != 'kana' }">{{queAdivina == 'kana' ? option.meaning : option.kana}}</div>       
+        <div class="grammar-romaji" *ngIf="queAdivina != 'kana'">{{option.romaji}}</div>  
+
+        <div *ngIf="!this.option.estado" class="flex kana-failed-solution"  [ngClass]="{'failedAdivinaKanji' : queAdivina != 'kana'}"> 
+          
+            {{queAdivina == 'kana' ? option.kana : option.meaning}} 
+            <span *ngIf="queAdivina ==  'kana'" class="failedRomaji">{{option.romaji}}</span>
+            
+        </div>
+
+      </div>
+    </div>
+
+    <span class="typeCardInfo" matTooltip="Some meanings may give error even if they are correct, especially when they are long and include several words." *ngIf="typeGame"><i class="fa-solid fa-circle-exclamation"></i> This mode may not be 100% accurated. </span>
+
 
   </div>
 
-  <span *ngIf="typeGame" class="typeCardInfo" (click)="toogletooltipTypeGameAdvice()" #tooltipTypeGameAdvice="matTooltip"
-  matTooltip="Some meanings may fail even if they are correct, especially when they are long and include several words."><i class="fa-solid fa-circle-exclamation"></i> This mode may not be 100% accurated. </span>
+  <div class="flex score" *ngIf="!isPhone && showStreak">
 
+    <div class="strike-container" *ngIf="showStreak">
+      <div class="emote-container flex">
+        <ng-container>
+          <!-- <div class="emote" [ngClass]="{'emote-animation': emote != ''}">{{emote}}</div> -->
+        </ng-container>
+      </div>
+      <div class="strike flex">
+        <h1 [ngClass]="{'streakFailShake' : streakFailShake , 'normalGradient' : !streakFailShake}">
+          <i class="fas fa-meteor"></i>
+          Streak : {{cardGame ? cardGameStreak : typeGameStreak}}
+        </h1>
+        <h2>
+          <i class="fas fa-trophy"></i>
+          &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}} &nbsp;
+        </h2>
+      </div>
+    </div>
+
+  </div>
 
 </div>
-
 
 
 
 <!-- Menu lateral movil -->
+<div class="menuLateral" [ngClass]="{'menuLateral-hidden' : !menuLateral}" *ngIf="isPhone"
+  (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
 
-<div class="containerMenuPhone" [ngClass]="{'hiddenContainerMenuPhone' : !menuLateral}" *ngIf="isPhone" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
-  <!-- Boton movil para cerrar opciones -->
-  <div *ngIf="isPhone && menuLateral" class="hideConfigPhoneButton" (click)="hideMenuLateral()">
-    <i class="fa-solid fa-xmark"></i>
-  </div>
-
-  <div class="halfPhone textOptionsMenu">
-    OPTIONS
-  </div>
-  <div class="halfPhone textOption">
-    MODE
-  </div>
-  <div class="halfPhone">
-    <div class="optionGamePhone" [ngClass]="{'optionGameSelectedPhone' : cardGame}" (click)="changeToCardGame()">
-      <i class="fa-solid fa-border-all"></i>
-      Card
+  <div class="menuLateral-option-title">
+    <div *ngIf="isPhone && menuLateral" class="exit-menuLateral" (click)="hideMenuLateral()">
+      <i class="fa-solid fa-xmark"></i>
     </div>
-    <div class="optionGamePhone" [ngClass]="{'optionGameSelectedPhone' : typeGame}" (click)="changeToTypeGame()">
-      <i class="fa-regular fa-keyboard"></i>
-      Type
-    </div>
-  </div>
-  <div class="halfPhone textOption">
-    GUESS KANJI SET
-  </div>
-  <div class="halfPhone kanaOptionsPhone">
-    <div>
-      <mat-checkbox [checked]="kanjiN5" (click)="toogleKanaOptions('kanjiN5',$event)">Kanji N5</mat-checkbox>
-    </div>
-    <div>
-      <mat-checkbox [checked]="kanjiN4" (click)="toogleKanaOptions('kanjiN4',$event)">Kanji N4</mat-checkbox>
-    </div>
-    <div>
-      <mat-checkbox [checked]="kanjiN3" (click)="toogleKanaOptions('kanjiN3',$event)">Kanji N3</mat-checkbox>
-    </div>
-    <div>
-      <mat-checkbox [checked]="kanjiN2" (click)="toogleKanaOptions('kanjiN2',$event)">Kanji N2</mat-checkbox>
-    </div>
-    <div>
-      <mat-checkbox [checked]="kanjiN1" (click)="toogleKanaOptions('kanjiN1',$event)">Kanji N1</mat-checkbox>
-    </div>
-  </div>
-  <div class="halfPhone textOption" *ngIf="cardGame">
-    DIFFICULTY
-  </div>
-  <div class="halfPhone">
-    <ng-container *ngIf="cardGame">
-      <div class="levelPhone" [ngClass]="{'levelSelectedPhone': level == 1}" (click)="changeLevel(1)">
-        <i class="fa-solid fa-fire"></i>
-        <br />
-        Easy
-      </div>
-      <div class="levelPhone" [ngClass]="{'levelSelectedPhone': level == 2}" (click)="changeLevel(2)">
-        <i class="fa-solid fa-fire"></i>
-        <i class="fa-solid fa-fire"></i>
-        <br />
-        Medium
-      </div>
-      <div class="levelPhone" [ngClass]="{'levelSelectedPhone': level == 3}" (click)="changeLevel(3)">
-        <i class="fa-solid fa-fire"></i>
-        <i class="fa-solid fa-fire"></i>
-        <i class="fa-solid fa-fire"></i>
-        <br />
-        Hard
-      </div>
-    </ng-container>
-  </div>
-  <div class="halfPhone textOption" *ngIf="cardGame">
-    GUESS {{queAdivina == 'kana' ? 'KANJI CHARACTERS' : 'MEANINGS'}}
-  </div>
-  <div class="halfPhone flexColumn">
-    <ng-container *ngIf="cardGame">
-      <div class="adivinarPhone" (click)="toogleQueAdivina()">
-        {{queAdivina == 'kana' ? '漢 字' : 'Meanings'}}
-        <i class="fa-solid fa-arrows-rotate"></i>
-        {{queAdivina == 'kana' ? 'Meanings' : '漢 字'}}
-      </div>
-    </ng-container>
-    <div class="display-flex flexColumn mt-2 alignItemsBaseline">
-      <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
-      <mat-checkbox [checked]="showYomi" (click)="toogleYomi()">Show Onyomi & Kunyomi</mat-checkbox>
-    </div>
+    <h1>OPTIONS</h1>
   </div>
 
+  <div class="menuLateral-options-container">
+
+    <div class="option">
+      <div class="title">
+        MODE
+      </div>
+      <div class="option-content flex-row gap-20">
+        <div class="option-mode" [ngClass]="{'option-mode-selected' : cardGame}" (click)="changeToCardGame()">
+          <i class="fa-solid fa-border-all"></i>
+          Card
+        </div>
+        <div class="option-mode" [ngClass]="{'option-mode-selected' : typeGame}" (click)="changeToTypeGame()">
+          <i class="fa-regular fa-keyboard"></i>
+          Type
+        </div>
+      </div>
+    </div>
+
+    <div class="option">
+      <div class="title">
+        <div (click)="openModal()" matTooltip="Select range of grammar" class="slider-config">GUESS GRAMMAR SET <i class="fa-solid fa-sliders"></i></div>
+      </div>
+      <div class="option-content flex-column align-items-baseline w-70 justify-flex-start">
+        <div>
+          <mat-checkbox [checked]="grammarN5" (click)="toogleKanaOptions('grammarN5',$event)">Grammar N5 <small>({{grammarN5Array.length}})</small></mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox [checked]="grammarN4" (click)="toogleKanaOptions('grammarN4',$event)">Grammar N4 <small>({{grammarN4Array.length}})</small></mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox [checked]="grammarN3" (click)="toogleKanaOptions('grammarN3',$event)">Grammar N3 <small>({{grammarN3Array.length}})</small></mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox [checked]="grammarN2" (click)="toogleKanaOptions('grammarN2',$event)">Grammar N2 <small>({{grammarN2Array.length}})</small></mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox [checked]="grammarN1" (click)="toogleKanaOptions('grammarN1',$event)">Grammar N1 <small>({{grammarN1Array.length}})</small></mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="option" *ngIf="cardGame">
+      <div class="title">
+        DIFFICULTY
+      </div>
+      <div class="option-content gap-10">
+        <div class="level" [ngClass]="{'level-selected': level == 1}" (click)="changeLevel(1)">
+          <i class="fa-solid fa-fire"></i>
+          <br />
+          Easy
+        </div>
+        <div class="level" [ngClass]="{'level-selected': level == 2}" (click)="changeLevel(2)">
+          <i class="fa-solid fa-fire"></i>
+          <i class="fa-solid fa-fire"></i>
+          <br />
+          Medium
+        </div>
+        <div class="level" [ngClass]="{'level-selected': level == 3}" (click)="changeLevel(3)">
+          <i class="fa-solid fa-fire"></i>
+          <i class="fa-solid fa-fire"></i>
+          <i class="fa-solid fa-fire"></i>
+          <br />
+          Hard
+        </div>
+      </div>
+    </div>
+
+    <div class="option" *ngIf="cardGame">
+      <div class="title">
+        GUESS {{queAdivina == 'kana' ? 'GRAMMAR' : 'MEANINGS'}}
+      </div>
+      <div class="option-content">
+        <div class="adivinar" (click)="toogleQueAdivina()">
+          {{queAdivina == 'kana' ? '漢 字' : 'Meanings'}}
+          <i class="fa-solid fa-arrows-rotate"></i>
+          {{queAdivina == 'kana' ? 'Meanings' : '漢 字'}}
+        </div>
+      </div>
+    </div>
+
+    <div class="option">
+      <div class="title">
+        STRIKE & BEST
+      </div>
+      <div class="option-content flex-column align-items-baseline w-80 justify-flex-start">
+        <div>
+          <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
+        </div>
+        <!-- <div>
+          <mat-checkbox [checked]="showYomi" (click)="toogleYomi()">Show Onyomi & Kunyomi</mat-checkbox>
+        </div> -->
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- Boton movil para volver al menu -->
-<a href='/' class="menuPhoneButton" *ngIf="isPhone">
-  <i class="fa-solid fa-house"></i>
-</a>
-
-<!-- Boton movil para abrir opciones -->
-<div *ngIf="isPhone" class="configPhoneButton" (click)="showMenuLateral()">
-  <i class="fa-solid fa-sliders"></i>
-</div>
 
 
 
@@ -450,3 +371,223 @@
   <i class="fa-solid fa-check fa-beat"></i>
 </div>
 
+
+
+<!-- modal.component.html -->
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Select range of grammar for each Nº</h2>
+
+    <div class="slider-container">
+      <div class="slider-row">
+        <div class="slider-text">
+          Grammar N5 
+        </div>
+        <div class="slider-slider">
+          <div class="slider-slider-text">
+
+            <div>
+            From <b>{{minKanjiN5}}</b> 
+            </div>
+            <small><small>(Min. 1)</small> </small> 
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMin(5)" (mouseLongPress)="minusMin(5)">-</button>
+              <button class="minus-button" (click)="plusMin(5)" (mouseLongPress)="plusMin(5)">+</button>
+            </div>          
+          </div>
+         
+          <mat-slider min="1" max="{{grammarN5Array.length}}"  [discrete]="true" [disableRipple]="true">
+            <input  [(ngModel)]="minKanjiN5" matSliderStartThumb  [(ngModel)]="minKanjiN5">
+            <input  [(ngModel)]="maxKanjiN5" matSliderEndThumb  [(ngModel)]="maxKanjiN5">
+          </mat-slider>
+
+          <div class="slider-slider-text">
+          <div>
+            To <b>{{maxKanjiN5}}</b> 
+          </div>
+          <small><small>(Max. {{grammarN5Array.length}})</small></small>  
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMax(5)">-</button>
+          <button class="minus-button" (click)="plusMax(5)">+</button>
+            </div>          
+          </div>
+        
+        </div>
+        <div class="slider-error">
+          {{sliderErrorN5}}
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-text">
+          Grammar N4 
+        </div>
+        <div class="slider-slider">
+          <div class="slider-slider-text">
+
+            <div>
+            From <b>{{minKanjiN4}}</b> 
+            </div>
+            <small><small>(Min. 1)</small> </small> 
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMin(4)" (mouseLongPress)="minusMin(4)">-</button>
+              <button class="minus-button" (click)="plusMin(4)" (mouseLongPress)="plusMin(4)">+</button>
+            </div>          
+          </div>
+         
+          <mat-slider min="1" max="{{grammarN4Array.length}}"  [discrete]="true" [disableRipple]="true">
+            <input  [(ngModel)]="minKanjiN4" matSliderStartThumb  [(ngModel)]="minKanjiN4">
+            <input  [(ngModel)]="maxKanjiN4" matSliderEndThumb  [(ngModel)]="maxKanjiN4">
+          </mat-slider>
+
+          <div class="slider-slider-text">
+          <div>
+            To <b>{{maxKanjiN4}}</b> 
+          </div>
+          <small><small>(Max. {{grammarN4Array.length}})</small></small>  
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMax(4)">-</button>
+          <button class="minus-button" (click)="plusMax(4)">+</button>
+            </div>          
+          </div>
+        
+        </div>
+        <div class="slider-error">
+          {{sliderErrorN4}}
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-text">
+          Grammar N3 
+        </div>
+        <div class="slider-slider">
+          <div class="slider-slider-text">
+
+            <div>
+            From <b>{{minKanjiN3}}</b> 
+            </div>
+            <small><small>(Min. 1)</small> </small> 
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMin(3)" (mouseLongPress)="minusMin(3)">-</button>
+              <button class="minus-button" (click)="plusMin(3)" (mouseLongPress)="plusMin(3)">+</button>
+            </div>          
+          </div>
+         
+          <mat-slider min="1" max="{{grammarN3Array.length}}"  [discrete]="true" [disableRipple]="true">
+            <input  [(ngModel)]="minKanjiN3" matSliderStartThumb  [(ngModel)]="minKanjiN3">
+            <input  [(ngModel)]="maxKanjiN3" matSliderEndThumb  [(ngModel)]="maxKanjiN3">
+          </mat-slider>
+
+          <div class="slider-slider-text">
+          <div>
+            To <b>{{maxKanjiN3}}</b> 
+          </div>
+          <small><small>(Max. {{grammarN3Array.length}})</small></small>  
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMax(3)">-</button>
+          <button class="minus-button" (click)="plusMax(3)">+</button>
+            </div>          
+          </div>
+        
+        </div>
+        <div class="slider-error">
+          {{sliderErrorN3}}
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-text">
+          Grammar N2 
+        </div>
+        <div class="slider-slider">
+          <div class="slider-slider-text">
+
+            <div>
+            From <b>{{minKanjiN2}}</b> 
+            </div>
+            <small><small>(Min. 1)</small> </small> 
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMin(2)" (mouseLongPress)="minusMin(2)">-</button>
+              <button class="minus-button" (click)="plusMin(2)" (mouseLongPress)="plusMin(2)">+</button>
+            </div>          
+          </div>
+         
+          <mat-slider min="1" max="{{grammarN2Array.length}}"  [discrete]="true" [disableRipple]="true">
+            <input  [(ngModel)]="minKanjiN2" matSliderStartThumb  [(ngModel)]="minKanjiN2">
+            <input  [(ngModel)]="maxKanjiN2" matSliderEndThumb  [(ngModel)]="maxKanjiN2">
+          </mat-slider>
+
+          <div class="slider-slider-text">
+          <div>
+            To <b>{{maxKanjiN2}}</b> 
+          </div>
+          <small><small>(Max. {{grammarN2Array.length}})</small></small>  
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMax(2)">-</button>
+          <button class="minus-button" (click)="plusMax(2)">+</button>
+            </div>          
+          </div>
+        
+        </div>
+        <div class="slider-error">
+          {{sliderErrorN2}}
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-text">
+          Grammar N1
+        </div>
+        <div class="slider-slider">
+          <div class="slider-slider-text">
+
+            <div>
+            From <b>{{minKanjiN1}}</b> 
+            </div>
+            <small><small>(Min. 1)</small> </small> 
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMin(1)" (mouseLongPress)="minusMin(1)">-</button>
+              <button class="minus-button" (click)="plusMin(1)" (mouseLongPress)="plusMin(1)">+</button>
+            </div>          
+          </div>
+         
+          <mat-slider min="1" max="{{grammarN1Array.length}}"  [discrete]="true" [disableRipple]="true">
+            <input  [(ngModel)]="minKanjiN1" matSliderStartThumb  [(ngModel)]="minKanjiN1">
+            <input  [(ngModel)]="maxKanjiN1" matSliderEndThumb  [(ngModel)]="maxKanjiN1">
+          </mat-slider>
+
+          <div class="slider-slider-text">
+          <div>
+            To <b>{{maxKanjiN1}}</b> 
+          </div>
+          <small><small>(Max. {{grammarN1Array.length}})</small></small>  
+            <div class="slider-slider-buttons">
+              <button class="minus-button" (click)="minusMax(1)">-</button>
+          <button class="minus-button" (click)="plusMax(1)">+</button>
+            </div>          
+          </div>
+        
+        </div>
+        <div class="slider-error">
+          {{sliderErrorN1}}
+        </div>
+      </div>
+
+    </div>
+   
+    <div class="slider-button">
+
+      <div class="slider-submit" (click)="validateRange()">
+        Save changes
+      </div>
+
+      <div class="slider-cancel" (click)="closeModal()">
+        Cancel
+      </div>   
+     
+    </div>
+
+  </div>
+</div>

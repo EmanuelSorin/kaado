@@ -1,1125 +1,860 @@
-@media only screen and (max-width:839.98px) and (orientation: portrait), (max-width: 1279.98px) and (orientation: landscape)
-{
+@media only screen and (max-width:839.98px) and (orientation: portrait),
+(max-width: 1279.98px) and (orientation: landscape) {
 
-  .containerPhone{
-    //background-color:var(--color-secondary);
+  html, body { height: 100% !important; }
+  body{
+    height: 100%  !important;
+    padding:10px !important;
+  }
+
+  .container{
     height:100%;
-    display: flex;
-    justify-content: space-between;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color:var(--color-primary);
   }
 
-  .halfPhone{
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-  }
-
-  .cardGameAdivinarPhone{
-    text-align: center;
-    font-size: 6rem;
-    font-weight: bold;
-
-  }
-
-  .cardGameGridPhone{
-    flex: 1;
-    padding: 20px;
-    width:100%;
-    height:100%
-  }
-  .grid-1x2-phone {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
-    gap: 10px; /* Espacio entre los elementos del grid */
-  }
-
-  .grid-2x2-phone {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Tres columnas de igual tamaño */
-    grid-template-rows: repeat(2, 1fr); /* Tres filas de igual tamaño */
-    gap: 10px; /* Espacio entre los elementos del grid */
-  }
-
-  .grid-3x3-phone {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
-    grid-template-rows: repeat(3, 1fr); /* Tres filas de igual tamaño */
-    gap: 10px; /* Espacio entre los elementos del grid */
-  }
-
-  /* Estilo para cada elemento de la cuadrícula */
-  .grid-item-phone {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
+  .game{
     border-radius:20px;
-    cursor: pointer;
-    border: 1px solid var(--color-primary);
   }
 
-  .failed {
-    pointer-events: none; /* Desactiva eventos del ratón, como clicks */
-    opacity: 0.8; /* Opcional: hace el div visualmente más claro para indicar que está deshabilitado */
-    border: 1px solid var(--color-error);
-    color: var(--color-error);
-    flex-direction: column;
-
+  .game .grid-list {
+    width: 90%;
+    margin-bottom: 20px;
   }
-
-  .romajiFailed{
-    font-size:1rem;
-  }
-
-  .pointsPhone{
-    text-align: center;
-    flex-direction: column;
-    justify-content: end;
-  }
-
-  .typeGameScorePhone{
-
-    justify-content: baseline !important;
-    margin-bottom: 50px;
-
-  }
-
-  .pointsPhone .streakPhone{
-    font-size:1.5rem;
-  margin-bottom:20px;
-  background: linear-gradient(0deg, #dfbe75 0%,#ef3131 100%);
-  background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold;
-  }
-
-  .pointsPhone .streakFailShake{
-    font-size:1.5rem !important;
-  margin-bottom:20px !important;
-  background: linear-gradient(0deg, #ec6464 0%,#d31c1c 100%);
-  background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold !important;
-      animation: shake 0.5s ease;
-  }
-
-  .pointsPhone .streakPhone{
-    font-size:1.5rem;
-  margin-bottom:20px;
-  background: linear-gradient(0deg, #dfbe75 0%,#ef3131 100%);
-  background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold;
-  }
-
-  .pointsPhone .bestPhone{
-    font-size:1rem;
-    margin-bottom:10px;
-    background: linear-gradient(0deg, rgb(193 93 0) 0%, rgb(251 236 147) 100%);
-    background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold;
-  }
-
-  .emotePhone {
-    position:absolute;
-    margin-bottom: 30%;
-    font-size:3rem;
-    animation: fadeOut 5s ease-in-out forwards, heartbeat 5s ease-in-out forwards;
-  }
-
-
-
-  .containerMenuPhone{
-    border: .5px solid rgba(136, 153, 166, 0.2);
-      border-left: none;
-    background-color:var(--color-secondary);
-    height:100%;
+  .game-description {
+    font-size: 0.9rem;
     width:90%;
-    display: flex;
-    justify-content: space-between;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color:var(--color-primary);
-    position: fixed;
-    top: 0;
-    z-index: 10;
-    border-top-right-radius: 10px; /* Radio para el borde superior derecho */
-    border-bottom-right-radius: 10px; /* Radio para el borde inferior derecho */
-    -webkit-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
-    -moz-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
-    box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
-
-    transition: transform 0.4s ease; /* Transición suave */
-    transform: translateX(0);
-    gap: 10px;
-
-  }
-  .hiddenContainerMenuPhone{
-    transform: translateX(-100%); /* Inicialmente, el sidenav está fuera de la pantalla */
-    transition: transform 0.4s ease; /* Transición suave */
-    box-shadow: none;
-  }
-
-
-  .optionGamePhone{
-    border:1px solid var(--color-primary);
-    border-radius:15px;
-    width:70px;
-    height: 70px;
-
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    flex-direction: column;
-    margin:0 20px;
-    cursor: pointer;
-  }
-
-
-
-  .optionGameSelectedPhone{
-    background-color: var(--color-primary);
-    color:var(--color-secondary);
-  }
-
-
-  .optionGamePhone i{
-    font-size:2rem;
-  }
-
-  .textOptionsMenu{
-    flex:0 1 10%;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  .textOption{
-    flex: 0 1 25px;
-    border-bottom: 1px solid #ffffff2e;
-    width: 60%;
-  }
-
-  .kanaOptionsPhone{
-    flex-direction: column;
-    align-items: baseline !important;
-    margin-left: 20%;
-
-  }
-
-
-  //Dificultad
-  .levelPhone{
-    border:1px solid var(--color-primary);
-    border-radius:65px;
-    padding:5px;
     text-align: center;
-    min-width: 80px;
-    margin: 0 7px;
+    gap:30px;
   }
 
-  .levelSelectedPhone{
-   background-color:var(--color-primary);
-   color:var(--color-secondary);
-  }
-
-
-  //Boton cambiar si adivinar kana o romaji
-  .adivinarPhone{
-    border:1px solid var(--color-primary);
-    border-radius:65px;
-    text-align: center;
-    padding:15px;
-    min-width: 200px;
-  }
-
-  .adivinarPhone i{
-    margin:0 5px;
-    transition: transform .3s;
-  }
-
-  .containerAdivinarPhone{
-    align-items: baseline;
-  }
-
-
-
-
-
-
-  .typeCardPhone{
-    height:15rem;
-    border-radius:15px;
-    background-color: var(--color-primary);
-    color:var(--color-secondary);
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: end;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    flex-direction: column;
-    font-size: 3rem;
-    text-align: center;
-  }
-
-  .typeCardPhone h1{
-    margin-top: 40px;
-    font-size: 5rem;
-    font-weight: bold;
-    margin:0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .typeCardPhone h1 span{
-    font-size: 2rem;
-    font-weight: bold;
-   margin-left:5px;
-  }
-
-  .typeCardPhone input{
-
-    width:80%;
-    height:50px;
-    border-radius:10px;
-    border:none;
-    background-color:var(--color-secondary);
-    color:var(--color-primary);
-    text-align: center;
-    font-size:1.5rem;
-  }
-
-
-
-
-
-  .typeCardSkipKanaPhone{
-    width:70px;
-    height:70px;
-    border-radius: 10px;
-    border:1px solid var(--color-primary);
-    background-color: var(--color-secondary);
-    text-align: center;
-    color:var(--color-primary);
-    margin-top:20px;
-    font-size: 2rem;
-    cursor: pointer;
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    display: flex;
-    margin-left:70px;
-  }
-
-  .typeCardShowKanaPhone{
-    width:40px;
-    height:40px;
-    border-radius: 10px;
-    border:1px solid var(--color-primary);
-    background-color: var(--color-secondary);
-    text-align: center;
-    color:var(--color-primary);
-    margin-top:20px;
-    font-size: 2rem;
-    cursor: pointer;
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    display: flex;
-    margin-left:40px;
-  }
-
-
-
-  // .containerGamePhone{
-  //   flex: 0 1 35%;
-  // }
-
-  .containerHintPhone{
-    flex: 0 1 100px !important;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  .hidden-phone{
-    display:none !important;
-  }
-
-  .menuPhoneButton{
+  .game-description .game-description-button{
+    flex:0 1 50px;
     height:50px;
     width:50px;
-    background-color: var(--color-secondary);
-    border:1px solid var(--color-primary);
+    background-color: var(--selected);
     border-radius:5px;
-    color:var(--color-primary);
-    position:absolute;
-    top:15px;
-    right:15px;
-    cursor: pointer;
+    color:var(--container-light);
     font-size:1rem;
     text-align: center;
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: center;     /* Centra el contenido horizontalmente */
+    display: flex;            
+    justify-content: center;   
     align-items: center;
+  }
+  .game-description-button{
     text-decoration: none;
   }
 
-  .configPhoneButton{
-    height:50px;
-    width:50px;
-    background-color: var(--color-secondary);
-    border:1px solid var(--color-primary);
-    border-radius:5px;
-    color:var(--color-primary);
-    position:absolute;
-    top:15px;
-    left:15px;
-    cursor: pointer;
-    font-size:1rem;
-    text-align: center;
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
+  .kana-failed-solution{
+    font-size: 1.4rem;  
   }
 
-  .hideConfigPhoneButton{
-    height:30px;
-    width:30px;
-    background-color: var(--color-secondary);
-    border:1px solid var(--color-primary);
-    border-radius:5px;
-    color:var(--color-primary);
-    position:absolute;
-    top:15px;
-    left:15px;
-    cursor: pointer;
-    font-size:1rem;
+  .text-option{
+    font-size:2.5rem;
+  }
+
+  .kana-type-card{
+    padding:20px;
+  }
+
+  .kana-type-controls{
+    gap:10px !important;
+  }
+
+  .game .kana {
+    font-size: clamp(4rem, 60vw, 8rem);
+  }
+
+  .phone-strike-container{
+    flex: 0 1 40px;
+  }
+
+  .phone-strike-container .phone-strike{
+    font-size: 1rem !important;
     text-align: center;
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    z-index:20;
+  }
+
+  .phone-strike h1{
+    margin:0;
+    font-size:1rem;
+  }
+
+  .phone-strike h2{
+    margin:0;
+    color: var(--selected);
+    line-height:0;
+    font-size:0.8rem;
+  }
+  
+  .phone-strike .normalGradient{    
+    font-weight: bold;
+    color: var(--selected);
+  }
+  .phone-strike .normalGradient i{
+    background: linear-gradient(0deg, #f3ab27 0%, #ef3131 100%);
+    background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+  }   
+ 
+  .phone-strike h2 i{
+    background: linear-gradient(0deg, rgb(193 133 77) 0%, rgb(219 161 26) 100%);
+    background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
   }
 
 
-.typeGameInputs{
-  display: flex;
-    flex-direction: row;
-    width: 90%;
+/* ===========================================================
+    MENU LATERAL
+   =========================================================== */
+  .menuLateral{
+    background-color:var(--container-light);
+    height:100%;
+    width:90%;
+    position: fixed;
+    top: 0;
+    left:0;
+    z-index: 10;
+    transition: transform 0.4s ease;
+    transform: translateX(0);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 4px 2px 10px 5px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+    background-image: url(/assets/img/sakura-30.png);
+    background-size: cover;
+    background-blend-mode: overlay;
+    overflow-y: scroll;
+    display:flex;
+    flex-direction: column;
+  }
+
+  .menuLateral-hidden{
+    transform: translateX(-150%); 
+    transition: transform 0.4s ease; 
+    box-shadow: none;
+  }
+
+  .menuLateral-option-title{
+    flex: 0 1 60px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex: 0 1 100px;
-    gap:10px;
-
-}
-
-.typeGamePhoneBaseline{
-  align-items: baseline !important;
-   padding-top: 40px;
-}
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-//ESTILO ORDENADOR
-
-
-
-
-  @media only screen and (min-width: 840px) and (orientation: portrait), (min-width: 1280px) and (orientation: landscape) {
-  .container {
-    display: flex;
-    justify-content: space-between;
-    height:100%;
-
-  //  background-color: var(--color-secondary) !important;
-    color: var(--color-primary) !important;
-  }
-  .container .split {
     width: 100%;
-    height:100%;
-    padding: 0 5px 0 5px;
   }
-
-
-  /* Estilo general para el contenedor */
-  .split {
+  
+  .menuLateral-option-title h1 {
+    flex: 1;
+    text-align: center;
+    margin-right: 70px;
+    margin-bottom: 0;
+  }
+  
+  .menuLateral-option-title .exit-menuLateral {
+    flex: 0 1 40px;
+    height:40px;
+    width:40px;
+    margin-left:10px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
     display: flex;
-    flex-direction: column;
-    height: 100vh; /* Ocupa toda la altura de la ventana */
+    justify-content: center;
+    align-items: center;   
+    background-color: var(--container-light);
+    color: var(--text);
+    box-shadow: 2px 2px 5px 0px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+    z-index:20;
+  
   }
 
-  /* Parte superior que ocupa la mitad del contenedor */
-  .top-half {
+  .menuLateral-options-container {
+    width: 95%;
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-
-  .botonMenu{
-    justify-content: start;
-    align-items: baseline !important;
-    margin: 20px;
-    width:95%;
+  
+  .menuLateral-options-container .option {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    gap: 10px;
   }
-
-  .alignItemsBaseline{
+  
+  .menuLateral-options-container .option .title {
+    flex: 0 1 25px;
+    margin-top: 15px;
+    border-bottom: 2px solid var(--container-dark);
+    width: 60%;
+  }
+  
+  .menuLateral-options-container .option .option-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: baseline;
   }
 
-
-  /* Centro de contenido en la parte superior */
-  .center-content {
-    font-size: 14rem;
-    font-weight: bold;
+  
+  .option-mode {
+    border-radius: 15px;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .option-mode i {
+    font-size: 1.3rem;
   }
 
-  /* Parte inferior que ocupa la otra mitad del contenedor */
-  .bottom-half {
-    flex: 1;
-    padding: 20px;
+  .option .level {   
+    min-width: 90px;
+    margin: 0;
+}
+  /* ===========================================================
+    END MENU LATERAL
+   =========================================================== */
+}
 
+/* ===========================================================
+
+   =========================================================== */
+/* ===========================================================
+   ESTILOS ORDENADOR
+   =========================================================== */
+/* ===========================================================
+
+   =========================================================== */
+
+@media only screen and (min-width: 840px) and (orientation: portrait),
+(min-width: 1280px) and (orientation: landscape) {
+
+  .game .grid-list {
+    width: 70%;
+    margin-bottom: 20px;
   }
 
-
-  .grid-1x2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
-    gap: 10px; /* Espacio entre los elementos del grid */
+  .game-description {
+    font-size: 1.3rem;
+  }
+  .kana-failed-solution{
+    font-size: 1.2vw;  
   }
 
-  .grid-2x2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Tres columnas de igual tamaño */
-    grid-template-rows: repeat(2, 1fr); /* Tres filas de igual tamaño */
-    gap: 10px; /* Espacio entre los elementos del grid */
+  .option-mode {
+    border-radius: 20px;
+    width: 80px;
+    height: 80px;
   }
-
-  .grid-3x3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
-    grid-template-rows: repeat(3, 1fr); /* Tres filas de igual tamaño */
-    gap: 10px; /* Espacio entre los elementos del grid */
-  }
-
-  /* Estilo para cada elemento de la cuadrícula */
-  .grid-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  
+  .option-mode i {
     font-size: 2rem;
-
-    border-radius:25px;
-    cursor: pointer;
-    border: 1px solid var(--color-primary);
-
-    // -webkit-box-shadow:  0 10px 0px 0px #777;
-    // -moz-box-shadow: 0 10px 0px 0px #777;
-    //      box-shadow: 0 10px 0px 0px #777;
-
   }
 
-
-
-  // .grid-item:hover{
-  //   -webkit-box-shadow: none ;
-  //   -moz-box-shadow: none ;
-  //        box-shadow: none ;
-
-  //        transform: translateY(10px);
-  // }
-
-
-
-
-  //Boton cambiar si adivinar kana o romaji
-  .adivinar{
-    border:1px solid var(--color-primary);
-    border-radius:65px;
-
-    text-align: center;
-    padding:15px;
-    min-width: 200px;
-  }
-  .adivinar:hover{
-    cursor: pointer;
-    background-color: var(--color-gray);
-  }
-
-  .adivinar i{
-    margin:0 5px;
-    transition: transform .3s;
-  }
-  .adivinar:hover i{
-    transition: transform .4s;
-   transform: rotate(90deg);
-  }
-
-
-  .block{
-    display:block;
-  }
-
-
-  //Dificultad
-
-  .level{
-    border:1px solid var(--color-primary);
-    border-radius:65px;
-    padding:5px;
-    text-align: center;
+  .option .level {   
     min-width: 100px;
     margin: 0 10px;
   }
 
-  .levelSelected{
-   background-color:var(--color-primary);
-   color:var(--color-secondary);
+  .kana-type-card{
+    padding:40px;
   }
 
-  .level:hover{
-    background-color:var(--color-gray);
+  .grid-item:hover {
+    border: none;
+    background-color: var(--selected-50);
+    color: var(--container-light);
+  }
+  
+  .option-mode:hover {
+    background-color: var(--selected-50);
+    //color:var(--color-secondary);
+    color: var(--container-light);
+    border: none;
+  }
+
+  .adivinar:hover {
     cursor: pointer;
+    background-color: var(--selected-50);
+    border: 1px solid var(--selected-50);
+    color: var(--container-light);
   }
 
-
-
-
-
-
-  .link{
-   // padding:20px;
-    background-color: var(--color-primary);
-  width:70px;
-  height:70px;
-    border-radius:5px;
-    color:var(--color-secondary);
-    font-size: 2rem;
-    cursor: pointer;
-
-    //Para centrar el texto en el div
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    text-decoration:none;
-
+  .game .kana {
+    font-size: clamp(6rem, 80vw, 12rem);
   }
 
-  .link i{
-    transition: transform .5s;
-   }
-  .link:hover i{
-    transition: transform .5s;
-   transform: translateX(-5px);
-   }
+}
 
+/* ===========================================================
 
+   =========================================================== */
+/* ===========================================================
+   ESTILOS GENERALES
+   =========================================================== */
+/* ===========================================================
 
+   =========================================================== */
 
-
-
-
-  @keyframes heartbeat
-  {
-    0%
-    {
-      transform: scale( .75 );
-    }
-    20%
-    {
-      transform: scale( 1 );
-    }
-    40%
-    {
-      transform: scale( .75 );
-    }
-    60%
-    {
-      transform: scale( 1 );
-    }
-    80%
-    {
-      transform: scale( .75 );
-    }
-    100%
-    {
-      transform: scale( .75 );
-    }
-  }
-
-
-
-
-  .points{
-
-    text-align: center;
-
-  }
-
-  .points .normalGradient{
-    font-size:3rem;
-  margin-bottom:30px;
-  background: linear-gradient(0deg, #dfbe75 0%,#ef3131 100%);
-  background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold;
-  }
-
-  .points h2{
-  background: linear-gradient(0deg, rgb(193 93 0) 0%, rgb(251 236 147) 100%);
-  background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold;
-  }
-
-
-  .optionGame{
-    border:1px solid var(--color-primary);
-    border-radius:25px;
-    width:100px;
-    height: 100px;
-
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    flex-direction: column;
-    margin:0 20px;
-    cursor: pointer;
-  }
-
-  .optionGame:hover{
-    background-color: var(--color-gray);
-    color:var(--color-secondary);
-  }
-
-  .optionGameSelected{
-    background-color: var(--color-primary);
-    color:var(--color-secondary);
-  }
-
-  .optionGameSelected:hover{
-    background-color: var(--color-primary);
-    color:var(--color-secondary);
-
-    pointer-events: none;
-  }
-
-  .optionGame i{
-    font-size:2rem;
-  }
-
-
-
-  .invisible{
-    visibility: hidden;
-  }
-
-
-  .typeCard{
-    width:80%;
-    height:30%;
-    border-radius:15px;
-    background-color: var(--color-primary);
-    color:var(--color-secondary);
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: end;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    flex-direction: column;
-    font-size: 3rem;
-    text-align: center;
-  }
-
-  .typeCard h1{
-    font-size: 8rem;
-    font-weight: bold;
-    margin:0;
-
-    display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-
-  .typeCard h1 span{
-    font-size: 2rem;
-    font-weight: bold;
-   margin-left:5px;
-  }
-
-  .typeCard input{
-  //  margin-top:70px;
-   // margin-bottom:40px;
-    width:80%;
-    height:50px;
-    border-radius:10px;
-    border:none;
-    background-color:var(--color-secondary);
-    color:var(--color-primary);
-    text-align: center;
-    font-size:1.5rem;
-  }
-
-
-
-
-
-  .typeCardSkipKana{
-    width:80px;
-    height:80px;
-    border-radius: 10px;
-    border:1px solid var(--color-primary);
-    background-color: var(--color-secondary);
-    text-align: center;
-    color:var(--color-primary);
-    margin-top:40px;
-    font-size: 2rem;
-    cursor: pointer;
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    display: flex;
-    margin-left:70px;
-  }
-
-  .typeCardShowKana{
-    width:50px;
-    height:50px;
-    border-radius: 10px;
-    border:1px solid var(--color-primary);
-    background-color: var(--color-secondary);
-    text-align: center;
-    color:var(--color-primary);
-    margin-top:40px;
-    font-size: 2rem;
-    cursor: pointer;
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    display: flex;
-    margin-left:40px;
-  }
-
-
-
-
-  .streakFailShake{
-    background: linear-gradient(0deg, #ec6464 0%,#d31c1c 100%);
-    animation: shake 0.5s ease;
-    font-size:3rem !important;
-    margin-bottom:30px !important;
-    background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: bold !important;
-  }
-
-
-
-
-.typeGameInputs{
+.container {
+  border-radius: 20px;
   display: flex;
-    flex-direction: row;
-    width: 90%;
-    justify-content: center;
-    align-items: center;
-    flex: 0 1 100px;
-    gap:10px;
-}
-
-
-.typeGameInputs{
-  display: flex;
-    flex-direction: row;
-    width: 90%;
-    justify-content: center;
-    align-items: center;
-    flex: 0 1 100px;
-    gap:10px;
-}
-
-.textOption{
-  flex: 0 1 25px;
-  border-bottom: 1px solid #ffffff2e;
-  width: 40%;
-}
-
-.optionsColumn{
+  justify-content: center;
   align-items: center;
+  height: 100%;
+  box-shadow: 20px 20px 25px 5px var(--box-shadow-dark);
+}
+
+.options {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: var(--container-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  box-shadow: inset 1px 1px 2px 0px var(--box-shadow-light);
+  height: 100%;
+  gap: 20px;
+  padding: 20px 0;
+  flex:0 1 25%;
+}
+
+.option {
+  flex: 1;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ===========================================================
+   TITULO "OPTIONS"
+   =========================================================== */
+.option-title {
+  flex: 0 1 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.option-title h1 {
+  flex: 1;
+  text-align: center;
+  margin-right: 70px;
+  margin-bottom: 0;
+}
+
+.option-title a {
+  flex: 0 1 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
+  font-size: 2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: var(--container-light);
+  color: var(--text);
+  box-shadow: 2px 2px 5px 0px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+
+}
+
+.option-title a i {
+  transition: transform .5s;
+}
+
+.option-title a:hover i {
+  transition: transform .5s;
+  transform: translateX(-5px);
+}
+
+/* ===========================================================
+   END TITULO "OPTIONS"
+   =========================================================== */
+
+
+/* ===========================================================
+   CONTAINER DE OPCIONES
+   =========================================================== */
+.option-container {
+  background-color: var(--container-light);
+  width: 90%;
+  border-radius: 20px;
+  flex: 1;
+  box-shadow: 2px 2px 5px 0px var(--box-shadow-dark), inset 1px 1px 2px 0px var(--box-shadow-light);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(/assets/img/sakura-30.png);
+    background-size: cover;
+    background-blend-mode: overlay;
+}
+
+.option-container .option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  gap: 20px;
+}
+
+.option-container .option .title {
+  flex: 0 1 25px;
+  margin-top: 15px;
+  border-bottom: 2px solid var(--container-dark);
+  width: 60%;
+}
+
+.option-container .option .option-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+/* ===========================================================
+   END CONTAINER DE OPCIONES
+   =========================================================== */
+
+
+/* ===========================================================
+   MODO DE JUEGO
+   =========================================================== */
+.option-mode {
+  border: 1px solid var(--selected);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  color: var(--selected);
+}
+
+
+.option-mode-selected {
+  background-color: var(--selected);
+  color: var(--container-light);
+}
+
+.option-mode-selected:hover {
+  background-color: var(--selected);
+}
+
+/* ===========================================================
+   END MODO DE JUEGO
+   =========================================================== */
+
+/* ===========================================================
+   DIFICULTAD
+   =========================================================== */
+.option .level {
+  border: 1px solid var(--selected);
+  border-radius: 65px;
+  padding: 5px;
+  text-align: center;
+  color: var(--selected);
+}
+
+.option .level:hover {
+  background-color: var(--selected);
+  cursor: pointer;
+  border: none;
+  color: var(--container-light);
+}
+
+.option .level-selected {
+  background-color: var(--selected);
+  color: var(--container-light);
+}
+
+/* ===========================================================
+   END DIFICULTAD
+   =========================================================== */
+
+
+/* ===========================================================
+  QUE ADIVINA
+   =========================================================== */
+.adivinar {
+  border: 1px solid var(--selected);
+  border-radius: 65px;
+  text-align: center;
+  padding: 15px;
+  min-width: 200px;
+}
+
+
+
+.adivinar i {
+  margin: 0 5px;
+  transition: transform .3s;
+}
+
+.adivinar:hover i {
+  transition: transform .4s;
+  transform: rotate(90deg);
+}
+
+/* ===========================================================
+   END QUE ADIVINA
+   =========================================================== */
+
+
+
+
+/* ===========================================================
+   COLUMNA 2
+   =========================================================== */
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  background-color: var(--container-light);
+  height: 100%;
+  box-shadow: inset 0.5px 1px 0px 0px var(--box-shadow-light-60);
+  flex:1;
+}
+
+.game-description {
+  flex: 0 1 100px;
+  color: var(--selected);
+  display: flex;
+  align-items: center;
+}
+.game-description article{
+  flex:1;
+}
+
+.game .kana {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+
+.grid-1x2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  /* Dos columnas de igual tamaño */
+  gap: 10px;
+  /* Espacio entre los elementos del grid */
+}
+
+.grid-2x2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(2, 1fr);
+  /* Tres filas de igual tamaño */
+  gap: 10px;
+  /* Espacio entre los elementos del grid */
+}
+
+.grid-3x3 {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  /* Tres columnas de igual tamaño */
+  grid-template-rows: repeat(3, 1fr);
+  /* Tres filas de igual tamaño */
+  gap: 10px;
+  /* Espacio entre los elementos del grid */
+}
+
+.grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(1.5rem, 80vw, 3rem);
+  ;
+  border-radius: 25px;
+  cursor: pointer;
+  border: 1px solid var(--selected);
+  color: var(--selected);
+}
+
+.grid-item .text-option{
+  flex:0 1 60%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.kana-failed-solution{
+  flex: 0 1 40%;
+}
+
+.failed {
+  pointer-events: none !important;
+  opacity: 0.6 !important;
+  border: 1px solid var(--error) !important;
+  color: var(--error) !important;
+}
+
+
+
+.kana-type{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kana-type-card{
+  background-color: var(--selected-50);
+  border-radius:20px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 2px 5px 0px var(--box-shadow-dark);
+}
+
+.kana-type-text{
+  min-height:150px;
+  display:flex;
+  align-items: center;
+}
+
+.kana-type-text div{
+  font-size:4rem;
+}
+
+.kana-type-text div span{
+  font-size:2rem;
+  font-weight: 300;
+}
+
+.kana-type-controls{
+  display:flex;
+  flex-direction: row;
   gap:20px;
 }
 
-.hints{
-  flex: 0 1 100px;
-  align-items: center;
-  font-size:1.3rem;
+.kana-type-input{
+  flex: 1;
 }
 
-
-
-
-  }
-
-
-
-//ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-
-
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-
-
-  //ESTILOS COMUNES
-  //ESTILOS COMUNES
-//ESTILOS COMUNES
-  //ESTILOS COMUNES
-  .centered-div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .success{
-    color:var(--color-success);
-    font-size:12rem;
-    display:block;
-  }
-  .hint{
-    color:var(--color-gray);
-  }
-
-  .hidden{
-    display:none;
-  }
-
-  .failed {
-    pointer-events: none; /* Desactiva eventos del ratón, como clicks */
-    opacity: 0.8; /* Opcional: hace el div visualmente más claro para indicar que está deshabilitado */
-    border: 1px solid var(--color-error);
-    color: var(--color-error);
-  }
-
-  .disabled {
-    pointer-events: none; /* Desactiva eventos del ratón, como clicks */
-    opacity: 0.5; /* Opcional: hace el div visualmente más claro para indicar que está deshabilitado */
-  }
-
-
-  .emote {
-    position:absolute;
-    font-size:8rem;
-    animation: fadeOut 5s ease-in-out forwards, heartbeat 5s ease-in-out forwards;
-
-  }
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-      visibility:visible;
-
-    }
-    to {
-      opacity: 0;
-      visibility:hidden;
-
-    }
-
-  }
-
-  .flexColumn{
-    flex-direction: column;
-  }
-
-
-
-  .typeGameButtons{
-    display: flex;               /* Activa Flexbox para el div */
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;
-    flex-direction: row;
-  }
-
-  .typeCard input:focus{
-    outline: none;
-  }
-
-  .typeGameFail{
-    background-color: var(--color-error);
-
-  }
-
-
-
-  .typeGameFailShake{
-    animation: shake 0.5s ease;
-  }
-
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-  }
-
-
-  //Cambia el color de los label de material
-
-
-  .mdc-label {
-    color:var(--color-primary) !important;
-  }
-
-
-  .mdc-checkbox__background {
-    border-color: var(--color-primary-50) !important;
-    background-color: var(--color-primary-50) !important;
-  }
-
-
-
-.containerGamePhone{
-
-  margin-bottom: 40px;
-}
-
-.containerHintPhone{
-  flex: 0 1 80px !important;
-
-  width: 50%;
+.kana-type-input input{
+  height:50px;
+  border-radius:10px;
+  border:none;
+  background-color:var(--container-light);
+  color:var(--text);
   text-align: center;
-  align-items: end;
+  font-size:1.5rem;
 }
 
-.pointsPhone{
-  flex: 0 1 100px !important;
+.kana-type-submit{
+  flex: 0 1 50px;
 }
 
-
-.typeGameSubmit{
-  border:1px solid var(--color-secondary);
-  background-color: var(--color-primary);
-  color:var(--color-secondary);
+.kana-type-submit button{
+  border:1px solid var(--selected);
+  background-color: var(--selected);
+  color:var(--container-light);
   border-radius:5px;
   height:50px;
   width:50px;
   max-height:50px;
- max-width:50px;
-  flex:0 1 80px;
+  max-width:50px;
   cursor: pointer;
   font-size:1.5rem;
-  align-content: center;
+  text-align:center;
 }
 
 
-.typeGameSubmit i{
+.kana-type-submit button i{
   transition: transform .5s;
 }
 
-.typeGameSubmit:hover i{
+.kana-type-submit button:hover i{
   transition: transform .5s;
   transform: translateX(3px);
 }
-
-
-
-
-
-.typeGameAdivina{
-  flex:1;
-  align-content: center;
+.kana-type-failed{
+  background-color: var(--error);
 }
+
+.kana-type .buttons{
+  display: flex;             
+  justify-content: center;    
+  align-items: center;
+  flex-direction: row;
+}
+
+.buttons .skip-kana{
+  width:80px;
+  height:80px;
+  border-radius: 10px;
+ // border:1px solid var(--color-primary);
+  background-color: var(--selected);
+  text-align: center;
+  color:var(--container-light);
+  margin-top:20px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center; 
+  align-items: center;
+  display: flex;
+  margin-left:80px;
+}
+
+.buttons .show-kana{
+  width:50px;
+  height:50px;
+  border-radius: 10px;
+ // border:1px solid var(--color-primary);
+  background-color: var(--selected);
+  text-align: center;
+  color:var(--container-light);
+  margin-top:20px;
+  font-size: 2rem;
+  cursor: pointer;
+  justify-content: center; 
+  align-items: center;
+  display: flex;
+  margin-left:30px;
+}
+
+/* ===========================================================
+   END COLUMNA 2
+   =========================================================== */
+
+
+
+
+
+
+
+/* ===========================================================
+   COLUMNA 3
+   =========================================================== */
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: var(--container-light);
+  height: 100%;
+  box-shadow: inset 0px 1px 0px 0px var(--box-shadow-light-60);
+  flex:0 1 25%;
+}
+
+.strike-container{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.emote-container{
+  height:100%;
+}
+
+.emote{
+  font-size:8rem;
+ 
+  display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+.emote-animation{
+  animation: fadeOut 3s ease-in-out forwards, heartbeat 3s ease-in-out forwards;
+}
+
+.strike{
+  text-align: center;
+}
+
+.strike .normalGradient{
+  font-size:3rem;
+margin-bottom:30px;
+
+    font-weight: bold;
+    color: var(--selected);
+}
+.strike .normalGradient i{
+  background: linear-gradient(0deg, #f3ab27 0%, #ef3131 100%);
+  background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+}
+
+
+.strike h2{
+
+    font-weight: bold;
+    color: var(--selected);
+}
+
+.strike h2 i{
+  background: linear-gradient(0deg, rgb(193 133 77) 0%, rgb(219 161 26) 100%);
+background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.streakFailShake{
+  background: linear-gradient(0deg, #ec6464 0%,#d31c1c 100%);
+  animation: shake 0.5s ease;
+  font-size:3rem !important;
+  margin-bottom:30px !important;
+  background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold !important;
+}
+
+/* ===========================================================
+   END COLUMNA 3
+   =========================================================== */
+
+
+
+
+
+
+
+
+/* ===========================================================
+   ESTILOS TICK VERDE
+   =========================================================== */
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.success {
+  color: var(--success);
+  font-size: 12rem;
+  display: block;
+}
+/* ===========================================================
+   END ESTILOS TICK VERDE
+   =========================================================== */
+
 
 

@@ -32,6 +32,7 @@ import { KanjiGrammarComponent } from './kanji-grammar/kanji-grammar.component';
 import { KanjiVocabComponent } from './kanji-vocab/kanji-vocab.component';
 import { KanjiVocabHelpComponent } from './kanji-vocab-help/kanji-vocab-help.component';
 import { KanjiGrammarHelpComponent } from './kanji-grammar-help/kanji-grammar-help.component';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { KanjiGrammarHelpComponent } from './kanji-grammar-help/kanji-grammar-he
     MatSidenavModule,
     MatTabsModule,
     FormsModule,
+    MatSliderModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

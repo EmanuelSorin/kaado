@@ -1,1 +1,1331 @@
-<p>kanji-vocab works!</p>
+<div class="container">
+
+  <div class="flex options" *ngIf="!isPhone">
+
+    <div class="option-title">
+      <a href='/' class="goHomeButton" matTooltip="Go main menu" [matTooltipPosition]="'after'">
+        <i class="fa-solid fa-chevron-left"></i>
+      </a>
+      <h1>OPTIONS</h1>
+    </div>
+
+    <div class="option-container">
+
+      <div class="option">
+        <div class="title">
+          MODE
+        </div>
+        <div class="option-content flex-row gap-20">
+          <div class="option-mode" [ngClass]="{'option-mode-selected' : cardGame}" (click)="changeToCardGame()">
+            <i class="fa-solid fa-border-all"></i>
+            Card
+          </div>
+          <div class="option-mode" [ngClass]="{'option-mode-selected' : typeGame}" (click)="changeToTypeGame()">
+            <i class="fa-regular fa-keyboard"></i>
+            Type
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="title">
+          <div (click)="openModal()" matTooltip="Select range of vocab" class="slider-config">GUESS VOCABULARY SET <i
+              class="fa-solid fa-sliders"></i></div>
+        </div>
+        <div class="option-content w-90">
+
+          <div class="vocabN">
+            <div>
+              <mat-checkbox [checked]="vocabN.includes(5)" (click)="toogleVocabN('5',$event)">Vocab N5
+                <small>({{totalN5}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabN.includes(4)" (click)="toogleVocabN('4',$event)">Vocab N4
+                <small>({{totalN4}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabN.includes(3)" (click)="toogleVocabN('3',$event)">Vocab N3
+                <small>({{totalN3}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabN.includes(2)" (click)="toogleVocabN('2',$event)">Vocab N2
+                <small>({{totalN2}})</small></mat-checkbox>
+            </div>
+          </div>
+          <div class="vocabOption">
+            <div>
+              <mat-checkbox [checked]="vocabOption.includes('noun')" (click)="toogleVocabOption('noun',$event)">Nouns
+                <small>({{totalNoun}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabOption.includes('verb')" (click)="toogleVocabOption('verb',$event)">Verbs
+                <small>({{totalVerb}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabOption.includes('adverb')"
+                (click)="toogleVocabOption('adverb',$event)">Adverbs <small>({{totalAdverb}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabOption.includes('adjective')"
+                (click)="toogleVocabOption('adjective',$event)">Adjectives
+                <small>({{totalAdjective}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabOption.includes('particle')"
+                (click)="toogleVocabOption('particle',$event)">Particles
+                <small>({{totalParticle}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabOption.includes('preNounAdjective')"
+                (click)="toogleVocabOption('preNounAdjective',$event)"
+                *ngIf="vocabN.includes(5) || vocabN.includes(4)">Pre-noun adjective
+                <small>({{totalPreNounAdjective}})</small></mat-checkbox>
+            </div>
+            <div>
+              <mat-checkbox [checked]="vocabOption.includes('katakana')" (click)="toogleVocabOption('katakana',$event)"
+                *ngIf="vocabN.includes(5) || vocabN.includes(4)">Katakana
+                <small>({{totalKatakana}})</small><br /><small>only N5 & N4</small></mat-checkbox>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="option" *ngIf="cardGame">
+        <div class="title">
+          DIFFICULTY
+        </div>
+        <div class="option-content">
+          <div class="level" [ngClass]="{'level-selected': level == 1}" (click)="changeLevel(1)">
+            <i class="fa-solid fa-fire"></i>
+            <br />
+            Easy
+          </div>
+          <div class="level" [ngClass]="{'level-selected': level == 2}" (click)="changeLevel(2)">
+            <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-fire"></i>
+            <br />
+            Medium
+          </div>
+          <div class="level" [ngClass]="{'level-selected': level == 3}" (click)="changeLevel(3)" >
+            <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-fire"></i>
+            <br />
+            Hard
+          </div>
+        </div>
+      </div>
+
+      <div class="option" *ngIf="cardGame">
+        <div class="title">
+          GUESS {{queAdivina == 'kana' ? 'GRAMMAR' : 'MEANINGS'}}
+        </div>
+        <div class="option-content">
+          <div class="adivinar" (click)="toogleQueAdivina()">
+            {{queAdivina == 'kana' ? '漢 字' : 'Meanings'}}
+            <i class="fa-solid fa-arrows-rotate"></i>
+            {{queAdivina == 'kana' ? 'Meanings' : '漢 字'}}
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="title">
+          STRIKE & BEST
+        </div>
+        <div class="option-content flex-column align-items-baseline w-60 justify-flex-start">
+          <div>
+            <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
+          </div>
+          <!-- <div>
+              <mat-checkbox [checked]="showYomi" (click)="toogleYomi()">Show Onyomi & Kunyomi</mat-checkbox>
+  
+            </div> -->
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="flex game">
+
+    <div class="game-description">
+      <div *ngIf="isPhone" class="game-description-button" (click)="showMenuLateral()">
+        <i class="fa-solid fa-sliders"></i>
+      </div>
+
+      <article *ngIf="cardGame">Click on the card that represents those characters</article>
+      <article *ngIf="typeGame">Type the meaning of characters shown and press enter to submit</article>
+
+      <a href='/' class="game-description-button" *ngIf="isPhone">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </div>
+
+    <div class="phone-strike-container" *ngIf="isPhone && showStreak">
+      <!-- <div class="emote-container flex">
+          <ng-container>
+            <div class="emote" [ngClass]="{'emote-animation': emote != ''}">{{emote}}</div>
+          </ng-container>
+        </div> -->
+      <div class="phone-strike flex">
+        <h1 [ngClass]="{'streakFailShake' : streakFailShake , 'normalGradient' : !streakFailShake}">
+          <i class="fas fa-meteor"></i>
+          Streak : {{cardGame ? cardGameStreak : typeGameStreak}}
+        </h1>
+        <h2>
+          <i class="fas fa-trophy"></i>
+          &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}} &nbsp;
+        </h2>
+      </div>
+    </div>
+
+    <div class="flex kana w-80">
+
+      <div class="kana-card" *ngIf="cardGame">
+        <div *ngIf="queAdivina == 'kana'" class="vocab-card-kana">
+          <div class="type_content" *ngIf="adivinar.type_content">
+            <div class="info-title" *ngIf="adivinar.type">{{adivinar.type}}</div>
+            {{adivinar.type_content}}
+          </div>
+          <div class="text">
+            <div class="w-100">
+              <div class="info-title" *ngIf="adivinar.kana">Kana</div>
+              <div class="kana">
+                {{adivinar.kana }}
+              </div>
+            </div>
+            <div class="w-100">
+              <div class="info-title" *ngIf="adivinar.romaji">Romaji</div>
+              <div class="romaji">
+                {{adivinar.romaji}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vocab-card-meaning" *ngIf="queAdivina != 'kana'">{{adivinar.meaning}}</div>
+      </div>
+
+
+
+      <div class="kana-type w-100" *ngIf="typeGame">
+        <div class="kana-type-card w-100"
+          [ngClass]="{'kana-type-failed' : typeGameFail, 'typeGameFailShake' : typeGameFailShake, 'typeGameCorrect' : typeCardCorrect}">
+          <div class="kana-type-text">
+            <div class="type_content" *ngIf="adivinar.type_content">
+              <div class="info-title" *ngIf="adivinar.type">{{adivinar.type}}</div>
+              {{adivinar.type_content}}
+            </div>
+            <div class="text">
+              <div class="w-100">
+                <div class="info-title" *ngIf="adivinar.kana">Kana</div>
+                <div class="kana">
+                  {{adivinar.kana }}
+                </div>
+              </div>
+              <div class="w-100">
+                <div class="info-title" *ngIf="adivinar.romaji">Romaji</div>
+                <div class="romaji">
+                  {{adivinar.romaji}}
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="showMeaning" *ngIf="typeGameShowKanaValue || typeCardCorrect">
+            <span> ( {{adivinar.meaning}} )</span>
+          </div>
+          <div class="kana-type-controls w-100" *ngIf="!typeCardCorrect">
+            <div class="kana-type-input w-100">
+              <input type="text" class="w-100" placeholder="Type the meaning" (keydown.enter)="adivinarTypeGame($event)"
+                #typeGameInput>
+            </div>
+            <div class="kana-type-submit">
+              <button matTooltip="Submit answer" (click)="adivinarTypeGame($event)">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <div class="skip-kana" (click)="typeGameSkipKana()" matTooltip="Skip grammar (lose streak)"
+            *ngIf="!typeCardCorrect">
+            <i class="fa-solid fa-rotate-right "></i>
+          </div>
+          <div class="show-kana" (click)="typeGameShowKana()" matTooltip="Show grammar (lose streak)"
+            *ngIf="!typeCardCorrect">
+            <i class="fas fa-eye"></i>
+          </div>
+          <div *ngIf="typeCardCorrect" class="typeCardNewKana" (click)="nuevoKana()"
+            matTooltip="Well done! Next grammar">
+            <i class="fa-solid fa-check"></i>
+            <small>Next grammar</small>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FLEX DONDE SE MUESTRAN LAS OPCIONES DISPONIBLES SOLO PARA CARD -->
+    <div class="flex grid-list " *ngIf="cardGame"
+      [ngClass]="{'grid-1x2': level == 1, 'grid-2x2': level == 2, 'grid-3x3': level == 3}">
+      <div class="grid-item flex-column" (click)="this.resolver(this.option)"
+        [ngClass]="{'failed': !this.option.estado , 'disabled': success , }" *ngFor="let option of options">
+
+        <!-- TEXT QUE MUESTRA DENTRO DE CADA CARD-->
+        <div class="text-option" [ngClass]="{'grammar-kana': queAdivina != 'kana' }">
+
+          <div *ngIf="queAdivina !=  'kana'" class="card-option">
+            <div class="type_content" *ngIf="option.type_content">
+              {{option.type_content}}
+            </div>
+            <div class="text">
+              <div class="kana">
+                {{option.kana }}
+              </div>
+              <div class="romaji">
+
+                {{option.romaji}}
+              </div>
+            </div>
+          </div>
+
+          <div class="" *ngIf="queAdivina == 'kana'">{{option.meaning}}</div>
+        </div>
+
+
+
+        <!-- SOLUCION CARD AL FALLAR -->
+        <div *ngIf="!this.option.estado" class="flex kana-failed-solution"
+          [ngClass]="{'failedAdivinaKanji' : queAdivina != 'kana'}">
+
+          <div *ngIf="queAdivina ==  'kana'" class="card-failed">
+            <div class="type_content" *ngIf="option.type_content">
+              {{option.type_content}}
+            </div>
+            <div class="text">
+              <div class="kana">
+                {{option.kana }}
+              </div>
+              <div class="romaji">
+
+                {{option.romaji}}
+              </div>
+            </div>
+          </div>
+
+          <div class="" *ngIf="queAdivina != 'kana'">{{option.meaning}}</div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <span class="typeCardInfo"
+      matTooltip="Some meanings may give error even if they are correct, especially when they are long and include several words."
+      *ngIf="typeGame"><i class="fa-solid fa-circle-exclamation"></i> This mode may not be 100% accurated. </span>
+
+
+  </div>
+
+  <div class="flex score" *ngIf="!isPhone && showStreak">
+
+    <div class="strike-container" *ngIf="showStreak">
+      <div class="emote-container flex">
+        <!-- <ng-container>
+                    <div class="emote" [ngClass]="{'emote-animation': emote != ''}">{{emote}}</div>
+                </ng-container> -->
+      </div>
+      <div class="strike flex">
+        <h1 [ngClass]="{'streakFailShake' : streakFailShake , 'normalGradient' : !streakFailShake}">
+          <i class="fas fa-meteor"></i>
+          Streak : {{cardGame ? cardGameStreak : typeGameStreak}}
+        </h1>
+        <h2>
+          <i class="fas fa-trophy"></i>
+          &nbsp; Best : {{cardGame ? cardGameBest : typeGameBest}} &nbsp;
+        </h2>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- Menu lateral movil -->
+<div class="menuLateral" [ngClass]="{'menuLateral-hidden' : !menuLateral}" *ngIf="isPhone"
+  (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+
+  <div class="menuLateral-option-title">
+    <div *ngIf="isPhone && menuLateral" class="exit-menuLateral" (click)="hideMenuLateral()">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+    <h1>OPTIONS</h1>
+  </div>
+
+  <div class="menuLateral-options-container">
+
+    <div class="option">
+      <div class="title">
+        MODE
+      </div>
+      <div class="option-content flex-row gap-20">
+        <div class="option-mode" [ngClass]="{'option-mode-selected' : cardGame}" (click)="changeToCardGame()">
+          <i class="fa-solid fa-border-all"></i>
+          Card
+        </div>
+        <div class="option-mode" [ngClass]="{'option-mode-selected' : typeGame}" (click)="changeToTypeGame()">
+          <i class="fa-regular fa-keyboard"></i>
+          Type
+        </div>
+      </div>
+    </div>
+
+    <div class="option">
+      <div class="title">
+        <div (click)="openModal()" matTooltip="Select range of vocab" class="slider-config">GUESS VOCABULARY SET <i
+            class="fa-solid fa-sliders"></i></div>
+      </div>
+      <div class="option-content w-90">
+        <div class="vocabN">
+          <div>
+            <mat-checkbox [checked]="vocabN.includes(5)" (click)="toogleVocabN('5',$event)">Vocab N5</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabN.includes(4)" (click)="toogleVocabN('4',$event)">Vocab N4</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabN.includes(3)" (click)="toogleVocabN('3',$event)">Vocab N3</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabN.includes(2)" (click)="toogleVocabN('2',$event)">Vocab N2</mat-checkbox>
+          </div>
+        </div>
+        <div class="vocabOption">
+          <div>
+            <mat-checkbox [checked]="vocabOption.includes('noun')"
+              (click)="toogleVocabOption('noun',$event)">Nouns</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabOption.includes('verb')"
+              (click)="toogleVocabOption('verb',$event)">Verbs</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabOption.includes('adverb')"
+              (click)="toogleVocabOption('adverb',$event)">Adverbs</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabOption.includes('adjective')"
+              (click)="toogleVocabOption('adjective',$event)">Adjectives</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabOption.includes('particle')"
+              (click)="toogleVocabOption('particle',$event)">Particles</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabOption.includes('preNounAdjective')"
+              (click)="toogleVocabOption('preNounAdjective',$event)"
+              *ngIf="vocabN.includes(5) || vocabN.includes(4)">Pre-noun adjective</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [checked]="vocabOption.includes('katakana')" (click)="toogleVocabOption('katakana',$event)"
+              *ngIf="vocabN.includes(5) || vocabN.includes(4)">Katakana <br /><small>only N5 & N4</small></mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="option" *ngIf="cardGame">
+      <div class="title">
+        DIFFICULTY
+      </div>
+      <div class="option-content gap-10">
+        <div class="level" [ngClass]="{'level-selected': level == 1}" (click)="changeLevel(1)">
+          <i class="fa-solid fa-fire"></i>
+          <br />
+          Easy
+        </div>
+        <div class="level" [ngClass]="{'level-selected': level == 2}" (click)="changeLevel(2)">
+          <i class="fa-solid fa-fire"></i>
+          <i class="fa-solid fa-fire"></i>
+          <br />
+          Medium
+        </div>
+        <div class="level" [ngClass]="{'level-selected': level == 3}" (click)="changeLevel(3)"
+      >
+          <i class="fa-solid fa-fire"></i>
+          <i class="fa-solid fa-fire"></i>
+          <i class="fa-solid fa-fire"></i>
+          <br />
+          Hard
+        </div>
+      </div>
+    </div>
+
+    <div class="option" *ngIf="cardGame">
+      <div class="title">
+        GUESS {{queAdivina == 'kana' ? 'GRAMMAR' : 'MEANINGS'}}
+      </div>
+      <div class="option-content">
+        <div class="adivinar" (click)="toogleQueAdivina()">
+          {{queAdivina == 'kana' ? '漢 字' : 'Meanings'}}
+          <i class="fa-solid fa-arrows-rotate"></i>
+          {{queAdivina == 'kana' ? 'Meanings' : '漢 字'}}
+        </div>
+      </div>
+    </div>
+
+    <div class="option">
+      <div class="title">
+        STRIKE & BEST
+      </div>
+      <div class="option-content flex-column align-items-baseline w-80 justify-flex-start">
+        <div>
+          <mat-checkbox [checked]="showStreak" (click)="toogleStreak()">Show Streak & Best</mat-checkbox>
+        </div>
+        <!-- <div>
+            <mat-checkbox [checked]="showYomi" (click)="toogleYomi()">Show Onyomi & Kunyomi</mat-checkbox>
+          </div> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- Emote tick verde correcto para movil -->
+<div class="centered-div success" [ngClass]="{ 'hidden': !success }" *ngIf="isPhone">
+  <i class="fa-solid fa-check fa-beat"></i>
+</div>
+
+<!-- Emote tick verde correcto para pc -->
+<div class="centered-div success" [ngClass]="{ 'hidden': !success }" *ngIf="!isPhone">
+  <i class="fa-solid fa-check fa-beat"></i>
+</div>
+
+
+
+
+<!-- modal.component.html -->
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Select range of vocabulary for each Nº</h2>
+
+    <div class="modal-slider-container">
+
+    <fieldset>
+      <legend>Vocab N5</legend>
+      <div class="slider-container">
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N5 Nouns
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN5Noun}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(5,'noun')">-</button>
+                <button class="minus-button" (click)="plusMin(5,'noun')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN5Noun}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN5Noun" matSliderStartThumb [(ngModel)]="minVocabN5Noun">
+              <input [(ngModel)]="maxVocabN5Noun" matSliderEndThumb [(ngModel)]="maxVocabN5Noun">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN5Noun}}</b>
+              </div>
+              <small><small>(Max. {{totalN5Noun}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(5,'noun')">-</button>
+                <button class="minus-button" (click)="plusMax(5,'noun')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+            {{sliderN5Error}}
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N5 Verbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN5Verb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(5,'verb')">-</button>
+                <button class="minus-button" (click)="plusMin(5,'verb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN5Verb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN5Verb" matSliderStartThumb [(ngModel)]="minVocabN5Verb">
+              <input [(ngModel)]="maxVocabN5Verb" matSliderEndThumb [(ngModel)]="maxVocabN5Verb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN5Verb}}</b>
+              </div>
+              <small><small>(Max. {{totalN5Verb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(5,'verb')">-</button>
+                <button class="minus-button" (click)="plusMax(5,'verb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N5 Adverbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN5Adverb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(5,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMin(5,'adverb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN5Adverb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN5Adverb" matSliderStartThumb [(ngModel)]="minVocabN5Adverb">
+              <input [(ngModel)]="maxVocabN5Adverb" matSliderEndThumb [(ngModel)]="maxVocabN5Adverb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN5Adverb}}</b>
+              </div>
+              <small><small>(Max. {{totalN5Adverb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(5,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMax(5,'adverb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N5 Adjectives
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN5Adjective}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(5,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMin(5,'adjective')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN5Adjective}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN5Adjective" matSliderStartThumb [(ngModel)]="minVocabN5Adjective">
+              <input [(ngModel)]="maxVocabN5Adjective" matSliderEndThumb [(ngModel)]="maxVocabN5Adjective">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN5Adjective}}</b>
+              </div>
+              <small><small>(Max. {{totalN5Adjective}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(5,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMax(5,'adjective')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N5 Particles
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN5Particle}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(5,'particle')">-</button>
+                <button class="minus-button" (click)="plusMin(5,'particle')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN5Particle}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN5Particle" matSliderStartThumb [(ngModel)]="minVocabN5Particle">
+              <input [(ngModel)]="maxVocabN5Particle" matSliderEndThumb [(ngModel)]="maxVocabN5Particle">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN5Particle}}</b>
+              </div>
+              <small><small>(Max. {{totalN5Particle}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(5,'particle')">-</button>
+                <button class="minus-button" (click)="plusMax(5,'particle')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N5 Katakana
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN5Katakana}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(5,'katakana')">-</button>
+                <button class="minus-button" (click)="plusMin(5,'katakana')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN5Katakana}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN5Katakana" matSliderStartThumb [(ngModel)]="minVocabN5Katakana">
+              <input [(ngModel)]="maxVocabN5Katakana" matSliderEndThumb [(ngModel)]="maxVocabN5Katakana">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN5Katakana}}</b>
+              </div>
+              <small><small>(Max. {{totalN5Katakana}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(5,'katakana')">-</button>
+                <button class="minus-button" (click)="plusMax(5,'katakana')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    
+    <fieldset>
+      <legend>Vocab N4</legend>
+      <div class="slider-container">
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N4 Nouns
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN4Noun}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(4,'noun')">-</button>
+                <button class="minus-button" (click)="plusMin(4,'noun')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN4Noun}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN4Noun" matSliderStartThumb [(ngModel)]="minVocabN4Noun">
+              <input [(ngModel)]="maxVocabN4Noun" matSliderEndThumb [(ngModel)]="maxVocabN4Noun">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN4Noun}}</b>
+              </div>
+              <small><small>(Max. {{totalN4Noun}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(4,'noun')">-</button>
+                <button class="minus-button" (click)="plusMax(4,'noun')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+            {{sliderN4Error}}
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N4 Verbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN4Verb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(4,'verb')">-</button>
+                <button class="minus-button" (click)="plusMin(4,'verb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN4Verb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN4Verb" matSliderStartThumb [(ngModel)]="minVocabN4Verb">
+              <input [(ngModel)]="maxVocabN4Verb" matSliderEndThumb [(ngModel)]="maxVocabN4Verb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN4Verb}}</b>
+              </div>
+              <small><small>(Max. {{totalN4Verb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(4,'verb')">-</button>
+                <button class="minus-button" (click)="plusMax(4,'verb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N4 Adverbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN4Adverb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(4,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMin(4,'adverb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN4Adverb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN4Adverb" matSliderStartThumb [(ngModel)]="minVocabN4Adverb">
+              <input [(ngModel)]="maxVocabN4Adverb" matSliderEndThumb [(ngModel)]="maxVocabN4Adverb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN4Adverb}}</b>
+              </div>
+              <small><small>(Max. {{totalN4Adverb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(4,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMax(4,'adverb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N4 Adjectives
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN4Adjective}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(4,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMin(4,'adjective')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN4Adjective}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN4Adjective" matSliderStartThumb [(ngModel)]="minVocabN4Adjective">
+              <input [(ngModel)]="maxVocabN4Adjective" matSliderEndThumb [(ngModel)]="maxVocabN4Adjective">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN4Adjective}}</b>
+              </div>
+              <small><small>(Max. {{totalN4Adjective}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(4,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMax(4,'adjective')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N4 Particles
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN4Particle}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(4,'particle')">-</button>
+                <button class="minus-button" (click)="plusMin(4,'particle')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN4Particle}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN4Particle" matSliderStartThumb [(ngModel)]="minVocabN4Particle">
+              <input [(ngModel)]="maxVocabN4Particle" matSliderEndThumb [(ngModel)]="maxVocabN4Particle">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN4Particle}}</b>
+              </div>
+              <small><small>(Max. {{totalN4Particle}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(4,'particle')">-</button>
+                <button class="minus-button" (click)="plusMax(4,'particle')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N4 Katakana
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN4Katakana}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(4,'katakana')">-</button>
+                <button class="minus-button" (click)="plusMin(4,'katakana')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN4Katakana}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN4Katakana" matSliderStartThumb [(ngModel)]="minVocabN4Katakana">
+              <input [(ngModel)]="maxVocabN4Katakana" matSliderEndThumb [(ngModel)]="maxVocabN4Katakana">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN4Katakana}}</b>
+              </div>
+              <small><small>(Max. {{totalN4Katakana}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(4,'katakana')">-</button>
+                <button class="minus-button" (click)="plusMax(4,'katakana')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+
+
+    
+    <fieldset>
+      <legend>Vocab N3</legend>
+      <div class="slider-container">
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N3 Nouns
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN3Noun}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(3,'noun')">-</button>
+                <button class="minus-button" (click)="plusMin(3,'noun')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN3Noun}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN3Noun" matSliderStartThumb [(ngModel)]="minVocabN3Noun">
+              <input [(ngModel)]="maxVocabN3Noun" matSliderEndThumb [(ngModel)]="maxVocabN3Noun">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN3Noun}}</b>
+              </div>
+              <small><small>(Max. {{totalN3Noun}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(3,'noun')">-</button>
+                <button class="minus-button" (click)="plusMax(3,'noun')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+            {{sliderN3Error}}
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N3 Verbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN3Verb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(3,'verb')">-</button>
+                <button class="minus-button" (click)="plusMin(3,'verb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN3Verb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN3Verb" matSliderStartThumb [(ngModel)]="minVocabN3Verb">
+              <input [(ngModel)]="maxVocabN3Verb" matSliderEndThumb [(ngModel)]="maxVocabN3Verb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN3Verb}}</b>
+              </div>
+              <small><small>(Max. {{totalN3Verb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(3,'verb')">-</button>
+                <button class="minus-button" (click)="plusMax(3,'verb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N3 Adverbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN3Adverb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(3,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMin(3,'adverb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN3Adverb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN3Adverb" matSliderStartThumb [(ngModel)]="minVocabN3Adverb">
+              <input [(ngModel)]="maxVocabN3Adverb" matSliderEndThumb [(ngModel)]="maxVocabN3Adverb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN3Adverb}}</b>
+              </div>
+              <small><small>(Max. {{totalN3Adverb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(3,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMax(3,'adverb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N3 Adjectives
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN3Adjective}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(3,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMin(3,'adjective')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN3Adjective}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN3Adjective" matSliderStartThumb [(ngModel)]="minVocabN3Adjective">
+              <input [(ngModel)]="maxVocabN3Adjective" matSliderEndThumb [(ngModel)]="maxVocabN3Adjective">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN3Adjective}}</b>
+              </div>
+              <small><small>(Max. {{totalN3Adjective}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(3,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMax(3,'adjective')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N3 Particles
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN3Particle}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(3,'particle')">-</button>
+                <button class="minus-button" (click)="plusMin(3,'particle')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN3Particle}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN3Particle" matSliderStartThumb [(ngModel)]="minVocabN3Particle">
+              <input [(ngModel)]="maxVocabN3Particle" matSliderEndThumb [(ngModel)]="maxVocabN3Particle">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN3Particle}}</b>
+              </div>
+              <small><small>(Max. {{totalN3Particle}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(3,'particle')">-</button>
+                <button class="minus-button" (click)="plusMax(3,'particle')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+        
+      </div>
+    </fieldset>
+
+
+
+
+    
+    <fieldset>
+      <legend>Vocab N2</legend>
+      <div class="slider-container">
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N2 Nouns
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN2Noun}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(2,'noun')">-</button>
+                <button class="minus-button" (click)="plusMin(2,'noun')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN2Noun}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN2Noun" matSliderStartThumb [(ngModel)]="minVocabN2Noun">
+              <input [(ngModel)]="maxVocabN2Noun" matSliderEndThumb [(ngModel)]="maxVocabN2Noun">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN2Noun}}</b>
+              </div>
+              <small><small>(Max. {{totalN2Noun}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(2,'noun')">-</button>
+                <button class="minus-button" (click)="plusMax(2,'noun')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+            {{sliderN2Error}}
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N2 Verbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN2Verb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(2,'verb')">-</button>
+                <button class="minus-button" (click)="plusMin(2,'verb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN2Verb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN2Verb" matSliderStartThumb [(ngModel)]="minVocabN2Verb">
+              <input [(ngModel)]="maxVocabN2Verb" matSliderEndThumb [(ngModel)]="maxVocabN2Verb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN2Verb}}</b>
+              </div>
+              <small><small>(Max. {{totalN2Verb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(2,'verb')">-</button>
+                <button class="minus-button" (click)="plusMax(2,'verb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N2 Adverbs
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN2Adverb}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(2,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMin(2,'adverb')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN2Adverb}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN2Adverb" matSliderStartThumb [(ngModel)]="minVocabN2Adverb">
+              <input [(ngModel)]="maxVocabN2Adverb" matSliderEndThumb [(ngModel)]="maxVocabN2Adverb">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN2Adverb}}</b>
+              </div>
+              <small><small>(Max. {{totalN2Adverb}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(2,'adverb')">-</button>
+                <button class="minus-button" (click)="plusMax(2,'adverb')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N2 Adjectives
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN2Adjective}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(2,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMin(2,'adjective')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN2Adjective}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN2Adjective" matSliderStartThumb [(ngModel)]="minVocabN2Adjective">
+              <input [(ngModel)]="maxVocabN2Adjective" matSliderEndThumb [(ngModel)]="maxVocabN2Adjective">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN2Adjective}}</b>
+              </div>
+              <small><small>(Max. {{totalN2Adjective}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(2,'adjective')">-</button>
+                <button class="minus-button" (click)="plusMax(2,'adjective')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-text">
+            Vocab N2 Particles
+          </div>
+          <div class="slider-slider">
+            <div class="slider-slider-text">
+              <div>
+                From <b>{{minVocabN2Particle}}</b>
+              </div>
+              <small><small>(Min. 1)</small> </small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMin(2,'particle')">-</button>
+                <button class="minus-button" (click)="plusMin(2,'particle')">+</button>
+              </div>
+            </div>
+            <mat-slider min="1" max="{{totalN2Particle}}" [discrete]="true" [disableRipple]="true">
+              <input [(ngModel)]="minVocabN2Particle" matSliderStartThumb [(ngModel)]="minVocabN2Particle">
+              <input [(ngModel)]="maxVocabN2Particle" matSliderEndThumb [(ngModel)]="maxVocabN2Particle">
+            </mat-slider>
+            <div class="slider-slider-text">
+              <div>
+                To <b>{{maxVocabN2Particle}}</b>
+              </div>
+              <small><small>(Max. {{totalN2Particle}})</small></small>
+              <div class="slider-slider-buttons">
+                <button class="minus-button" (click)="minusMax(2,'particle')">-</button>
+                <button class="minus-button" (click)="plusMax(2,'particle')">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="slider-error">
+          </div>
+        </div>
+
+      </div>
+    </fieldset>
+
+
+
+  </div>
+
+    <div class="slider-button">
+
+      <div class="slider-submit" (click)="validateRange()">
+        Save changes
+      </div>
+
+      <div class="slider-cancel" (click)="closeModal()">
+        Cancel
+      </div>
+
+    </div>
+
+  </div>
+</div>

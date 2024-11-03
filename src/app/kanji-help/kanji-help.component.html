@@ -1,35 +1,29 @@
-<a href='/' class="link" matTooltip="Go main menu" [matTooltipPosition]="'after'">
-  <i class="fa-solid fa-chevron-left"></i>
-</a>
+<div class="container" (scroll)="onWindowScroll($event)">
+  <div class="fullHeader">
+    <div class="row header">
+      <a href='/' class="link" matTooltip="Go main menu" [matTooltipPosition]="'after'">
+        <i class="fa-solid fa-chevron-left"></i>
+      </a>
+      <h1 class="title">Alphabet overview <small class="buscadorContador" *ngIf="isSearching"> ({{searchResults.length}})</small></h1>
+      <input type="text" class="buscador" placeholder="  Search meaning or romaji"  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
 
-<div class="scroll-to-top" (click)="scrollToTop()" *ngIf="isScrolled">
-  <i class="fa-solid fa-circle-chevron-up"></i>
-</div>
+    </div>
+    <div class="row rowBuscadorPhone">
+    <input type="text" class="buscadorPhone" placeholder="  Search meaning or romaji"  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
 
-
-<input type="text" class="buscador" placeholder="  Search..."  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
-
-<div class="container">
-  <div class="row">
-    <h1 class="title">Alphabet overview <small class="buscadorContador" *ngIf="isSearching"> ({{searchResults.length}})</small></h1>
-
+    </div>
+    <div class="rowHeader">
+      <div class="kanjiHeader" (click)="seleccionarKanji(5)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 5}">Kanji N5 <small> ({{kanjiN5Array.length}})</small></div>
+      <div class="kanjiHeader" (click)="seleccionarKanji(4)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 4}">Kanji N4 <small> ({{kanjiN4Array.length}})</small></div>
+      <div class="kanjiHeader" (click)="seleccionarKanji(3)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 3}">Kanji N3 <small> ({{kanjiN3Array.length}})</small></div>
+      <div class="kanjiHeader" (click)="seleccionarKanji(2)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 2}">Kanji N2 <small> ({{kanjiN2Array.length}})</small></div>
+      <div class="kanjiHeader" (click)="seleccionarKanji(1)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 1}">Kanji N1 <small> ({{kanjiN1Array.length}})</small></div>
+    </div>
   </div>
-  <div class="row rowBuscadorPhone">
-   <input type="text" class="buscadorPhone" placeholder="  Search..."  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
-
-  </div>
-  <div class="rowHeader">
-    <div class="kanjiHeader" (click)="seleccionarKanji(5)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 5}">Kanji N5 &nbsp;<small>({{kanjiN5Array.length}})</small></div>
-    <div class="kanjiHeader" (click)="seleccionarKanji(4)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 4}">Kanji N4 &nbsp;<small>({{kanjiN4Array.length}})</small></div>
-    <div class="kanjiHeader" (click)="seleccionarKanji(3)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 3}">Kanji N3 &nbsp;<small>({{kanjiN3Array.length}})</small></div>
-    <div class="kanjiHeader" (click)="seleccionarKanji(2)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 2}">Kanji N2 &nbsp;<small>({{kanjiN2Array.length}})</small></div>
-    <div class="kanjiHeader" (click)="seleccionarKanji(1)" [ngClass]="{'kanjiHeaderSelected' : opcionSeleccionada == 1}">Kanji N1 &nbsp;<small>({{kanjiN1Array.length}})</small></div>
-  </div>
-  <div class="grid-container">
-    <!-- <mat-tab-group animationDuration="2ms" class="w-100">
-      <mat-tab label="Kanji N5"> -->
+  <div class="grid-container"> 
 
        <div class="card" *ngFor="let kanji of kanjiSeleccionado">
+        <div class="id">#{{kanji.id}}</div>
           <div class="kanji">
             <div class="kana">
               {{kanji.kanji}}
@@ -51,13 +45,6 @@
             {{kanji.meaning}}
           </div>
        </div>
-
-      <!-- </mat-tab>
-      <mat-tab label="Kanji N4">Content 2</mat-tab>
-      <mat-tab label="Kanji N3">Content 3</mat-tab>
-      <mat-tab label="Kanji N2">Content 3</mat-tab>
-      <mat-tab label="Kanji N1">Content 3</mat-tab>
-    </mat-tab-group> -->
   </div>
 </div>
 

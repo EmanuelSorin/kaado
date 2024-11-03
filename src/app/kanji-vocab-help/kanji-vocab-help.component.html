@@ -1,1 +1,61 @@
-<p>kanji-vocab-help works!</p>
+  <div class="container" (scroll)="onWindowScroll($event)">
+    <div class="fullHeader">
+      <div class="row header">
+        <a href='/' class="link" matTooltip="Go main menu" [matTooltipPosition]="'after'">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <h1 class="title">
+          Alphabet overview 
+          <small class="buscadorContador" *ngIf="isSearching"> ({{searchResults.length}}) </small>
+          <small> <small><small><i class="fa-solid fa-circle-exclamation" matTooltip="Some words may repeat across sections"></i></small> </small> </small></h1>
+        <input type="text" class="buscador" placeholder="  Search meaning or romaji"  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
+    
+      </div>
+      <div class="row rowBuscadorPhone">
+      <input type="text" class="buscadorPhone" placeholder="  Search meaning or romaji"  [(ngModel)]="inputValue" (keyup)="buscarKanji(inputValue)"/>
+    
+      </div>
+      <div class="rowHeader">
+        <div class="kanjiHeader" (click)="seleccionarNivel(5)" [ngClass]="{'kanjiHeaderSelected' : nivel == 5}">Vocabulary N5 <small> ({{n5Length}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarNivel(4)" [ngClass]="{'kanjiHeaderSelected' : nivel == 4}">Vocabulary N4 <small> ({{n4Length}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarNivel(3)" [ngClass]="{'kanjiHeaderSelected' : nivel == 3}">Vocabulary N3 <small> ({{n3Length}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarNivel(2)" [ngClass]="{'kanjiHeaderSelected' : nivel == 2}">Vocabulary N2 <small> ({{n2Length}})</small></div>    
+      </div>
+
+      <div class="rowHeader">
+        <div class="kanjiHeader" (click)="seleccionarResultados(nivel,'noun')" [ngClass]="{'kanjiHeaderSelected' : tipo == 'noun'}">Nouns<small> ({{nounLength}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarResultados(nivel,'verb')" [ngClass]="{'kanjiHeaderSelected' : tipo == 'verb'}">Verbs<small> ({{verbLength}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarResultados(nivel,'adverb')" [ngClass]="{'kanjiHeaderSelected' : tipo == 'adverb'}">Adverbs<small> ({{adverbLength}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarResultados(nivel,'adjective')" [ngClass]="{'kanjiHeaderSelected' : tipo == 'adjective'}">Adjectives<small> ({{adjectiveLength}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarResultados(nivel,'preNounAdjective')" [ngClass]="{'kanjiHeaderSelected' : tipo == 'preNounAdjective'}" *ngIf="nivel == 5 || nivel == 4">Pre-noun adjectives<small> ({{preNounAdjectiveLength}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarResultados(nivel,'particle')" [ngClass]="{'kanjiHeaderSelected' : tipo == 'particle'}">Particles<small> ({{particleLength}})</small></div>
+        <div class="kanjiHeader" (click)="seleccionarResultados(nivel,'katakana')" [ngClass]="{'kanjiHeaderSelected' : tipo == 'katakana'}" *ngIf="nivel == 5 || nivel == 4">Katakana words<small> ({{katakanaLength}})</small></div>
+      </div>
+    </div>
+    <div class="grid-container"> 
+  
+         <div class="card" *ngFor="let kanji of kanjiSeleccionado">
+          <div class="id">#{{kanji.id}}</div>
+            <div class="kanji">
+              <div class="type_content" *ngIf="kanji.type_content">
+                {{kanji.type_content}}
+              </div>
+              <div class="text">
+                <div class="kana">                  
+                 {{kanji.kana }}
+                </div>
+                <div class="romaji">                 
+             
+                  {{kanji.romaji}}
+                </div>
+              </div>
+            </div>
+            <div class="meaning">
+              {{kanji.meaning}}
+            </div>
+         </div>
+    </div>
+  </div>
+  
+  
+  

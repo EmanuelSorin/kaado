@@ -202,8 +202,6 @@ export class KatakanaComponent {
     //Me hago una copia de kanaArray
     this.kanaCopiaArray = this.kanaArray;
 
-    console.log(this.kanaCopiaArray);
-
     //Llamo para sacar un nuevo kana con la nueva configuracion ?
     this.nuevoKana();
   }

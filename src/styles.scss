@@ -14,33 +14,53 @@
 
 
 
-//   --background:#EAE0D5;
-//   --container-light:#DDD1C8;
-//   --container-light2:#e4dad2;
-//   --container-dark:#C2B8B0;
-//   --container-dark2:#d6cdc6;
-//  // --text:#050d13;
-//   --text:#2c231f;
-//   --text-50:#2c231f7e;
-//   --descripcion:#2c231f;
-//   --error:#e5414B;
-//   --error-50:#e58f7e;
-//   --success:#588157;
+// --background: #28364b;  
+// --container-light:  #333c4c;
+//   --container-dark: #31353d;
 
+--background: rgb(44 57 70);
+    --container-light: rgb(12 26 36);
+    --container-dark: rgb(13 21 28);
+    --selected: #d7e3e7;
+    --selected-50: #5a7391;
+    --text: #d7e0e5;
+    --text-50: #eef4ed85;
+    --descripcion: #F1F6F9;
+  --error:#e5414B;
+  --error-50:#e58f7e;
+  --success:#588157;
+
+
+  --box-shadow-dark:rgb(10 15 20);
+  --box-shadow-dark-50:rgba(29 35 42,0.5);
+  --box-shadow-light: rgb(94 97 114);
+  --box-shadow-light-60: rgb(113 113 124 / 60%);
+
+
+
+
+
+
+  --box-shadow-dark:rgb(94, 80, 63);
+  --box-shadow-dark-50:rgba(94, 80, 63,0.5);
+  --box-shadow-light:rgb(255, 255, 255); 
+  --box-shadow-light-60: rgb(255 255 255 / 60%);
 
 
   --background:#DCC8B4;
   --container-light:#DDD1C8;
-  --container-light2:#e4dad2;
   --container-dark:#C2B8B0;
-  --container-dark2:#d6cdc6;
- // --text:#050d13;
+  --selected: #607274;
+  --selected-50: #60727477;
   --text:#2c231f;
   --text-50:#2c231f7e;
   --descripcion:#2c231f;
   --error:#e5414B;
   --error-50:#e58f7e;
   --success:#588157;
+
+
+
 
 }
 
@@ -50,17 +70,32 @@
 
 
 
+/* ===========================================================
+ESTILOS MOVIL Y TABLET
+   =========================================================== */
   @media only screen and (max-width:839.98px) and (orientation: portrait), (max-width: 1279.98px) and (orientation: landscape)
 {
-
+  html, body { height: 100% !important; }
   body{
-    padding:30px !important;
-    // height: calc(100vh)  !important;
-    // overflow-y: scroll;
+    height: 100%  !important;
+    padding:10px !important;
   }
+
 }
 
+/* ===========================================================
 
+   =========================================================== */
+
+
+
+
+
+
+
+/* ===========================================================
+ESTILOS ORDENADOR
+   =========================================================== */
 @media only screen and (min-width: 840px) and (orientation: portrait), (min-width: 1280px) and (orientation: landscape) {
   body{
     padding:60px !important;
@@ -69,6 +104,9 @@
   html, body { height: 100%; }
 }
 
+/* ===========================================================
+
+   =========================================================== */
 
 
 body {
@@ -84,16 +122,34 @@ body {
 
 
 
-
+//ESTILOS CHECKBOX
 .mdc-label {
-  color:var(--color-primary) !important;
+  color:var(--text) !important;
 }
-
-
 .mdc-checkbox__background {
-  border-color: var(--color-primary-50) !important;
-  background-color: var(--color-primary-50) !important;
+  border-color: var(--container-dark) !important;
+  background-color: var(--container-dark) !important;
 }
+.mat-mdc-checkbox-ripple,
+.mat-mdc-checkbox .mdc-checkbox__ripple {
+  display: none;
+}
+
+
+
+
+.mat-mdc-slider { 
+  display: none;
+}
+
+.mdc-slider__thumb--focused{
+  display: none;
+}
+
+//FIN ESTILOS CHECKBOX
+
+
+
 
 
 
@@ -147,15 +203,144 @@ body {
   .w-50{
     width: 50% !important;
   }
+  .w-60{
+    width: 60% !important;
+  }
   .w-65{
     width: 65% !important;
   }
   .w-75{
     width: 75% !important;
   }
+  .w-70{
+    width: 70% !important;
+  }
+  .w-80{
+    width: 80% !important;
+  }
+  .w-90{
+    width: 90% !important;
+  }
   .w-100{
     width: 100% !important;
   }
+
+
+
+  .flex{
+    flex:1;
+  }
+  
+  .flex-column{
+    flex-direction: column;
+  }
+  
+  .flex-row{
+    flex-direction: row;
+  }
+  
+  .gap-10{
+    gap:10px;
+  }
+  
+  .gap-20{
+    gap:20px;
+  }
+  
+  .align-items-baseline{
+    align-items: baseline !important;
+  }
+
+  .justify-flex-start{
+    justify-content: flex-start !important;
+  }
+
+  .hidden{
+    display:none !important;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+
+
+
+
+
+
+
+
+  .shake{
+    animation: shake 0.5s ease;
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      visibility:visible;
+  
+    }
+    to {
+      opacity: 0;
+      visibility:hidden;
+  
+    }
+  
+  }
+
+  
+@keyframes heartbeat
+{
+  0%
+  {
+    transform: scale( .85 );
+  }
+  20%
+  {
+    transform: scale( 1 );
+  }
+  40%
+  {
+    transform: scale( .9 );
+  }
+  60%
+  {
+    transform: scale( 1 );
+  }
+  80%
+  {
+    transform: scale( .85 );
+  }
+  100%
+  {
+    transform: scale( .9 );
+  }
+}
+
+
+
+
+div,
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important; 
+}
+
+
 
 
 
