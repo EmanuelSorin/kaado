@@ -33,6 +33,7 @@ import { KanjiVocabComponent } from './kanji-vocab/kanji-vocab.component';
 import { KanjiVocabHelpComponent } from './kanji-vocab-help/kanji-vocab-help.component';
 import { KanjiGrammarHelpComponent } from './kanji-grammar-help/kanji-grammar-help.component';
 import {MatSliderModule} from '@angular/material/slider';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import {MatSliderModule} from '@angular/material/slider';
     FormsModule,
     MatSliderModule,
   ],
-  providers: [CookieService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
